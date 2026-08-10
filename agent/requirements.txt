@@ -10,3 +10,6 @@ requests>=2.31.0
 # HTML 解析 (备用新闻源)
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
+
+# RSS/Atom 解析 (稳健解析中文财经源，自动处理编码/CDATA/命名空间)
+feedparser>=6.0.0

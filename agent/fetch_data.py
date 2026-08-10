@@ -23,6 +23,7 @@ import os
 import re
 import sys
 import time
+import random
 import email.utils
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -39,10 +40,11 @@ BEIJING = timezone(timedelta(hours=8))
 TARGET_INDICES = ["上证指数", "深证成指", "创业板指"]
 
 # 财经 RSS 多源（可自由替换为你常用的源；任一流失败不影响其他源）
+# 选择带“可验证原文链接”的源，契合本站“只展示可溯源资讯”的真实性原则。
 RSS_FEEDS = [
-    {"name": "36氪", "url": "https://36kr.com/feed"},
-    {"name": "华尔街见闻", "url": "https://wallstreetcn.com/rss/news"},
-    {"name": "新浪财经", "url": "https://finance.sina.com.cn/rss/rollnews.xml"},
+    {"name": "新浪财经", "url": "https://finance.sina.com.cn/rss/finance.xml"},
+    {"name": "东方财富快讯", "url": "https://rsshub.app/eastmoney/kuaixun"},
+    {"name": "财联社电报", "url": "https://rsshub.app/cls/telegraph"},
 ]
 
 NEWS_LIMIT = 20          # 页面最多展示的资讯条数
@@ -70,6 +72,21 @@ def _retry(func, tries: int = 3, base_delay: float = 2.0):
             if i < tries - 1:
                 time.sleep(base_delay * (i + 1))
     raise last
+
+
+def _em_with_fallback(primary, secondary=None):
+    """
+    EM 反爬兜底：先试主接口(东方财富)，失败再试备用接口(新浪/同花顺)。
+    两个接口命中不同服务器，EM 被限流时备用源通常仍可返回，避免整段降级。
+    调用前随机停顿 0.5~2.5s，降低触发 EM 连续封锁的概率。
+    """
+    time.sleep(random.uniform(0.5, 2.5))
+    try:
+        return _retry(primary)
+    except Exception:
+        if secondary is None:
+            raise
+        return _retry(secondary)
 
 
 def mark_degraded(payload: dict, event: str, detail: str) -> None:
@@ -114,7 +131,8 @@ def fetch_indices_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_zh_index_spot_em())
+        df = _em_with_fallback(lambda: ak.stock_zh_index_spot_em(),
+                                lambda: ak.stock_zh_index_spot_sina())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -211,7 +229,26 @@ def is_real_link(link: str) -> bool:
 
 
 def parse_rss(url: str) -> list:
-    """解析 RSS 2.0 与 Atom，返回新闻项列表（不抛异常，由调用方负责重试/容错）。"""
+    """解析 RSS 2.0 与 Atom，返回新闻项列表（不抛异常，由调用方负责重试/容错）。
+
+    优先用 feedparser（容错强、自动处理编码/命名空间/CDATA），
+    未安装时回退到标准库 xml.etree 的轻量解析。
+    """
+    try:
+        import feedparser  # type: ignore
+        d = feedparser.parse(url)
+        items = []
+        for e in d.entries:
+            link = e.get("link", "")
+            items.append(_make_news(
+                e.get("title", ""), link,
+                e.get("published", e.get("updated", "")),
+                e.get("summary", e.get("description", ""))))
+        if items:
+            return items
+    except Exception:
+        pass
+    # 回退：标准库轻量解析
     xml = _fetch_text(url)
     root = ET.fromstring(xml)
     items = []
@@ -332,7 +369,8 @@ def fetch_sectors_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_board_industry_name_em())
+        df = _em_with_fallback(lambda: ak.stock_board_industry_name_em(),
+                                lambda: ak.stock_board_industry_name_ths())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -409,7 +447,8 @@ def fetch_breadth_and_movers_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_zh_a_spot_em())
+        df = _em_with_fallback(lambda: ak.stock_zh_a_spot_em(),
+                                lambda: ak.stock_zh_a_spot())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -479,21 +518,22 @@ def fetch_fx_with_fallback(payload: dict) -> dict:
             raise RuntimeError("akshare 返回空数据")
 
         wanted = ["美元", "欧元", "日元", "港币", "英镑"]
-        name_col = "货币名称" if "货币名称" in df.columns else df.columns[0]
-        buy_col = "现汇买入价" if "现汇买入价" in df.columns else None
-        sell_col = "现汇卖出价" if "现汇卖出价" in df.columns else None
+        # 健壮列名匹配：不同 akshare 版本列名略有差异，用“包含”语义兜底
+        name_col = next((c for c in df.columns if ("货币" in c or "名称" in c)), df.columns[0])
+        buy_col = next((c for c in df.columns if "现汇买入" in c or ("买入" in c and "价" in c)), None)
+        sell_col = next((c for c in df.columns if "现汇卖出" in c or ("卖出" in c and "价" in c)), None)
 
         items = []
         for _, r in df.iterrows():
-            nm = str(r[name_col])
-            if any(w == nm or w in nm for w in wanted):
+            nm = str(r[name_col]).strip()
+            if any(w in nm for w in wanted):
                 items.append({
                     "name": nm,
                     "buy": round(float(r[buy_col]), 4) if buy_col is not None else None,
                     "sell": round(float(r[sell_col]), 4) if sell_col is not None else None,
                 })
         if not items:
-            raise RuntimeError("未匹配到目标货币")
+            raise RuntimeError("未匹配到目标货币，列名={}".format(list(df.columns)))
 
         payload["fx"] = items
         mark_ok(payload)
@@ -533,7 +573,8 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.index_global_spot_em())
+        df = _em_with_fallback(lambda: ak.index_global_spot_em(),
+                                lambda: ak.index_global_spot_sina())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -706,7 +747,8 @@ def fetch_turnover_with_fallback(payload: dict) -> dict:
     # 如果能从已有的全市场数据里拿到成交额列，直接复用
     try:
         import akshare as ak
-        df = _retry(lambda: ak.stock_zh_a_spot_em())
+        df = _em_with_fallback(lambda: ak.stock_zh_a_spot_em(),
+                                lambda: ak.stock_zh_a_spot())
         if df is not None and not getattr(df, "empty", True):
             turnover_col = next((c for c in ["成交额", "turnover", "成交金额"] if c in df.columns), None)
             if turnover_col:
