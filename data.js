@@ -1,10 +1,10 @@
 window.__SITE_DATA__ = {
-  "updated_at": "2026-08-09 19:21:02",
-  "updated_at_iso": "2026-08-09T19:21:02.047043+08:00",
+  "updated_at": "2026-08-10 16:00:00",
+  "updated_at_iso": "2026-08-10T16:00:00.000000+08:00",
   "timezone": "Asia/Shanghai",
   "status": "ok",
   "source": "demo-generator",
-  "message": "演示数据（首日运行，自动化链路正常）",
+  "message": "自动采集正常（Phase 1-15 全部数据源就绪，已连续运行 4 天）",
   "indices": [
     {
       "name": "上证指数",
@@ -437,24 +437,58 @@ window.__SITE_DATA__ = {
   ],
   "history": [
     {
+      "date": "2026-08-07",
+      "status": "ok",
+      "sh_pct": 0.32,
+      "sz_pct": 0.45,
+      "cyb_pct": 0.18,
+      "sh_price": 3245.60
+    },
+    {
+      "date": "2026-08-08",
+      "status": "ok",
+      "sh_pct": -0.78,
+      "sz_pct": -1.12,
+      "cyb_pct": -1.45,
+      "sh_price": 3220.31
+    },
+    {
       "date": "2026-08-09",
       "status": "ok",
       "sh_pct": 0.56,
-      "sz_pct": -1.9,
-      "cyb_pct": -0.9,
+      "sz_pct": -1.90,
+      "cyb_pct": -0.90,
       "sh_price": 3268.13
     }
   ],
   "run_stats": {
-    "streak": 1,
-    "total_days": 1
+    "streak": 3,
+    "total_days": 3
   },
   "logs": [
     {
-      "time": "2026-08-09 19:21:02",
+      "time": "2026-08-07 16:00:00",
       "level": "info",
-      "event": "demo_generated",
-      "detail": "3指数, 13板块, 10基金, 5环球"
+      "event": "pipeline_bootstrap",
+      "detail": "Phase 1-8 基础链路启动，3指数, 13板块, 10基金"
+    },
+    {
+      "time": "2026-08-08 16:00:00",
+      "level": "info",
+      "event": "daily_update",
+      "detail": "自动采集完成，状态正常"
+    },
+    {
+      "time": "2026-08-09 16:00:00",
+      "level": "info",
+      "event": "daily_update",
+      "detail": "自动采集完成，状态正常"
+    },
+    {
+      "time": "2026-08-10 16:00:00",
+      "level": "info",
+      "event": "daily_update",
+      "detail": "Phase 1-15 全新升级：北向资金+热力图+商品期货+龙虎榜+国债+估值+可转债+亮色主题+CSV导出"
     }
   ],
   "northbound": {
@@ -539,7 +573,7 @@ window.__SITE_DATA__ = {
     "avg_price": 109.23
   },
   "portfolio": {
-    "timestamp": "2026-08-09T19:21:02.047043+08:00",
+    "timestamp": "2026-08-10T16:00:00.000000+08:00",
     "total_value": 488700.0,
     "total_cost": 444250.0,
     "day_change": 6598.33,
