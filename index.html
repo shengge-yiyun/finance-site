@@ -16,27 +16,32 @@
     <div class="brand">每日金融观察</div>
     <div class="brand-sub">个人金融信息聚合站<br/>每交易日 16:00 自动更新</div>
     <nav>
+      <div class="nav-group-label">📊 大盘</div>
       <a href="#sec-overview" data-target="sec-overview">今日观察</a>
       <a href="#sec-commentary" data-target="sec-commentary">今日盘面简评</a>
       <a href="#sec-indices" data-target="sec-indices">A股三大指数</a>
       <a href="#sec-history" data-target="sec-history">指数历史走势</a>
       <a href="#sec-sectors" data-target="sec-sectors">行业板块强弱</a>
+      <a href="#sec-heatmap" data-target="sec-heatmap">板块热力图</a>
       <a href="#sec-breadth" data-target="sec-breadth">市场宽度</a>
       <a href="#sec-movers" data-target="sec-movers">个股动向</a>
+      <div class="nav-group-label">💰 资金</div>
+      <a href="#sec-northbound" data-target="sec-northbound">北向资金</a>
+      <a href="#sec-turnover" data-target="sec-turnover">两市成交额</a>
+      <a href="#sec-dragontiger" data-target="sec-dragontiger">龙虎榜</a>
+      <div class="nav-group-label">🌍 跨资产</div>
+      <a href="#sec-commodities" data-target="sec-commodities">商品期货</a>
       <a href="#sec-fx" data-target="sec-fx">外汇牌价</a>
       <a href="#sec-global" data-target="sec-global">环球股指</a>
       <a href="#sec-funds" data-target="sec-funds">基金净值排行</a>
-      <a href="#sec-portfolio" data-target="sec-portfolio">模拟持仓</a>
-      <a href="#sec-northbound" data-target="sec-northbound">北向资金</a>
-      <a href="#sec-turnover" data-target="sec-turnover">两市成交额</a>
-      <a href="#sec-heatmap" data-target="sec-heatmap">板块热力图</a>
-      <a href="#sec-commodities" data-target="sec-commodities">商品期货</a>
-      <a href="#sec-dragontiger" data-target="sec-dragontiger">龙虎榜</a>
+      <a href="#sec-cb" data-target="sec-cb">可转债</a>
+      <div class="nav-group-label">📈 估值</div>
       <a href="#sec-treasury" data-target="sec-treasury">国债收益率</a>
       <a href="#sec-csi300val" data-target="sec-csi300val">沪深300估值</a>
-      <a href="#sec-cb" data-target="sec-cb">可转债</a>
-      <a href="#sec-automation" data-target="sec-automation">🤖 自动化引擎</a>
-      <a href="#sec-logs" data-target="sec-logs">自动化运行日志</a>
+      <div class="nav-group-label">🤖 系统</div>
+      <a href="#sec-portfolio" data-target="sec-portfolio">模拟持仓</a>
+      <a href="#sec-automation" data-target="sec-automation">自动化引擎</a>
+      <a href="#sec-logs" data-target="sec-logs">运行日志</a>
     </nav>
     <div class="drawer-foot">已连续自动运行 <b id="drawer-streak">—</b> 天</div>
   </nav>
@@ -303,9 +308,10 @@
     </div>
   </div>
 
-  <!-- ECharts CDN（加载失败时前端自动降级为纯 CSS） -->
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"
-          onerror="window.__ECHARTS_FAILED__=true"></script>
+  <!-- ECharts CDN 异步加载，不阻塞页面渲染；加载完成后自动刷新图表 -->
+  <script async src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"
+          onerror="window.__ECHARTS_FAILED__=true"
+          onload="window.__ECHARTS_READY__=true;if(window.__onEchartsReady)window.__onEchartsReady()"></script>
   <!-- Chart.js (用于投资组合环形图) -->
   <script src="lib/chart.umd.min.js"></script>
   <!-- 数据文件 (由 fetch_data.py 自动生成) -->
@@ -314,5 +320,8 @@
   <script src="js/app.js"></script>
   <!-- 自动化面板 + 投资组合增强 -->
   <script src="js/automation-enhance.js"></script>
+
+  <!-- 回顶部按钮 -->
+  <button class="btn-back-top" id="btnBackTop" title="回顶部" aria-label="回顶部">↑</button>
 </body>
 </html>

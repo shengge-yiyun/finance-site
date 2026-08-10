@@ -15,6 +15,39 @@
   var D = null; // __SITE_DATA__ reference
   var chartInstances = {};   // { viewId: echartsInstance }
   var chartRendered = {};    // { viewId: true } — 是否已初始化过图表
+  var chartDrawFns = {};     // { viewId: function } — 重绘回调（ECharts 异步加载完成后使用）
+
+  // ======================== 全局 ECharts resize（debounced） ========================
+
+  var resizeTimer = null;
+  function onGlobalResize() {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      Object.keys(chartInstances).forEach(function(key) {
+        if (chartInstances[key] && !chartInstances[key].isDisposed()) {
+          chartInstances[key].resize();
+        }
+      });
+    }, 150);
+  }
+  window.addEventListener('resize', onGlobalResize);
+
+  // ======================== ECharts 异步加载完成回调 ========================
+
+  window.__onEchartsReady = function() {
+    // 重新渲染所有已激活视图中尚未渲染的图表
+    Object.keys(chartDrawFns).forEach(function(viewId) {
+      if (chartRendered[viewId]) {
+        // 已用 CSS 降级渲染过 → 清空后用 ECharts 重绘
+        chartRendered[viewId] = false;
+      }
+    });
+    // 触发当前可见视图的延迟渲染
+    var activeView = document.querySelector('.view.active');
+    if (activeView && chartDrawFns[activeView.id]) {
+      chartDrawFns[activeView.id]();
+    }
+  };
 
   // ======================== 初始化 ========================
 
@@ -26,6 +59,10 @@
     }
 
     renderAll();
+    // 模拟持仓与当日指数联动，使盈亏随市场波动
+    if (D.portfolio && D.portfolio.holdings) {
+      D.portfolio = updatePortfolioWithIndex(D.portfolio);
+    }
     initDrawer();
     initHistoryChart();
     initSectorChart();
@@ -33,6 +70,7 @@
     initExportButtons();
     initKeyboardShortcuts();
     initKbdHint();
+    initBackToTop();
   }
 
   // ======================== 工具函数 ========================
@@ -101,12 +139,35 @@
       }
     }
 
-    if (updated) { updated.textContent = D.updated_at || '—'; }
+    if (updated) {
+      var absTime = D.updated_at || '';
+      var relTime = relativeTime(D.updated_at_iso || '');
+      updated.textContent = absTime;
+      if (relTime) updated.textContent += '（' + relTime + '）';
+    }
 
     var stats = D.run_stats || {};
     if (streakEl) streakEl.textContent = stats.streak || 0;
     if (totalEl) totalEl.textContent = stats.total_days || 0;
     if (drawerStreak) drawerStreak.textContent = stats.streak || 0;
+  }
+
+  function relativeTime(iso) {
+    if (!iso) return '';
+    try {
+      var then = new Date(iso);
+      var now = new Date();
+      var diff = now - then;
+      if (diff < 0) return '';
+      var min = Math.floor(diff / 60000);
+      if (min < 1) return '刚刚';
+      if (min < 60) return min + '分钟前';
+      var hrs = Math.floor(min / 60);
+      if (hrs < 24) return hrs + '小时前';
+      var days = Math.floor(hrs / 24);
+      if (days < 30) return days + '天前';
+      return Math.floor(days / 30) + '个月前';
+    } catch(e) { return ''; }
   }
 
   // ======================== 今日观察 (Overview) ========================
@@ -268,30 +329,35 @@
     var chartDom = document.getElementById('history-chart');
     if (!chartDom || !window.echarts) return;
     var history = D.history || [];
-    var dates = [], pcts = [], colors = [];
+    if (!history.length) return;
+    var dates = [], shPcts = [], szPcts = [], cybPcts = [];
     for (var i = 0; i < history.length; i++) {
       dates.push((history[i].date || '').slice(5));
-      var v = history[i].sh_pct || 0;
-      pcts.push(v);
-      colors.push(v >= 0 ? '#f04848' : '#2ec27e');
+      shPcts.push(history[i].sh_pct != null ? history[i].sh_pct : null);
+      szPcts.push(history[i].sz_pct != null ? history[i].sz_pct : null);
+      cybPcts.push(history[i].cyb_pct != null ? history[i].cyb_pct : null);
     }
-    // 销毁旧实例
-    if (chartInstances['sec-history']) {
-      chartInstances['sec-history'].dispose();
-    }
+    if (chartInstances['sec-history']) chartInstances['sec-history'].dispose();
     var chart = window.echarts.init(chartDom);
     chart.setOption({
-      grid: { top: 8, right: 16, bottom: 24, left: 44 },
+      tooltip: { trigger: 'axis' },
+      legend: {
+        data: ['上证指数', '深证成指', '创业板指'],
+        textStyle: { color: '#8b949e', fontSize: 12 },
+        bottom: 0
+      },
+      grid: { top: 8, right: 16, bottom: 36, left: 44 },
       xAxis: { type: 'category', data: dates, axisLabel: { color: '#8b949e', fontSize: 11 } },
       yAxis: { type: 'value', axisLabel: { color: '#8b949e', formatter: '{value}%' } },
-      series: [{
-        type: 'bar', data: pcts,
-        itemStyle: { color: function(p) { return colors[p.dataIndex]; } }
-      }]
+      series: [
+        { name: '上证指数', type: 'line', data: shPcts, smooth: true, lineStyle: { color: '#f04848', width: 2 }, itemStyle: { color: '#f04848' }, symbol: 'circle', symbolSize: 5 },
+        { name: '深证成指', type: 'line', data: szPcts, smooth: true, lineStyle: { color: '#58a6ff', width: 2 }, itemStyle: { color: '#58a6ff' }, symbol: 'diamond', symbolSize: 5 },
+        { name: '创业板指', type: 'line', data: cybPcts, smooth: true, lineStyle: { color: '#d4a853', width: 2 }, itemStyle: { color: '#d4a853' }, symbol: 'triangle', symbolSize: 6 }
+      ]
     });
     chartInstances['sec-history'] = chart;
     chartRendered['sec-history'] = true;
-    window.addEventListener('resize', function() { chart.resize(); });
+    chartDrawFns['sec-history'] = drawHistoryChart;
   }
 
   function initHistoryChart() {
@@ -385,7 +451,7 @@
     });
     chartInstances['sec-sectors'] = chart;
     chartRendered['sec-sectors'] = true;
-    window.addEventListener('resize', function() { chart.resize(); });
+    chartDrawFns['sec-sectors'] = drawSectorChart;
   }
 
   function initSectorChart() {
@@ -602,7 +668,7 @@
     });
     chartInstances['sec-northbound'] = chart;
     chartRendered['sec-northbound'] = true;
-    window.addEventListener('resize', function() { chart.resize(); });
+    chartDrawFns['sec-northbound'] = drawNorthboundChart;
   }
 
   // ======================== 两市成交额 (Phase 10) ========================
@@ -636,12 +702,14 @@
     }
     var data = [];
     var upCount = 0, downCount = 0;
+    // 面积 = 涨跌幅绝对值^1.5 * 常数，大幅波动的板块占据更大面积
     for (var i = 0; i < sectors.length; i++) {
       var s = sectors[i];
       var absPct = Math.abs(s.change_pct || 0);
+      var area = Math.pow(absPct + 0.5, 1.5) * 18;
       data.push({
         name: s.name,
-        value: Math.max(absPct * 10, 2),
+        value: Math.max(area, 5),
         change_pct: s.change_pct,
         up: s.up
       });
@@ -682,7 +750,7 @@
     });
     chartInstances['sec-heatmap'] = chart;
     chartRendered['sec-heatmap'] = true;
-    window.addEventListener('resize', function() { chart.resize(); });
+    chartDrawFns['sec-heatmap'] = drawHeatmapChart;
   }
 
   // ======================== 商品期货 (Phase 12) ========================
@@ -784,7 +852,7 @@
     });
     chartInstances['sec-treasury'] = chart;
     chartRendered['sec-treasury'] = true;
-    window.addEventListener('resize', function() { chart.resize(); });
+    chartDrawFns['sec-treasury'] = drawTreasuryChart;
   }
 
   // ======================== 沪深300估值 (Phase 15) ========================
@@ -1111,8 +1179,53 @@
     hint.id = 'kbdHint';
     hint.innerHTML = '⌨ <kbd>1-9</kbd><kbd>0</kbd><kbd>q</kbd>-<kbd>p</kbd> 快速跳转';
     document.body.appendChild(hint);
-    // 5 秒后渐隐（但仍可交互）
+    // 8 秒后渐隐
     setTimeout(function() { hint.style.opacity = '0.25'; }, 8000);
+  }
+
+  // ======================== 回顶部 ========================
+
+  function initBackToTop() {
+    var btn = document.getElementById('btnBackTop');
+    if (!btn) return;
+    // 滚动超过 400px 显示按钮
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    });
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ======================== 模拟持仓联动指数 ========================
+
+  function updatePortfolioWithIndex(portfolio) {
+    // 计算三大指数加权平均涨跌，微调持仓数据以反映联动
+    var indices = D.indices || [];
+    if (!indices.length) return portfolio;
+    var avgPct = 0, count = 0;
+    for (var i = 0; i < indices.length; i++) {
+      if (indices[i].change_pct != null) { avgPct += indices[i].change_pct; count++; }
+    }
+    if (!count) return portfolio;
+    avgPct = avgPct / count;
+    // 根据指数均值调整日内涨跌（组合 beta 约 1.0）
+    var beta = 0.95;
+    var adjPct = avgPct * beta;
+    return {
+      timestamp: portfolio.timestamp,
+      total_value: portfolio.total_value,
+      total_cost: portfolio.total_cost,
+      day_change: portfolio.total_value * adjPct / 100,
+      day_change_pct: adjPct,
+      total_return_pct: (portfolio.total_value / portfolio.total_cost - 1) * 100,
+      holdings: portfolio.holdings,
+      index_correlation: adjPct // 用于前端展示
+    };
   }
 
   // ======================== 启动 ========================

@@ -285,9 +285,11 @@
     var clsD = dp >= 0 ? 'up' : 'down';
     var tr = p.total_return_pct || 0;
     var clsT = tr >= 0 ? 'up' : 'down';
+    var corr = p.index_correlation;
+    var corrNote = corr != null ? '<span style="font-size:10px;color:var(--muted);display:block;margin-top:2px">与三大指数联动 (β≈0.95)</span>' : '';
     summary.innerHTML =
       '<div class="portfolio-stat"><div class="stat-label">总资产</div><div class="stat-value">¥' + tv.toLocaleString('zh-CN') + '</div></div>' +
-      '<div class="portfolio-stat"><div class="stat-label">今日盈亏</div><div class="stat-value ' + clsD + '">' + (dp >= 0 ? '▲' : '▼') + ' ¥' + Math.abs(dc).toLocaleString('zh-CN') + '</div></div>' +
+      '<div class="portfolio-stat"><div class="stat-label">今日盈亏</div><div class="stat-value ' + clsD + '">' + (dp >= 0 ? '▲' : '▼') + ' ¥' + Math.abs(dc).toLocaleString('zh-CN') + '</div>' + corrNote + '</div>' +
       '<div class="portfolio-stat"><div class="stat-label">累计收益</div><div class="stat-value ' + clsT + '">' + (tr >= 0 ? '+' : '') + tr.toFixed(2) + '%</div></div>';
   }
 
