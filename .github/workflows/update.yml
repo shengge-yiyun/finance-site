@@ -1,45 +1,54 @@
+# 适配仓库结构：index.html / data.js 在根目录，抓取脚本在 agent/fetch_data.py
 name: Daily Finance Update
 
 on:
   schedule:
-    # 北京时间周一至周五 16:00 = UTC 08:00
-    - cron: '0 8 * * 1-5'
-  workflow_dispatch:        # 允许手动触发
+    - cron: "0 8 * * 1-5"   # UTC 08:00 = 北京时间 16:00，周一至周五交易日
+  workflow_dispatch:        # 允许在 Actions 页面手动点 "Run workflow" 立即跑
   push:
     branches: [main]
     paths:
-      - 'agent/**'          # 采集脚本变更时自动跑一次，确保数据文件也更新
+      - 'agent/**'          # 采集脚本变更时自动跑一次，刷新数据
+
+permissions:
+  contents: write           # 允许 workflow 把刷新后的 data.js 写回仓库
+
+concurrency:
+  group: finance-update
+  cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    permissions:
-      contents: write       # 允许推送 data.js
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # 拉全量历史，保留 history 快照累积
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install akshare
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r agent/requirements.txt
 
-      - name: Run collector
+      - name: Fetch live data (AKShare)
         run: python agent/fetch_data.py
 
       - name: Commit & push if changed
         run: |
-          git config user.name "finance-bot"
-          git config user.email "bot@finance-site.local"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data.js
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo "无变化，跳过提交"
           else
-            git commit -m "auto: daily update $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
+            git commit -m "auto: 更新金融数据 $(date +'%Y-%m-%d')"
             git push
           fi
