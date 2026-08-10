@@ -1,9 +1,9 @@
 window.__SITE_DATA__ = {
-  "updated_at": "2026-08-10 17:10:40",
-  "updated_at_iso": "2026-08-10T17:10:40.935825+08:00",
+  "updated_at": "2026-08-10 17:27:20",
+  "updated_at_iso": "2026-08-10T17:27:20.577592+08:00",
   "timezone": "Asia/Shanghai",
   "status": "degraded",
-  "source": "bootstrap",
+  "source": "akshare",
   "message": "A股三大指数 + 财经快讯 + 行业板块 + 市场宽度 + 个股动向 + 环球股指 + 基金排行已更新",
   "indices": [],
   "news": [],
@@ -18,18 +18,18 @@ window.__SITE_DATA__ = {
   "global_indices": [],
   "funds": [
     {
-      "name": "华泰柏瑞医疗健康C",
-      "code": "011453",
-      "change_pct": 11.3,
-      "up": true,
-      "nav": 2.5176
-    },
-    {
       "name": "华泰柏瑞医疗健康A",
       "code": "005805",
       "change_pct": 11.3,
       "up": true,
       "nav": 2.5768
+    },
+    {
+      "name": "华泰柏瑞医疗健康C",
+      "code": "011453",
+      "change_pct": 11.3,
+      "up": true,
+      "nav": 2.5176
     },
     {
       "name": "招商品质成长混合A",
@@ -245,127 +245,127 @@ window.__SITE_DATA__ = {
   },
   "logs": [
     {
-      "time": "2026-08-10 17:10:40",
+      "time": "2026-08-10 17:27:20",
       "level": "info",
       "event": "pipeline_bootstrap",
       "detail": "基础链路运行成功，等待接入真实数据源"
     },
     {
-      "time": "2026-08-10 17:11:15",
+      "time": "2026-08-10 17:27:52",
       "level": "error",
       "event": "indices_fetch_failed",
       "detail": "指数获取失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
     },
     {
-      "time": "2026-08-10 17:11:19",
+      "time": "2026-08-10 17:27:57",
       "level": "warn",
       "event": "rss_failed",
       "detail": "36氪 失败：not well-formed (invalid token): line 9, column 542"
     },
     {
-      "time": "2026-08-10 17:11:21",
+      "time": "2026-08-10 17:27:59",
       "level": "warn",
       "event": "rss_failed",
       "detail": "华尔街见闻 失败：syntax error: line 1, column 0"
     },
     {
-      "time": "2026-08-10 17:11:23",
+      "time": "2026-08-10 17:28:01",
       "level": "warn",
       "event": "rss_failed",
       "detail": "新浪财经 失败：HTTP Error 404: Not Found"
     },
     {
-      "time": "2026-08-10 17:11:27",
+      "time": "2026-08-10 17:28:02",
       "level": "info",
       "event": "akshare_news_ok",
       "detail": "财联社获取 20 条"
     },
     {
-      "time": "2026-08-10 17:11:27",
+      "time": "2026-08-10 17:28:02",
       "level": "info",
       "event": "news_filtered",
       "detail": "按真实性约束过滤掉 20 条无原文链接 / 占位链接的快讯"
     },
     {
-      "time": "2026-08-10 17:11:27",
+      "time": "2026-08-10 17:28:02",
       "level": "error",
       "event": "news_fetch_failed",
       "detail": "所有新闻源均失败、返回空，或均无原文链接"
     },
     {
-      "time": "2026-08-10 17:11:53",
+      "time": "2026-08-10 17:28:36",
       "level": "error",
       "event": "sectors_fetch_failed",
       "detail": "行业板块获取失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
     },
     {
-      "time": "2026-08-10 17:12:27",
+      "time": "2026-08-10 17:29:01",
       "level": "error",
       "event": "breadth_fetch_failed",
       "detail": "市场宽度获取失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
     },
     {
-      "time": "2026-08-10 17:12:40",
+      "time": "2026-08-10 17:29:16",
       "level": "error",
       "event": "fx_fetch_failed",
       "detail": "外汇牌价获取失败：未匹配到目标货币"
     },
     {
-      "time": "2026-08-10 17:12:50",
+      "time": "2026-08-10 17:36:05",
       "level": "error",
       "event": "global_fetch_failed",
-      "detail": "环球股指获取失败：Expecting value: line 1 column 1 (char 0)"
+      "detail": "环球股指获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "time": "2026-08-10 17:12:54",
+      "time": "2026-08-10 17:36:10",
       "level": "info",
       "event": "funds_fetched",
       "detail": "成功获取 10 只基金排行"
     },
     {
-      "time": "2026-08-10 17:13:00",
+      "time": "2026-08-10 17:36:16",
       "level": "error",
       "event": "northbound_fetch_failed",
       "detail": "北向资金获取失败：module 'akshare' has no attribute 'stock_hsgt_north_net_flow_in_em'"
     },
     {
-      "time": "2026-08-10 17:13:45",
+      "time": "2026-08-10 17:37:02",
       "level": "warn",
       "event": "turnover_failed",
       "detail": "成交额获取失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
     },
     {
-      "time": "2026-08-10 17:13:51",
+      "time": "2026-08-10 17:37:08",
       "level": "error",
       "event": "commodities_fetch_failed",
       "detail": "商品期货获取失败：module 'akshare' has no attribute 'futures_zh_spot_em'"
     },
     {
-      "time": "2026-08-10 17:13:57",
+      "time": "2026-08-10 17:37:14",
       "level": "error",
       "event": "dragon_tiger_fetch_failed",
       "detail": "龙虎榜获取失败：module 'akshare' has no attribute 'stock_lhb_hy_detail_em'"
     },
     {
-      "time": "2026-08-10 17:14:11",
+      "time": "2026-08-10 17:37:28",
       "level": "error",
       "event": "treasury_fetch_failed",
       "detail": "国债收益率获取失败：未匹配到国债收益率数据"
     },
     {
-      "time": "2026-08-10 17:14:18",
+      "time": "2026-08-10 17:37:38",
       "level": "info",
       "event": "csi300_val_fetched",
       "detail": "沪深300 PE=0.0 (None分位) PB=0.0 (None分位)"
     },
     {
-      "time": "2026-08-10 17:14:19",
+      "time": "2026-08-10 17:37:40",
       "level": "info",
       "event": "cb_fetched",
       "detail": "可转债 15 只，均价 99.4"
     },
     {
-      "time": "2026-08-10 17:14:19",
+      "time": "2026-08-10 17:37:40",
       "level": "info",
       "event": "commentary_generated",
       "detail": "生成 1 条盘面简评"
