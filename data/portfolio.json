@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-08-09T19:21:02.047043+08:00",
+  "total_value": 488700.0,
+  "total_cost": 444250.0,
+  "day_change": 6598.33,
+  "day_change_pct": 1.35,
+  "total_return_pct": 10.01,
+  "holdings": [
+    {
+      "name": "贵州茅台",
+      "code": "600519",
+      "shares": 100,
+      "cost_per_share": 1680.0,
+      "current_price": 1820.5,
+      "market_value": 182050.0,
+      "weight_pct": 37.3
+    },
+    {
+      "name": "宁德时代",
+      "code": "300750",
+      "shares": 500,
+      "cost_per_share": 210.0,
+      "current_price": 245.3,
+      "market_value": 122650.0,
+      "weight_pct": 25.1
+    },
+    {
+      "name": "中国平安",
+      "code": "601318",
+      "shares": 2000,
+      "cost_per_share": 45.0,
+      "current_price": 48.2,
+      "market_value": 96400.0,
+      "weight_pct": 19.7
+    },
+    {
+      "name": "沪深300ETF",
+      "code": "510300",
+      "shares": 8000,
+      "cost_per_share": 4.85,
+      "current_price": 5.12,
+      "market_value": 40960.0,
+      "weight_pct": 8.4
+    },
+    {
+      "name": "美的集团",
+      "code": "000333",
+      "shares": 600,
+      "cost_per_share": 62.0,
+      "current_price": 67.9,
+      "market_value": 40740.0,
+      "weight_pct": 8.3
+    },
+    {
+      "name": "科创50ETF",
+      "code": "588000",
+      "shares": 5000,
+      "cost_per_share": 1.05,
+      "current_price": 1.18,
+      "market_value": 5900.0,
+      "weight_pct": 1.2
+    }
+  ]
+}

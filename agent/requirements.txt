@@ -1,0 +1,12 @@
+# 金融数据采集智能体 — Python 依赖
+# 安装: python -m pip install -r agent/requirements.txt
+
+# 核心: 中国金融市场数据 (A股/指数/外汇/新闻)
+akshare>=1.12.0
+
+# HTTP 请求 (备用抓取)
+requests>=2.31.0
+
+# HTML 解析 (备用新闻源)
+beautifulsoup4>=4.12.0
+lxml>=4.9.0

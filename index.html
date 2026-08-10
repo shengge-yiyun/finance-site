@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>每日金融观察 · 自动化金融情报中心</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ====== 汉堡菜单按钮 (窄屏) ====== -->
+  <button class="menu-btn" id="menuBtn" aria-label="目录">&#9776;</button>
+
+  <!-- ====== 左侧抽屉导航 ====== -->
+  <nav class="drawer" id="drawer">
+    <div class="brand">每日金融观察</div>
+    <div class="brand-sub">个人金融信息聚合站<br/>每交易日 16:00 自动更新</div>
+    <nav>
+      <a href="#sec-overview" data-target="sec-overview">今日观察</a>
+      <a href="#sec-commentary" data-target="sec-commentary">今日盘面简评</a>
+      <a href="#sec-indices" data-target="sec-indices">A股三大指数</a>
+      <a href="#sec-history" data-target="sec-history">指数历史走势</a>
+      <a href="#sec-sectors" data-target="sec-sectors">行业板块强弱</a>
+      <a href="#sec-breadth" data-target="sec-breadth">市场宽度</a>
+      <a href="#sec-movers" data-target="sec-movers">个股动向</a>
+      <a href="#sec-fx" data-target="sec-fx">外汇牌价</a>
+      <a href="#sec-global" data-target="sec-global">环球股指</a>
+      <a href="#sec-funds" data-target="sec-funds">基金净值排行</a>
+      <a href="#sec-portfolio" data-target="sec-portfolio">模拟持仓</a>
+      <a href="#sec-northbound" data-target="sec-northbound">北向资金</a>
+      <a href="#sec-turnover" data-target="sec-turnover">两市成交额</a>
+      <a href="#sec-heatmap" data-target="sec-heatmap">板块热力图</a>
+      <a href="#sec-commodities" data-target="sec-commodities">商品期货</a>
+      <a href="#sec-dragontiger" data-target="sec-dragontiger">龙虎榜</a>
+      <a href="#sec-treasury" data-target="sec-treasury">国债收益率</a>
+      <a href="#sec-csi300val" data-target="sec-csi300val">沪深300估值</a>
+      <a href="#sec-cb" data-target="sec-cb">可转债</a>
+      <a href="#sec-automation" data-target="sec-automation">🤖 自动化引擎</a>
+      <a href="#sec-logs" data-target="sec-logs">自动化运行日志</a>
+    </nav>
+    <div class="drawer-foot">已连续自动运行 <b id="drawer-streak">—</b> 天</div>
+  </nav>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ====== 主内容区 ====== -->
+  <div class="content">
+    <div class="wrap">
+      <header>
+        <h1>每日金融观察 <span id="status-badge" class="badge ok">OK</span></h1>
+        <div class="sub">个人金融信息聚合站 · 由 Python 智能体每交易日自动采集更新</div>
+        <div class="updated">最近更新：<span id="updated-at">加载中…</span> · 已连续自动运行 <b id="run-streak" style="color:var(--accent)">—</b> 天 · 累计 <b id="run-total" style="color:var(--accent)">—</b> 天
+          <button class="theme-toggle" id="themeToggle" title="切换亮色/暗夜主题">🌙</button>
+        </div>
+      </header>
+
+      <!-- 今日观察 + 新闻 -->
+      <section class="card view active" id="sec-overview">
+        <h2>今日观察</h2>
+        <div class="placeholder" id="message">正在加载数据…</div>
+        <h3 class="block-sub">今日要闻 <span class="hint">（由智能体根据当日市场数据自动总结）</span></h3>
+        <div id="news-inline"><div class="placeholder">暂无资讯</div></div>
+        <div class="phase-note">
+          Phase 1–8 全部完成：AKShare 指数/板块/宽度/个股/外汇/环球/基金 + 多源 RSS 资讯 +
+          历史沉淀 + 盘面简评。本页由 Python 智能体自动生成数据、前端静态渲染。
+        </div>
+      </section>
+
+      <!-- 盘面简评 -->
+      <section class="card view" id="sec-commentary">
+        <h2>今日盘面简评 <span class="hint">（自动化生成的盘面解读 · 非投资建议）</span></h2>
+        <div class="commentary" id="commentary"><div class="placeholder">正在生成简评…</div></div>
+        <div class="phase-note">
+          本卡片由采集脚本根据当日真实的指数、市场宽度、行业板块自动推导生成，不依赖人工撰写。
+        </div>
+      </section>
+
+      <!-- A股三大指数 -->
+      <section class="card view" id="sec-indices">
+        <h2>A股三大指数 <span class="hint">（红涨绿跌 · 收盘快照）</span></h2>
+        <div id="indices"><div class="placeholder">暂无指数数据</div></div>
+        <div class="phase-note">
+          数据来自 AKShare（东方财富实时行情），接口失效时本卡片自动留空并标记为「降级」。
+        </div>
+      </section>
+
+      <!-- 指数历史走势 -->
+      <section class="card view" id="sec-history">
+        <h2>指数历史走势图 <span class="hint">（上证指数每日涨跌幅 · 自动化累积）</span></h2>
+        <div id="history-chart" style="width:100%;height:220px;"></div>
+        <div class="history-fallback" id="history-fallback"></div>
+        <div class="phase-note">
+          每次自动运行都会把当日快照追加进历史——这是「自动化真的在每天持续运行」最直观的证据。
+        </div>
+      </section>
+
+      <!-- 行业板块 -->
+      <section class="card view" id="sec-sectors">
+        <h2>行业板块强弱 <span class="hint">（红涨绿跌 · ECharts 横向柱状图）</span></h2>
+        <div class="sector-summary" id="sector-summary"><div class="placeholder">暂无板块统计</div></div>
+        <div id="sector-chart" style="width:100%;height:380px;"><div class="placeholder">图表加载中…</div></div>
+        <div class="sector-fallback" id="sector-fallback"></div>
+        <div class="phase-note">
+          数据来自 AKShare 东方财富行业板块。若 ECharts（CDN）加载失败，自动降级为纯 CSS 柱状图。
+        </div>
+      </section>
+
+      <!-- 市场宽度 -->
+      <section class="card view" id="sec-breadth">
+        <h2>市场宽度 <span class="hint">（全市场涨跌家数 · 多空温度计）</span></h2>
+        <div class="sector-summary" id="breadth-stats"><div class="placeholder">暂无宽度统计</div></div>
+        <div class="breadth-bar" id="breadth-bar"></div>
+        <div class="breadth-legend" id="breadth-legend"></div>
+        <div class="phase-note">
+          上涨/下跌家数占比直观反映全市场情绪（广度），比单看指数更准。
+        </div>
+      </section>
+
+      <!-- 个股动向 -->
+      <section class="card view" id="sec-movers">
+        <h2>个股动向 <span class="hint">（领涨 / 领跌 TOP10 · 红涨绿跌）</span></h2>
+        <div class="movers" id="movers"><div class="placeholder">暂无个股数据</div></div>
+        <div class="phase-note">
+          从全市场行情中取涨幅前 10 与跌幅前 10 个股，捕捉当日动量主线与风险点。
+        </div>
+      </section>
+
+      <!-- 外汇牌价 -->
+      <section class="card view" id="sec-fx">
+        <h2>外汇牌价 <span class="hint">（中国银行实时牌价 · 自动更新）</span></h2>
+        <table class="fx" id="fx">
+          <thead><tr><th>货币</th><th class="num">现汇买入价</th><th class="num">现汇卖出价</th></tr></thead>
+          <tbody><tr><td colspan="3" class="placeholder">暂无外汇数据</td></tr></tbody>
+        </table>
+        <div class="phase-note">
+          数据来自 AKShare 中国银行外汇牌价，不依赖行情接口，稳定性高。
+        </div>
+      </section>
+
+      <!-- 环球股指 -->
+      <section class="card view" id="sec-global">
+        <h2>环球股指 <span class="hint">（港股 / 美股 / 日股 · 红涨绿跌）</span></h2>
+        <div id="global"><div class="placeholder">暂无环球股指数据</div></div>
+        <div class="phase-note">
+          港股 / 美股 / 日股三个市场独立抓取，单一市场接口失效只留空该项、不拖垮其他市场。
+        </div>
+      </section>
+
+      <!-- 基金排行 -->
+      <section class="card view" id="sec-funds">
+        <h2>基金净值排行 <span class="hint">（开放式基金 TOP10 · 按日增长率 · 红涨绿跌）</span></h2>
+        <table class="fx" id="funds">
+          <thead><tr><th>基金</th><th class="num">单位净值</th><th class="num">日增长率</th></tr></thead>
+          <tbody><tr><td colspan="3" class="placeholder">暂无基金数据</td></tr></tbody>
+        </table>
+        <div class="phase-note">
+          数据来自 AKShare 开放式基金排行，失败时本卡片留空并标记「降级」。
+        </div>
+      </section>
+
+      <!-- ====== 模拟持仓 (finance-agent-homepage 增强) ====== -->
+      <section class="card view" id="sec-portfolio">
+        <h2>模拟持仓 <span class="hint">（个人投资组合追踪 · 演示用）</span></h2>
+        <div class="portfolio-summary" id="portfolioSummary">
+          <div class="placeholder">加载中…</div>
+        </div>
+        <div style="max-width:280px;margin:0 auto;">
+          <canvas id="portfolioChart" width="280" height="280"></canvas>
+        </div>
+        <div class="phase-note">模拟持仓数据由演示数据生成器 (<code>generate_demo_data.py</code>) 自动产出，演示投资组合追踪功能。</div>
+      </section>
+
+      <!-- ====== 北向资金 ====== -->
+      <section class="card view" id="sec-northbound">
+        <h2>北向资金 <span class="hint">（沪深港通 · 外资风向标 · 红入绿出）</span></h2>
+        <div class="sector-summary" id="northbound-stats"><div class="placeholder">暂无数据</div></div>
+        <div id="northbound-chart" style="width:100%;height:200px;"><div class="placeholder">图表加载中…</div></div>
+        <div class="phase-note">北向资金指通过沪深港通流入 A 股的境外资金，是判断外资对 A 股态度的重要指标。</div>
+      </section>
+
+      <!-- ====== 两市成交额 ====== -->
+      <section class="card view" id="sec-turnover">
+        <h2>两市成交额 <span class="hint">（量价配合 · 市场活跃度）</span></h2>
+        <div class="turnover-display" id="turnover-display"><div class="placeholder">暂无数据</div></div>
+        <div class="phase-note">成交额是判断市场热度的核心指标——万亿以上为活跃，8000亿以下为清淡。</div>
+      </section>
+
+      <!-- ====== 板块热力图 ====== -->
+      <section class="card view" id="sec-heatmap">
+        <h2>板块热力图 <span class="hint">（面积=成交热度 · 颜色=涨跌幅 · 红涨绿跌）</span></h2>
+        <div id="heatmap-chart" style="width:100%;height:420px;"><div class="placeholder">图表加载中…</div></div>
+        <div class="phase-note">基于 ECharts Treemap，一眼看穿全市场结构——面积越大成交越活跃，颜色越红涨得越好。</div>
+      </section>
+
+      <!-- ====== 商品期货 ====== -->
+      <section class="card view" id="sec-commodities">
+        <h2>商品期货 <span class="hint">（大类资产视角 · 红涨绿跌）</span></h2>
+        <table class="fx" id="commodities-tbl">
+          <thead><tr><th>品种</th><th class="num">最新价</th><th class="num">涨跌幅</th></tr></thead>
+          <tbody><tr><td colspan="3" class="placeholder">暂无数据</td></tr></tbody>
+        </table>
+        <div class="phase-note">商品期货反映实体经济需求和通胀预期，与 A 股周期板块联动性强。</div>
+      </section>
+
+      <!-- ====== 龙虎榜 ====== -->
+      <section class="card view" id="sec-dragontiger">
+        <h2>龙虎榜 <span class="hint">（机构游资动向 · 当日上榜个股）</span></h2>
+        <div class="sector-summary" id="dragontiger-stats"><div class="placeholder">暂无数据</div></div>
+        <table class="fx" id="dragontiger-tbl">
+          <thead><tr><th>股票</th><th class="num">收盘价</th><th class="num">涨跌幅</th><th class="num">净买入(万)</th><th>上榜原因</th></tr></thead>
+          <tbody><tr><td colspan="5" class="placeholder">暂无数据</td></tr></tbody>
+        </table>
+        <div class="phase-note">龙虎榜披露当日交易异常个股的买卖席位，是跟踪主力资金动向的核心工具。</div>
+      </section>
+
+      <!-- ====== 国债收益率 ====== -->
+      <section class="card view" id="sec-treasury">
+        <h2>国债收益率 <span class="hint">（无风险利率锚 · 股债跷跷板）</span></h2>
+        <div id="treasury-chart" style="width:100%;height:200px;"><div class="placeholder">图表加载中…</div></div>
+        <div class="phase-note">国债收益率是无风险利率的锚——收益率上行利空成长股，下行利好；曲线倒挂（短端>长端）通常预示衰退。</div>
+      </section>
+
+      <!-- ====== 沪深300估值 ====== -->
+      <section class="card view" id="sec-csi300val">
+        <h2>沪深300估值 <span class="hint">（PE/PB 历史分位 · 判断市场贵还是便宜）</span></h2>
+        <div class="csi300-val" id="csi300val-display"><div class="placeholder">暂无数据</div></div>
+        <div class="phase-note">PE/PB 估值分位数是判断市场整体贵贱的核心依据——低于30分位为低估区间，高于70分位为高估区间。</div>
+      </section>
+
+      <!-- ====== 可转债 ====== -->
+      <section class="card view" id="sec-cb">
+        <h2>可转债 <span class="hint">（集思录双低策略 · 低价+低溢价）</span></h2>
+        <div class="sector-summary" id="cb-stats"><div class="placeholder">暂无数据</div></div>
+        <table class="fx" id="cb-tbl">
+          <thead><tr><th>转债名称</th><th class="num">价格</th><th class="num">溢价率</th><th class="num">双低值</th><th class="num">涨跌幅</th></tr></thead>
+          <tbody><tr><td colspan="5" class="placeholder">暂无数据</td></tr></tbody>
+        </table>
+        <div class="phase-note">双低策略（低价+低溢价）是可转债经典策略——双低值越低，攻守兼备性越好。</div>
+      </section>
+
+      <!-- ====== 自动化引擎面板 (finance-agent-homepage 增强) ====== -->
+      <section class="card view" id="sec-automation">
+        <h2>🤖 自动化引擎 <span class="hint">（Agent 状态监控）</span></h2>
+        <div class="auto-panel">
+          <div class="auto-status-row">
+            <div class="auto-status-indicator">
+              <span class="auto-dot pulse" id="autoDot"></span>
+              <span class="auto-label" id="autoLabel">Agent Ready</span>
+            </div>
+            <button class="btn-run-agent" id="btnRunAgent" title="手动触发数据采集">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2v12l10-6L4 2z" fill="currentColor"/></svg>
+              立即运行
+            </button>
+          </div>
+          <div class="auto-info-grid">
+            <div class="auto-info-item">
+              <span class="info-label">上次运行</span>
+              <span class="info-value" id="lastRunTime">—</span>
+            </div>
+            <div class="auto-info-item">
+              <span class="info-label">下次运行</span>
+              <span class="info-value" id="nextRunTime">—</span>
+            </div>
+            <div class="auto-info-item">
+              <span class="info-label">倒计时</span>
+              <span class="info-value countdown" id="countdown">—:—:—</span>
+            </div>
+            <div class="auto-info-item">
+              <span class="info-label">累计运行</span>
+              <span class="info-value" id="totalRuns">—</span>
+            </div>
+          </div>
+          <div class="terminal">
+            <div class="terminal-header">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-title">automation.log</span>
+            </div>
+            <pre class="terminal-body" id="terminalBody"><span class="log-dim">等待数据加载...</span></pre>
+          </div>
+          <div class="run-progress" id="runProgress" style="display:none;">
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <p class="progress-step" id="progressStep">初始化...</p>
+          </div>
+        </div>
+        <div class="phase-note">
+          这是「自动化」主题的核心展示板块：脉动状态灯、终端日志、运行倒计时、手动触发按钮。
+          真实生产环境中，Python 智能体通过 GitHub Actions / cron 每天 08:00 自动运行。
+        </div>
+      </section>
+
+      <!-- 自动化运行日志 -->
+      <section class="card view" id="sec-logs">
+        <h2>自动化运行日志</h2>
+        <div class="log" id="logs"><div class="placeholder">暂无日志</div></div>
+      </section>
+
+      <footer>
+        数据源：<span id="source">—</span> · 本页面完全由自动化流水线生成与发布 ·
+        <span style="color:var(--muted)">仅供学习研究，不构成投资建议</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ECharts CDN（加载失败时前端自动降级为纯 CSS） -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"
+          onerror="window.__ECHARTS_FAILED__=true"></script>
+  <!-- Chart.js (用于投资组合环形图) -->
+  <script src="lib/chart.umd.min.js"></script>
+  <!-- 数据文件 (由 fetch_data.py 自动生成) -->
+  <script src="data.js"></script>
+  <!-- 前端渲染引擎 -->
+  <script src="js/app.js"></script>
+  <!-- 自动化面板 + 投资组合增强 -->
+  <script src="js/automation-enhance.js"></script>
+</body>
+</html>
