@@ -1263,8 +1263,8 @@ def build_payload() -> dict:
         "updated_at_iso": now_beijing().isoformat(),
         "timezone": "Asia/Shanghai",
         "status": "ok",
-        "source": "bootstrap",
-        "message": "自动化流水线已跑通（Phase 1 基础链路）",
+        "source": "akshare",
+        "message": "本页数据由 GitHub Actions 自动抓取，部分数据源可能因网络波动降级。",
         "indices": [],                       # Phase 2 由 AKShare 填充
         "news": [],                          # Phase 3 由多源 RSS + 财联社填充
         "sectors": [],                       # Phase 4 由 AKShare 行业板块填充
