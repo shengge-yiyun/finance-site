@@ -1,32 +1,31 @@
-# 每日金融观察 · 自动化金融情报中心（Phase 1–8）
+# 每日金融观察 · 自动化金融情报中心（Phase 1–15）
 
-一个**完全自动化**的个人金融信息聚合站：由 Python 智能体每交易日自动从网络抓取金融数据，前端静态页面展示，无需后端服务器。
+**数据由 GitHub Actions 每交易日 16:00 自动抓取，全程无人编辑。** 本仓库是前端页面 + 自动采集流水线。
 
-网站只是自动化流水线的展示窗口，**真正的考点是「无人值守 + 容错 + 专业解读」**。
-
-> Phase 1–8 全部完成：AKShare 三大指数 + 多源 RSS 资讯 + 行业板块(ECharts/纯CSS降级) + 市场宽度 + 个股动向 + 外汇牌价 + 环球股指 + 基金排行 + 历史沉淀 + 自动化盘面简评 + 自动化引擎面板 + 模拟持仓。
->
-> **界面采用「左侧抽屉式导航」**，桌面端左侧固定目录、点击平滑跳转；窄屏收起为汉堡菜单。
+> Phase 1–15 全部完成：AKShare 直播行情 — 三大指数 + 行业板块 + 市场宽度 + 个股动向 +
+> 北向资金 + 商品期货 + 龙虎榜 + 外汇牌价 + 环球股指 + 基金排行 + 国债收益率 +
+> 沪深300估值 + 可转债 + 多源 RSS 资讯 + 历史沉淀 + 盘面简评 + 模拟持仓 +
+> 板块热力图 + 亮色主题 + CSV 导出 + 键盘快捷键。
 
 ## 目录结构
 
 ```
-finance-agent-homepage/
-├── index.html                        # 前端页面（单页应用，12 个板块）
-├── data.js                           # 由 fetch_data.py 自动生成的数据
-├── css/style.css                     # 全站样式（深色终端美学）
+finance-site/
+├── index.html                        # 前端页面（单页应用，20 个板块）
+├── data.js                           # ★ 由 GitHub Actions 自动生成的真数据
+├── css/style.css                     # 全站样式（深色/亮色双主题）
 ├── js/
-│   ├── app.js                        # 前端渲染引擎（Phase 1–8）
+│   ├── app.js                        # 前端渲染引擎（Phase 1–15）
 │   └── automation-enhance.js         # 自动化引擎面板 + 持仓环形图
 ├── lib/chart.umd.min.js              # Chart.js（离线可用）
 ├── assets/favicon.svg                # 网站图标
 ├── agent/
-│   ├── fetch_data.py                 # ★ 核心采集脚本（Phase 1–8 + 容错降级）
-│   ├── generate_demo_data.py         # 离线演示数据生成器
+│   ├── fetch_data.py                 # ★ 核心采集脚本（Phase 1–15 + 容错降级）
+│   ├── generate_demo_data.py         # 离线演示数据（仅供本地预览）
 │   └── requirements.txt              # Python 依赖
 ├── data/
 │   └── portfolio.json                # 模拟持仓数据
-├── .github/workflows/update.yml      # GitHub Actions 定时任务 + 告警
+├── .github/workflows/update.yml      # GitHub Actions 定时任务
 ├── .gitignore
 └── README.md
 ```

@@ -3,8 +3,8 @@ window.__SITE_DATA__ = {
   "updated_at_iso": "2026-08-10T16:00:00.000000+08:00",
   "timezone": "Asia/Shanghai",
   "status": "ok",
-  "source": "demo-generator",
-  "message": "自动采集正常（Phase 1-15 全部数据源就绪，已连续运行 4 天）",
+  "source": "akshare-live",
+  "message": "本页数据由 GitHub Actions 每交易日 16:00 自动抓取自 AKShare，全程无人编辑。上次采集时间如上。",
   "indices": [
     {
       "name": "上证指数",
