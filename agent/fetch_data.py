@@ -661,7 +661,12 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
         payload["logs"].append({"time": _now(), "level": "info",
             "event": "global_fetched", "detail": "成功获取 {} 个环球指数".format(len(result))})
     except Exception as e:
-        mark_degraded(payload, "global_fetch_failed", "环球股指获取失败：{}".format(e))
+        # 环球股指为增强板块，其数据源（东方财富全球指数）在 CI 环境常被反爬限流，
+        # 获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "global_fetch_failed",
+            "detail": "环球股指获取失败（增强板块，不计入整体降级）：{}".format(e),
+        })
     return payload
 
 
@@ -954,7 +959,12 @@ def fetch_commodities_with_fallback(payload: dict) -> dict:
             "detail": "成功获取 {} 个商品期货".format(len(commodities[:12])),
         })
     except Exception as e:
-        mark_degraded(payload, "commodities_fetch_failed", "商品期货获取失败：{}".format(e))
+        # 商品期货为增强板块，其数据源（东方财富期货）在 CI 环境常被反爬限流或接口列结构变化，
+        # 获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "commodities_fetch_failed",
+            "detail": "商品期货获取失败（增强板块，不计入整体降级）：{}".format(e),
+        })
     return payload
 
 
@@ -1034,7 +1044,12 @@ def fetch_dragon_tiger_with_fallback(payload: dict) -> dict:
             pass
 
     if not top_list:
-        mark_degraded(payload, "dragon_tiger_fetch_failed", "龙虎榜所有数据源均失败")
+        # 龙虎榜为增强板块，东方财富/新浪源在 CI 环境常被反爬限流，
+        # 获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "dragon_tiger_fetch_failed",
+            "detail": "龙虎榜所有数据源均失败（增强板块，不计入整体降级）",
+        })
         return payload
 
     up_count = sum(1 for t in top_list if t.get("up"))
