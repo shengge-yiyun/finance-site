@@ -12,7 +12,7 @@ GitHub Actions 在每个交易日北京时间 16:00 自动运行本脚本，
 2. 外部数据源（AKShare 指数 / 多源 RSS 资讯）通过「重试退避 + 多源并联 + 异常回退」接入：
    - 单源失败只记一条 warn 日志，不影响其他源；
    - 所有源都失败才 mark_degraded（状态降级 + error 日志）。
-3. 进程退出码恒为 0，把“失败”体现在数据里而非进程里，
+3. 进程退出码恒为 0，把"失败"体现在数据里而非进程里，
    避免 GitHub Pages 因 Action 失败而停更；真正的失败由工作流读取 status 自动开 Issue 告警。
 
 红涨绿跌：A股惯例，change_pct >= 0 记 up=True（前端红色），否则绿色。
@@ -23,6 +23,7 @@ import os
 import re
 import sys
 import time
+import random
 import email.utils
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -38,11 +39,11 @@ BEIJING = timezone(timedelta(hours=8))
 # 目标指数（按名称匹配，名称比代码更稳定）
 TARGET_INDICES = ["上证指数", "深证成指", "创业板指"]
 
-# 财经 RSS 多源（可自由替换为你常用的源；任一流失败不影响其他源）
+# 财经 RSS 多源（单源失败不影响其他源；已替换失效源为 rsshub 镜像）
 RSS_FEEDS = [
-    {"name": "36氪", "url": "https://36kr.com/feed"},
-    {"name": "华尔街见闻", "url": "https://wallstreetcn.com/rss/news"},
-    {"name": "新浪财经", "url": "https://finance.sina.com.cn/rss/rollnews.xml"},
+    {"name": "新浪财经", "url": "https://finance.sina.com.cn/rss/finance.xml"},
+    {"name": "东方财富快讯", "url": "https://rsshub.app/eastmoney/kuaixun"},
+    {"name": "财联社电报", "url": "https://rsshub.app/cls/telegraph"},
 ]
 
 NEWS_LIMIT = 20          # 页面最多展示的资讯条数
@@ -72,6 +73,21 @@ def _retry(func, tries: int = 3, base_delay: float = 2.0):
     raise last
 
 
+def _em_with_fallback(primary, secondary=None):
+    """
+    EM 反爬兜底：先试主接口(东方财富)，失败再试备用接口(新浪/同花顺)。
+    两个接口命中不同服务器，EM 被限流时备用源通常仍可返回，避免整段降级。
+    调用前随机停顿 0.5~2.5s，降低触发 EM 连续封锁的概率。
+    """
+    time.sleep(random.uniform(0.5, 2.5))
+    try:
+        return _retry(primary)
+    except Exception:
+        if secondary is None:
+            raise
+        return _retry(secondary)
+
+
 def mark_degraded(payload: dict, event: str, detail: str) -> None:
     """把整体状态标记为 degraded，并追加一条 error 日志（不覆盖已有的 ok 来源信息）。"""
     payload["status"] = "degraded"
@@ -86,7 +102,7 @@ def mark_degraded(payload: dict, event: str, detail: str) -> None:
 def mark_ok(payload: dict) -> None:
     """
     仅在尚未因其他源失败而降级时，把状态标回 ok；
-    避免“后成功的数据源”覆盖掉“先失败的数据源”留下的降级信号
+    避免"后成功的数据源"覆盖掉"先失败的数据源"留下的降级信号
     （否则页面某板块已空的降级，却因后面板块成功而显示 OK、不触发告警）。
     注意：此函数只读取 status，不递归调用自身。
     """
@@ -114,7 +130,8 @@ def fetch_indices_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_zh_index_spot_em())
+        df = _em_with_fallback(lambda: ak.stock_zh_index_spot_em(),
+                                lambda: ak.stock_zh_index_spot_sina())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -211,7 +228,26 @@ def is_real_link(link: str) -> bool:
 
 
 def parse_rss(url: str) -> list:
-    """解析 RSS 2.0 与 Atom，返回新闻项列表（不抛异常，由调用方负责重试/容错）。"""
+    """解析 RSS 2.0 与 Atom，返回新闻项列表（不抛异常，由调用方负责重试/容错）。
+
+    优先用 feedparser（容错强、自动处理编码/命名空间/CDATA），
+    未安装时回退到标准库 xml.etree 的轻量解析。
+    """
+    try:
+        import feedparser  # type: ignore
+        d = feedparser.parse(url)
+        items = []
+        for e in d.entries:
+            link = e.get("link", "")
+            items.append(_make_news(
+                e.get("title", ""), link,
+                e.get("published", e.get("updated", "")),
+                e.get("summary", e.get("description", ""))))
+        if items:
+            return items
+    except Exception:
+        pass
+    # 回退：标准库轻量解析
     xml = _fetch_text(url)
     root = ET.fromstring(xml)
     items = []
@@ -332,7 +368,8 @@ def fetch_sectors_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_board_industry_name_em())
+        df = _em_with_fallback(lambda: ak.stock_board_industry_name_em(),
+                                lambda: ak.stock_board_industry_name_ths())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -409,7 +446,8 @@ def fetch_breadth_and_movers_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_zh_a_spot_em())
+        df = _em_with_fallback(lambda: ak.stock_zh_a_spot_em(),
+                                lambda: ak.stock_zh_a_spot())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -463,7 +501,11 @@ def fetch_breadth_and_movers_with_fallback(payload: dict) -> dict:
 
 
 def fetch_fx_with_fallback(payload: dict) -> dict:
-    """Phase 5-B：中国银行外汇牌价（美元/欧元/日元/港币/英镑），可靠且无需行情接口。"""
+    """Phase 5-B：中国外汇牌价（美元/欧元/日元/港币/英镑）。
+    兼容新旧两种 currency_boc_safe() 返回格式：
+    - 新格式：日期为行、货币为列（时间序列，SAFE 中间价）
+    - 旧格式：每行为一种货币，含现汇买入/卖出价列
+    """
     try:
         import akshare as ak
     except ImportError:
@@ -479,21 +521,41 @@ def fetch_fx_with_fallback(payload: dict) -> dict:
             raise RuntimeError("akshare 返回空数据")
 
         wanted = ["美元", "欧元", "日元", "港币", "英镑"]
-        name_col = "货币名称" if "货币名称" in df.columns else df.columns[0]
-        buy_col = "现汇买入价" if "现汇买入价" in df.columns else None
-        sell_col = "现汇卖出价" if "现汇卖出价" in df.columns else None
-
         items = []
-        for _, r in df.iterrows():
-            nm = str(r[name_col])
-            if any(w == nm or w in nm for w in wanted):
-                items.append({
-                    "name": nm,
-                    "buy": round(float(r[buy_col]), 4) if buy_col is not None else None,
-                    "sell": round(float(r[sell_col]), 4) if sell_col is not None else None,
-                })
+
+        # 检测新格式：货币名直接是列名（时间序列格式，每列=一种货币的中间价）
+        currency_cols = [c for c in df.columns if any(w in str(c) for w in wanted)]
+
+        if currency_cols:
+            # 新格式：取最新一行，各货币列的值即为中间价
+            latest = df.iloc[-1]
+            for col in currency_cols:
+                nm = str(col)
+                try:
+                    rate = float(latest[col])
+                    items.append({
+                        "name": nm,
+                        "buy": round(rate, 4),
+                        "sell": round(rate, 4),  # SAFE 中间价无买卖差价
+                    })
+                except (ValueError, TypeError):
+                    pass
+        else:
+            # 旧格式：逐行匹配货币名称，提取买入/卖出价
+            name_col = next((c for c in df.columns if ("货币" in c or "名称" in c)), df.columns[0])
+            buy_col = next((c for c in df.columns if "现汇买入" in c or ("买入" in c and "价" in c)), None)
+            sell_col = next((c for c in df.columns if "现汇卖出" in c or ("卖出" in c and "价" in c)), None)
+            for _, r in df.iterrows():
+                nm = str(r[name_col]).strip()
+                if any(w in nm for w in wanted):
+                    items.append({
+                        "name": nm,
+                        "buy": round(float(r[buy_col]), 4) if buy_col is not None else None,
+                        "sell": round(float(r[sell_col]), 4) if sell_col is not None else None,
+                    })
+
         if not items:
-            raise RuntimeError("未匹配到目标货币")
+            raise RuntimeError("未匹配到目标货币，列名={}".format(list(df.columns)))
 
         payload["fx"] = items
         mark_ok(payload)
@@ -533,7 +595,8 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.index_global_spot_em())
+        df = _em_with_fallback(lambda: ak.index_global_spot_em(),
+                                lambda: ak.index_global_spot_sina())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -633,6 +696,7 @@ def fetch_funds_with_fallback(payload: dict) -> dict:
 def fetch_northbound_with_fallback(payload: dict) -> dict:
     """
     Phase 9：北向资金（沪深港通）每日净流入/流出，外资情绪风向标。
+    多 API 级联回退：fund_flow_summary → north_net_flow_in → hist_em
     失败降级，不影响其他板块。
     """
     try:
@@ -644,56 +708,102 @@ def fetch_northbound_with_fallback(payload: dict) -> dict:
         })
         return payload
 
+    northbound = None
+
+    # 方案1：沪深港通资金流向汇总（最新版 AKShare 推荐接口）
     try:
-        df = _retry(lambda: ak.stock_hsgt_north_net_flow_in_em())
-        if df is None or getattr(df, "empty", True):
-            raise RuntimeError("akshare 返回空数据")
+        df = _retry(lambda: ak.stock_hsgt_fund_flow_summary_em())
+        if df is not None and not getattr(df, "empty", True):
+            date_col = next((c for c in ["date", "日期", "交易日"] if c in df.columns), df.columns[0])
+            flow_col = next((c for c in ["north_net_flow", "北向净流入", "net_flow", "当日资金流入"] if c in df.columns), None)
+            if flow_col:
+                sub = df.tail(20)
+                northbound = []
+                for _, r in sub.iterrows():
+                    date_str = str(r[date_col])
+                    net_flow = float(r[flow_col])
+                    if date_str:
+                        northbound.append({
+                            "date": date_str[:10] if len(date_str) >= 10 else date_str,
+                            "net_flow": round(net_flow, 2),
+                            "up": net_flow >= 0,
+                        })
+    except Exception:
+        pass
 
-        # 取最近 20 个交易日
-        df = df.tail(20)
-        northbound = []
-        for _, r in df.iterrows():
-            date_str = str(r.get("date", r.get("日期", "")))
-            net_flow = None
-            for col in ["value", "净流入", "net_flow", "当日资金流入"]:
-                if col in df.columns:
-                    net_flow = float(r[col])
-                    break
-            if net_flow is not None and date_str:
-                northbound.append({
-                    "date": date_str[:10] if len(date_str) >= 10 else date_str,
-                    "net_flow": round(net_flow, 2),
-                    "up": net_flow >= 0,
-                })
+    # 方案2：旧版北向资金净流入接口
+    if not northbound:
+        try:
+            df = _retry(lambda: ak.stock_hsgt_north_net_flow_in_em())
+            if df is not None and not getattr(df, "empty", True):
+                sub = df.tail(20)
+                northbound = []
+                for _, r in sub.iterrows():
+                    date_str = str(r.get("date", r.get("日期", "")))
+                    net_flow = None
+                    for col in ["value", "净流入", "net_flow", "当日资金流入"]:
+                        if col in df.columns:
+                            net_flow = float(r[col])
+                            break
+                    if net_flow is not None and date_str:
+                        northbound.append({
+                            "date": date_str[:10] if len(date_str) >= 10 else date_str,
+                            "net_flow": round(net_flow, 2),
+                            "up": net_flow >= 0,
+                        })
+        except Exception:
+            pass
 
-        if not northbound:
-            raise RuntimeError("北向资金数据为空")
+    # 方案3：北向资金历史数据
+    if not northbound:
+        try:
+            df = _retry(lambda: ak.stock_hsgt_hist_em(symbol="北向资金"))
+            if df is not None and not getattr(df, "empty", True):
+                sub = df.tail(20)
+                northbound = []
+                for _, r in sub.iterrows():
+                    date_str = str(r.get("日期", r.get("date", "")))
+                    net_flow = None
+                    for col in ["当日资金流入", "净流入", "资金流入", "net_flow"]:
+                        if col in df.columns:
+                            net_flow = float(r[col])
+                            break
+                    if net_flow is not None and date_str:
+                        northbound.append({
+                            "date": date_str[:10] if len(date_str) >= 10 else date_str,
+                            "net_flow": round(net_flow, 2),
+                            "up": net_flow >= 0,
+                        })
+        except Exception:
+            pass
 
-        # 计算累计、连续净流入天数等摘要
-        total_net = sum(n["net_flow"] for n in northbound)
-        recent_5 = northbound[-5:]
-        avg_5 = sum(n["net_flow"] for n in recent_5) / len(recent_5)
-        streak = 0
-        for n in reversed(northbound):
-            if n["up"]:
-                streak += 1
-            else:
-                break
+    if not northbound:
+        mark_degraded(payload, "northbound_fetch_failed", "北向资金所有接口均失败")
+        return payload
 
-        payload["northbound"] = {
-            "daily": northbound,
-            "total_net_20d": round(total_net, 2),
-            "avg_net_5d": round(avg_5, 2),
-            "inflow_streak": streak,
-        }
-        mark_ok(payload)
-        payload["logs"].append({
-            "time": _now(), "level": "info", "event": "northbound_fetched",
-            "detail": "北向资金 20 日累计{}亿，连续{}日净流入".format(
-                round(total_net, 1), streak),
-        })
-    except Exception as e:
-        mark_degraded(payload, "northbound_fetch_failed", "北向资金获取失败：{}".format(e))
+    # 计算累计、连续净流入天数等摘要
+    total_net = sum(n["net_flow"] for n in northbound)
+    recent_5 = northbound[-5:]
+    avg_5 = sum(n["net_flow"] for n in recent_5) / len(recent_5) if recent_5 else 0
+    streak = 0
+    for n in reversed(northbound):
+        if n["up"]:
+            streak += 1
+        else:
+            break
+
+    payload["northbound"] = {
+        "daily": northbound,
+        "total_net_20d": round(total_net, 2),
+        "avg_net_5d": round(avg_5, 2),
+        "inflow_streak": streak,
+    }
+    mark_ok(payload)
+    payload["logs"].append({
+        "time": _now(), "level": "info", "event": "northbound_fetched",
+        "detail": "北向资金 20 日累计{}亿，连续{}日净流入".format(
+            round(total_net, 1), streak),
+    })
     return payload
 
 
@@ -706,7 +816,8 @@ def fetch_turnover_with_fallback(payload: dict) -> dict:
     # 如果能从已有的全市场数据里拿到成交额列，直接复用
     try:
         import akshare as ak
-        df = _retry(lambda: ak.stock_zh_a_spot_em())
+        df = _em_with_fallback(lambda: ak.stock_zh_a_spot_em(),
+                                lambda: ak.stock_zh_a_spot())
         if df is not None and not getattr(df, "empty", True):
             turnover_col = next((c for c in ["成交额", "turnover", "成交金额"] if c in df.columns), None)
             if turnover_col:
@@ -1106,8 +1217,8 @@ def _extract_index_pct(indices, name):
 def generate_commentary(payload: dict) -> dict:
     """
     Phase 8：根据已抓取的指数 / 市场宽度 / 行业板块，自动生成结构化盘面简评。
-    这是从“搬运数据”升级到“专业解读”的关键一步：所有结论都由真实数据推导，
-    不编造；数据不足时给出“数据暂缺”的诚实提示，而非空谈。
+    这是从"搬运数据"升级到"专业解读"的关键一步：所有结论都由真实数据推导，
+    不编造；数据不足时给出"数据暂缺"的诚实提示，而非空谈。
     简评不改变 status（纯衍生解读），不触发降级，但会记入日志。
     """
     items = []
@@ -1382,7 +1493,7 @@ def main() -> None:
         }
         write_data_js(fallback)
         print(f"[WARN] 脚本异常，已写入兜底数据：{e}")
-        sys.exit(0)  # 退出码 0：避免流水线被判失败而停摆，把“失败”体现在数据里而非进程里
+        sys.exit(0)  # 退出码 0：避免流水线被判失败而停摆，把"失败"体现在数据里而非进程里
 
 
 if __name__ == "__main__":
