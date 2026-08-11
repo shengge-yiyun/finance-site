@@ -550,22 +550,6 @@ def fetch_fx_with_fallback(payload: dict) -> dict:
             raise RuntimeError("akshare 返回空数据")
 
         wanted = ["美元", "欧元", "日元", "港币", "英镑"]
-<<<<<<< HEAD
-        # 健壮列名匹配：不同 akshare 版本列名略有差异，用“包含”语义兜底
-        name_col = next((c for c in df.columns if ("货币" in c or "名称" in c)), df.columns[0])
-        buy_col = next((c for c in df.columns if "现汇买入" in c or ("买入" in c and "价" in c)), None)
-        sell_col = next((c for c in df.columns if "现汇卖出" in c or ("卖出" in c and "价" in c)), None)
-
-        items = []
-        for _, r in df.iterrows():
-            nm = str(r[name_col]).strip()
-            if any(w in nm for w in wanted):
-                items.append({
-                    "name": nm,
-                    "buy": round(float(r[buy_col]), 4) if buy_col is not None else None,
-                    "sell": round(float(r[sell_col]), 4) if sell_col is not None else None,
-                })
-=======
         items = []
 
         # 检测新格式：货币名直接是列名（时间序列格式，每列=一种货币的中间价）
@@ -598,8 +582,6 @@ def fetch_fx_with_fallback(payload: dict) -> dict:
                         "buy": round(float(r[buy_col]), 4) if buy_col is not None else None,
                         "sell": round(float(r[sell_col]), 4) if sell_col is not None else None,
                     })
-
->>>>>>> 78471902ce8edf89cca5741d1f697f1dd4347516
         if not items:
             raise RuntimeError("未匹配到目标货币，列名={}".format(list(df.columns)))
 
@@ -641,12 +623,7 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-<<<<<<< HEAD
-        df = _em_with_fallback(lambda: ak.index_global_spot_em(),
-                                lambda: ak.index_global_spot_sina())
-=======
         df = _em_with_fallback(lambda: ak.index_global_spot_em())  # 无 Sina 备用（该 API 不存在）
->>>>>>> 78471902ce8edf89cca5741d1f697f1dd4347516
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
