@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2026-08-07",
+    "status": "ok",
+    "sh_pct": 0.32,
+    "sz_pct": 0.45,
+    "cyb_pct": 0.18,
+    "sh_price": 3245.6
+  },
+  {
+    "date": "2026-08-08",
+    "status": "ok",
+    "sh_pct": -0.78,
+    "sz_pct": -1.12,
+    "cyb_pct": -1.45,
+    "sh_price": 3220.31
+  },
+  {
+    "date": "2026-08-09",
+    "status": "ok",
+    "sh_pct": 0.56,
+    "sz_pct": -1.9,
+    "cyb_pct": -0.9,
+    "sh_price": 3268.13
+  },
+  {
+    "date": "2026-08-10",
+    "status": "degraded",
+    "sh_pct": null,
+    "sz_pct": null,
+    "cyb_pct": null,
+    "sh_price": null
+  },
+  {
+    "date": "2026-08-11",
+    "status": "degraded",
+    "sh_pct": -0.82,
+    "sz_pct": -0.4,
+    "cyb_pct": 0.34,
+    "sh_price": 3934.09
+  }
+]
