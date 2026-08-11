@@ -381,11 +381,10 @@ def fetch_sectors_with_fallback(payload: dict) -> dict:
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
-        # 统一列名（不同版本 akshare 列名可能略有差异）
+        # 统一列名（不同版本 akshare 列名可能略有差异；同花顺备用源列数较少）
         name_col = "板块名称" if "板块名称" in df.columns else df.columns[1]
-        pct_col = "涨跌幅" if "涨跌幅" in df.columns else df.columns[5]
-        up_col = "上涨家数" if "上涨家数" in df.columns else None
-        down_col = "下跌家数" if "下跌家数" in df.columns else None
+        ncols = len(df.columns)
+        pct_col = "涨跌幅" if "涨跌幅" in df.columns else (df.columns[5] if ncols > 5 else df.columns[-1])
         leader_col = "领涨股票" if "领涨股票" in df.columns else None
 
         rows = df.copy()
@@ -603,8 +602,7 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _em_with_fallback(lambda: ak.index_global_spot_em(),
-                                lambda: ak.index_global_spot_sina())
+        df = _em_with_fallback(lambda: ak.index_global_spot_em())  # 无 Sina 备用（该 API 不存在）
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -899,7 +897,7 @@ def fetch_commodities_with_fallback(payload: dict) -> dict:
 
     try:
         df = _em_with_fallback(lambda: ak.futures_zh_spot_em(),
-                                lambda: ak.futures_zh_spot_sina())
+                                lambda: ak.futures_zh_spot())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -1170,7 +1168,7 @@ def fetch_convertible_bonds_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.bond_cb_jsl())
+        df = _retry(lambda: ak.bond_cb_jsl(), tries=3, base_delay=5.0)  # 集思录偶发超时，加长重试间隔
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
