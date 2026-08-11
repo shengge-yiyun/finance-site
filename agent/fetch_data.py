@@ -36,8 +36,12 @@ DATA_JS_PATH = os.path.join(REPO_ROOT, "data.js")
 
 BEIJING = timezone(timedelta(hours=8))
 
-# 目标指数（按名称匹配，名称比代码更稳定）
-TARGET_INDICES = ["上证指数", "深证成指", "创业板指"]
+# 目标指数（按名称匹配，含多源名称变体：EM 用简称，Sina 可能用全称）
+TARGET_INDICES = [
+    {"name": "上证指数", "aliases": ["上证指数", "上证综合指数", "上证综指", "000001"]},
+    {"name": "深证成指", "aliases": ["深证成指", "深证成份指数", "深证成分指数", "399001"]},
+    {"name": "创业板指", "aliases": ["创业板指", "创业板指数", "399006"]},
+]
 
 # 财经 RSS 多源（单源失败不影响其他源；已替换失效源为 rsshub 镜像）
 RSS_FEEDS = [
@@ -136,17 +140,21 @@ def fetch_indices_with_fallback(payload: dict) -> dict:
             raise RuntimeError("akshare 返回空数据")
 
         indices = []
-        for name in TARGET_INDICES:
-            row = df[df["名称"] == name]
-            if row.empty:
+        for target in TARGET_INDICES:
+            row = None
+            for alias in target["aliases"]:
+                found = df[df["名称"].astype(str).str.contains(alias)]
+                if not found.empty:
+                    row = found.iloc[0]
+                    break
+            if row is None:
                 continue
-            r = row.iloc[0]
-            chg_pct = float(r["涨跌幅"])
+            chg_pct = float(row["涨跌幅"])
             indices.append({
-                "name": name,
-                "code": str(r["代码"]),
-                "price": round(float(r["最新价"]), 2),
-                "change": round(float(r["涨跌额"]), 2),
+                "name": target["name"],
+                "code": str(row["代码"]),
+                "price": round(float(row["最新价"]), 2),
+                "change": round(float(row["涨跌额"]), 2),
                 "change_pct": round(chg_pct, 2),
                 "up": chg_pct >= 0,          # 红涨绿跌
             })
@@ -329,8 +337,8 @@ def fetch_news_with_fallback(payload: dict) -> dict:
         })
 
     deduped = dedup_news(collected)
-    # 真实性约束：只保留带可验证原文链接的快讯（无链接 / 占位链接不上站）
-    kept = [n for n in deduped if is_real_link(n.get("link", ""))]
+    # 真实性约束：保留带可验证原文链接的快讯 或 来自 AKShare 直采的电报（财联社无外链但内容可靠）
+    kept = [n for n in deduped if is_real_link(n.get("link", "")) or n.get("source") == "财联社"]
     dropped = len(deduped) - len(kept)
     if dropped:
         payload["logs"].append({
@@ -890,7 +898,8 @@ def fetch_commodities_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.futures_zh_spot_em())
+        df = _em_with_fallback(lambda: ak.futures_zh_spot_em(),
+                                lambda: ak.futures_zh_spot_sina())
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -943,69 +952,81 @@ def fetch_dragon_tiger_with_fallback(payload: dict) -> dict:
         })
         return payload
 
+    top_list = None
+
+    # 方案1：东方财富龙虎榜个股详情（最全）
     try:
         today = now_beijing().strftime("%Y%m%d")
         df = _retry(lambda: ak.stock_lhb_hy_detail_em(date=today))
         if df is None or getattr(df, "empty", True):
-            # 尝试上一个交易日
             from datetime import timedelta as _td
             yesterday = (now_beijing() - _td(days=1)).strftime("%Y%m%d")
             df = _retry(lambda: ak.stock_lhb_hy_detail_em(date=yesterday))
+        if df is not None and not getattr(df, "empty", True):
+            name_col = next((c for c in ["名称", "股票名称"] if c in df.columns), df.columns[1])
+            code_col = next((c for c in ["代码", "股票代码"] if c in df.columns), df.columns[0])
+            close_col = next((c for c in ["收盘价", "最新价"] if c in df.columns), None)
+            pct_col = next((c for c in ["涨跌幅", "涨跌幅度"] if c in df.columns), None)
+            reason_col = next((c for c in ["上榜原因", "上榜理由"] if c in df.columns), None)
+            buy_col = next((c for c in ["买方机构净买入", "净买入"] if c in df.columns), None)
+            top_list = []
+            for _, r in df.head(20).iterrows():
+                item = {"name": str(r[name_col]), "code": str(r[code_col])}
+                if pct_col is not None:
+                    c = float(r[pct_col])
+                    item["change_pct"] = round(c, 2)
+                    item["up"] = c >= 0
+                if close_col is not None:
+                    try: item["price"] = round(float(r[close_col]), 2)
+                    except Exception: pass
+                if reason_col is not None:
+                    item["reason"] = str(r[reason_col])
+                if buy_col is not None:
+                    try: item["net_buy"] = round(float(r[buy_col]) / 1e4, 2)
+                    except Exception: pass
+                top_list.append(item)
+    except Exception:
+        pass
 
-        if df is None or getattr(df, "empty", True):
-            raise RuntimeError("龙虎榜数据为空")
+    # 方案2：新浪龙虎榜个股统计（EM 被阻断时的备用）
+    if not top_list:
+        try:
+            df = _retry(lambda: ak.stock_lhb_ggtj_sina())
+            if df is not None and not getattr(df, "empty", True):
+                name_col = next((c for c in ["股票名称", "名称", "name"] if c in df.columns), df.columns[0])
+                code_col = next((c for c in ["股票代码", "代码", "code"] if c in df.columns), None)
+                pct_col = next((c for c in ["涨跌幅", "change_pct"] if c in df.columns), None)
+                reason_col = next((c for c in ["上榜原因", "reason"] if c in df.columns), None)
+                top_list = []
+                for _, r in df.head(20).iterrows():
+                    item = {"name": str(r[name_col])}
+                    if code_col: item["code"] = str(r[code_col])
+                    if pct_col:
+                        try:
+                            c = float(r[pct_col])
+                            item["change_pct"] = round(c, 2)
+                            item["up"] = c >= 0
+                        except Exception: pass
+                    if reason_col: item["reason"] = str(r[reason_col])
+                    top_list.append(item)
+        except Exception:
+            pass
 
-        name_col = next((c for c in ["名称", "股票名称"] if c in df.columns), df.columns[1])
-        code_col = next((c for c in ["代码", "股票代码"] if c in df.columns), df.columns[0])
-        close_col = next((c for c in ["收盘价", "最新价"] if c in df.columns), None)
-        pct_col = next((c for c in ["涨跌幅", "涨跌幅度"] if c in df.columns), None)
-        reason_col = next((c for c in ["上榜原因", "上榜理由"] if c in df.columns), None)
-        buy_col = next((c for c in ["买方机构净买入", "净买入"] if c in df.columns), None)
+    if not top_list:
+        mark_degraded(payload, "dragon_tiger_fetch_failed", "龙虎榜所有数据源均失败")
+        return payload
 
-        top_list = []
-        for _, r in df.head(20).iterrows():
-            item = {
-                "name": str(r[name_col]),
-                "code": str(r[code_col]),
-            }
-            if pct_col is not None:
-                c = float(r[pct_col])
-                item["change_pct"] = round(c, 2)
-                item["up"] = c >= 0
-            if close_col is not None:
-                try:
-                    item["price"] = round(float(r[close_col]), 2)
-                except Exception:
-                    pass
-            if reason_col is not None:
-                item["reason"] = str(r[reason_col])
-            if buy_col is not None:
-                try:
-                    item["net_buy"] = round(float(r[buy_col]) / 1e4, 2)  # 转万元
-                except Exception:
-                    pass
-            top_list.append(item)
-
-        if not top_list:
-            raise RuntimeError("龙虎榜解析为空")
-
-        # 统计
-        up_count = sum(1 for t in top_list if t.get("up"))
-        down_count = len(top_list) - up_count
-
-        payload["dragon_tiger"] = {
-            "list": top_list,
-            "total": len(top_list),
-            "up_count": up_count,
-            "down_count": down_count,
-        }
-        mark_ok(payload)
-        payload["logs"].append({
-            "time": _now(), "level": "info", "event": "dragon_tiger_fetched",
-            "detail": "龙虎榜 {} 只上榜，{} 涨 {} 跌".format(len(top_list), up_count, down_count),
-        })
-    except Exception as e:
-        mark_degraded(payload, "dragon_tiger_fetch_failed", "龙虎榜获取失败：{}".format(e))
+    up_count = sum(1 for t in top_list if t.get("up"))
+    down_count = len(top_list) - up_count
+    payload["dragon_tiger"] = {
+        "list": top_list, "total": len(top_list),
+        "up_count": up_count, "down_count": down_count,
+    }
+    mark_ok(payload)
+    payload["logs"].append({
+        "time": _now(), "level": "info", "event": "dragon_tiger_fetched",
+        "detail": "龙虎榜 {} 只上榜，{} 涨 {} 跌".format(len(top_list), up_count, down_count),
+    })
     return payload
 
 
@@ -1029,20 +1050,30 @@ def fetch_treasury_with_fallback(payload: dict) -> dict:
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
-        # 取最新一行的关键期限
-        key_tenors = ["3M", "6M", "1Y", "2Y", "5Y", "10Y", "30Y"]
+        # 取最新一行的关键期限（兼容中英文列名）
+        key_patterns = {
+            "3M":  ["3M", "3m", "3月", "3个月", "三个月"],
+            "6M":  ["6M", "6m", "6月", "6个月", "六个月"],
+            "1Y":  ["1Y", "1y", "1年", "一年"],
+            "2Y":  ["2Y", "2y", "2年", "两年"],
+            "5Y":  ["5Y", "5y", "5年", "五年"],
+            "10Y": ["10Y", "10y", "10年", "十年"],
+            "30Y": ["30Y", "30y", "30年", "三十年"],
+        }
         yield_data = {}
-        for tenor in key_tenors:
-            col = next((c for c in df.columns if tenor in str(c).upper()), None)
-            if col is not None:
-                val = df.iloc[-1][col]
-                try:
-                    yield_data[tenor] = round(float(val), 4)
-                except Exception:
-                    pass
+        latest = df.iloc[-1]
+        for tenor, patterns in key_patterns.items():
+            for p in patterns:
+                col = next((c for c in df.columns if p in str(c)), None)
+                if col is not None:
+                    try:
+                        yield_data[tenor] = round(float(latest[col]), 4)
+                    except Exception:
+                        pass
+                    break  # 找到第一个匹配就停
 
         if not yield_data:
-            raise RuntimeError("未匹配到国债收益率数据")
+            raise RuntimeError("未匹配到国债收益率数据，列名={}".format(list(df.columns)))
 
         # 收益率曲线倒挂检测
         y10 = yield_data.get("10Y", 0)
