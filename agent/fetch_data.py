@@ -381,10 +381,31 @@ def fetch_sectors_with_fallback(payload: dict) -> dict:
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
-        # 统一列名（不同版本 akshare 列名可能略有差异；同花顺备用源列数较少）
+        # 统一列名（EM="涨跌幅"，同花顺/其他可能叫"涨幅"/"涨跌"/"change_pct"等）
         name_col = "板块名称" if "板块名称" in df.columns else df.columns[1]
         ncols = len(df.columns)
-        pct_col = "涨跌幅" if "涨跌幅" in df.columns else (df.columns[5] if ncols > 5 else df.columns[-1])
+        # 智能匹配涨跌幅列：优先按列名关键词，其次按"值范围像百分比"的列
+        pct_keywords = ["涨跌幅", "涨幅", "涨跌", "change", "pct", "变动"]
+        pct_col = None
+        for kw in pct_keywords:
+            for c in df.columns:
+                if kw in str(c).lower():
+                    pct_col = c
+                    break
+            if pct_col:
+                break
+        if pct_col is None:
+            # 最后手段：找值范围在 ±100 以内的数值列（涨跌幅特征，排除成交额/市值等大数）
+            for c in df.columns:
+                try:
+                    vals = df[c].astype(float)
+                    if vals.abs().max() < 100 and vals.abs().mean() < 15:
+                        pct_col = c
+                        break
+                except Exception:
+                    pass
+        if pct_col is None:
+            pct_col = df.columns[5] if ncols > 5 else df.columns[-1]
         leader_col = "领涨股票" if "领涨股票" in df.columns else None
 
         rows = df.copy()
