@@ -901,9 +901,11 @@ def fetch_commodities_with_fallback(payload: dict) -> dict:
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
-        name_col = next((c for c in ["名称", "name", "品种"] if c in df.columns), df.columns[1])
-        price_col = next((c for c in ["最新价", "price", "最新价格"] if c in df.columns), df.columns[2])
-        pct_col = next((c for c in ["涨跌幅", "change_pct", "涨跌幅度"] if c in df.columns), df.columns[5])
+        # 列名兼容：EM 用"名称"/"涨跌幅"，futures_zh_spot 用 contract/change
+        ncols = len(df.columns)
+        name_col = next((c for c in ["名称", "name", "品种", "contract"] if c in df.columns), df.columns[1] if ncols > 1 else df.columns[0])
+        price_col = next((c for c in ["最新价", "price", "最新价格"] if c in df.columns), df.columns[2] if ncols > 2 else None)
+        pct_col = next((c for c in ["涨跌幅", "change_pct", "涨跌幅度", "change"] if c in df.columns), df.columns[-1] if ncols > 1 else None)
 
         commodities = []
         for _, r in df.iterrows():
