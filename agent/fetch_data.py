@@ -29,6 +29,11 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 
+try:
+    import pandas as pd
+except ImportError:
+    pd = None
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.join(SCRIPT_DIR, "..")
 SITE_DIR = REPO_ROOT
@@ -360,12 +365,132 @@ def fetch_news_with_fallback(payload: dict) -> dict:
 
 
 # ───────────────────────── Phase 4：行业板块 ─────────────────────────
+def _looks_like_sector_code(s):
+    """判断字符串是否像板块代码（881xxx 纯数字），而非板块名称。"""
+    if s is None:
+        return True
+    t = str(s).strip()
+    if not t:
+        return True
+    # 881xxx 为东方财富行业板块代码；纯数字也视为代码
+    if re.fullmatch(r"\d+", t):
+        return True
+    if re.fullmatch(r"88\d{4}", t):
+        return True
+    return False
+
+
+def _resolve_sector_columns(df):
+    """
+    统一解析不同来源的行业板块 DataFrame，返回 (name_col, pct_col, leader_col)。
+    支持：同花顺 summary（列名"板块"/"涨跌幅"/"领涨股"）、东方财富（"板块名称"/"涨跌幅"/"领涨股票"）等。
+    """
+    cols = [str(c).strip() for c in df.columns]
+
+    # 名称列
+    for cand in ["板块名称", "板块", "name", "行业名称", "行业"]:
+        if cand in cols:
+            name_col = cand
+            break
+    else:
+        # 兜底：找第一个值不像代码的字符串列
+        name_col = None
+        for c in df.columns:
+            sample = df[c].dropna().astype(str).head(5).tolist()
+            if any(not _looks_like_sector_code(v) for v in sample):
+                name_col = c
+                break
+        if name_col is None:
+            name_col = df.columns[1] if len(df.columns) > 1 else df.columns[0]
+
+    # 涨跌幅列：先按名称匹配；若失败，按数值范围±30%筛选
+    pct_col = None
+    for cand in ["涨跌幅", "涨幅", "涨跌", "change_pct", "change", "pct"]:
+        if cand in cols:
+            pct_col = cand
+            break
+    if pct_col is None:
+        for c in df.columns:
+            try:
+                vals = pd.to_numeric(df[c], errors="coerce").dropna()
+                if len(vals) > 0 and vals.abs().max() <= 30 and vals.abs().mean() <= 15:
+                    pct_col = c
+                    break
+            except Exception:
+                pass
+    if pct_col is None:
+        raise RuntimeError("无法识别涨跌幅列，列名：{}".format(cols))
+
+    # 领涨股列（可选）
+    leader_col = None
+    for cand in ["领涨股票", "领涨股", "leader", "top_stock"]:
+        if cand in cols:
+            leader_col = cand
+            break
+
+    return name_col, pct_col, leader_col
+
+
+def _parse_sectors_from_df(df, source_name="akshare"):
+    """从已解析的 DataFrame 生成 sectors / sector_summary，并做合理性校验。"""
+    if df is None or getattr(df, "empty", True):
+        raise RuntimeError("返回空数据")
+
+    name_col, pct_col, leader_col = _resolve_sector_columns(df)
+
+    rows = df.copy()
+    rows[pct_col] = pd.to_numeric(rows[pct_col], errors="coerce")
+    rows = rows.dropna(subset=[name_col, pct_col])
+    if rows.empty:
+        raise RuntimeError("解析后无有效板块数据")
+
+    # 校验：名称不能是代码，涨跌幅不能是天量数字
+    bad_names = rows[name_col].apply(_looks_like_sector_code).sum()
+    bad_pcts = ((rows[pct_col].abs() > 50).sum())
+    if bad_names > len(rows) * 0.3 or bad_pcts > len(rows) * 0.3:
+        raise RuntimeError(
+            "字段映射异常：名称列含 {} 个疑似代码，涨跌幅列含 {} 个异常值".format(
+                int(bad_names), int(bad_pcts)))
+
+    rows = rows.sort_values(pct_col, ascending=False).reset_index(drop=True)
+
+    SECTOR_TOPN = 15
+    sectors = []
+    for _, r in rows.head(SECTOR_TOPN).iterrows():
+        chg = float(r[pct_col])
+        item = {
+            "name": str(r[name_col]).strip(),
+            "change_pct": round(chg, 2),
+            "up": chg >= 0,
+        }
+        if leader_col is not None:
+            item["leader"] = str(r[leader_col])
+        sectors.append(item)
+
+    up_count = int((rows[pct_col] >= 0).sum())
+    down_count = int((rows[pct_col] < 0).sum())
+    top_row = rows.iloc[0]
+    bottom_row = rows.iloc[-1]
+
+    summary = {
+        "total": len(rows),
+        "up_count": up_count,
+        "down_count": down_count,
+        "top_name": str(top_row[name_col]).strip(),
+        "top_pct": round(float(top_row[pct_col]), 2),
+        "bottom_name": str(bottom_row[name_col]).strip(),
+        "bottom_pct": round(float(bottom_row[pct_col]), 2),
+    }
+    return sectors, summary
+
+
 def fetch_sectors_with_fallback(payload: dict) -> dict:
     """
-    Phase 4：抓取东方财富行业板块涨跌，计算「板块强弱」——
+    Phase 4：抓取行业板块涨跌，计算「板块强弱」。
       1) sectors：按涨跌幅排序的前 N 个板块（供 ECharts 横向柱状图，红涨绿跌）；
-      2) sector_summary：上涨/下跌板块家数 + 领涨/领跌板块（体现金融专业性）。
-    失败（akshare 未装 / 接口异常 / 返回空）时降级，不影响指数与资讯。
+      2) sector_summary：上涨/下跌板块家数 + 领涨/领跌板块。
+    主源使用同花顺行业板块汇总（稳定性更好，字段清晰），失败再尝试东方财富接口。
+    解析结果若出现异常值（如把板块代码当名称/涨跌幅），自动降级，绝不把脏数据展示到页面。
     """
     try:
         import akshare as ak
@@ -377,83 +502,61 @@ def fetch_sectors_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _em_with_fallback(lambda: ak.stock_board_industry_name_em(),
-                                lambda: ak.stock_board_industry_name_ths())
-        if df is None or getattr(df, "empty", True):
-            raise RuntimeError("akshare 返回空数据")
+        import pandas as pd
+    except ImportError:
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "sectors_skipped",
+            "detail": "本地未检测到 pandas，跳过行业板块",
+        })
+        return payload
 
-        # 统一列名（EM="涨跌幅"，同花顺/其他可能叫"涨幅"/"涨跌"/"change_pct"等）
-        name_col = "板块名称" if "板块名称" in df.columns else df.columns[1]
-        ncols = len(df.columns)
-        # 智能匹配涨跌幅列：优先按列名关键词，其次按"值范围像百分比"的列
-        pct_keywords = ["涨跌幅", "涨幅", "涨跌", "change", "pct", "变动"]
-        pct_col = None
-        for kw in pct_keywords:
-            for c in df.columns:
-                if kw in str(c).lower():
-                    pct_col = c
-                    break
-            if pct_col:
-                break
-        if pct_col is None:
-            # 最后手段：找值范围在 ±100 以内的数值列（涨跌幅特征，排除成交额/市值等大数）
-            for c in df.columns:
-                try:
-                    vals = df[c].astype(float)
-                    if vals.abs().max() < 100 and vals.abs().mean() < 15:
-                        pct_col = c
-                        break
-                except Exception:
-                    pass
-        if pct_col is None:
-            pct_col = df.columns[5] if ncols > 5 else df.columns[-1]
-        leader_col = "领涨股票" if "领涨股票" in df.columns else None
+    last_err = None
 
-        rows = df.copy()
-        rows[pct_col] = rows[pct_col].astype(float)
-        rows = rows.sort_values(pct_col, ascending=False).reset_index(drop=True)
-
-        # 前 N 个板块（涨跌混合）供图表展示
-        SECTOR_TOPN = 15
-        top = rows.head(SECTOR_TOPN)
-        sectors = []
-        for _, r in top.iterrows():
-            chg = float(r[pct_col])
-            item = {
-                "name": str(r[name_col]),
-                "change_pct": round(chg, 2),
-                "up": chg >= 0,                 # 红涨绿跌
-            }
-            if leader_col is not None:
-                item["leader"] = str(r[leader_col])
-            sectors.append(item)
-
-        up_count = int((rows[pct_col] >= 0).sum())
-        down_count = int((rows[pct_col] < 0).sum())
-        top_row = rows.iloc[0]
-        bottom_row = rows.iloc[-1]
-
-        summary = {
-            "total": len(rows),
-            "up_count": up_count,
-            "down_count": down_count,
-            "top_name": str(top_row[name_col]),
-            "top_pct": round(float(top_row[pct_col]), 2),
-            "bottom_name": str(bottom_row[name_col]),
-            "bottom_pct": round(float(bottom_row[pct_col]), 2),
-        }
-
+    # 主源 1：同花顺行业板块汇总（含名称、涨跌幅、领涨股等）
+    try:
+        df = _retry(lambda: ak.stock_board_industry_summary_ths())
+        sectors, summary = _parse_sectors_from_df(df, source_name="ths")
         payload["sectors"] = sectors
         payload["sector_summary"] = summary
         mark_ok(payload)
         payload["message"] = "A股三大指数 + 财经快讯 + 行业板块已更新"
         payload["logs"].append({
             "time": _now(), "level": "info", "event": "sectors_fetched",
-            "detail": "成功获取 {} 个行业板块，上涨 {} / 下跌 {}".format(
+            "detail": "同花顺：成功获取 {} 个行业板块，上涨 {} / 下跌 {}".format(
                 summary["total"], summary["up_count"], summary["down_count"]),
         })
+        return payload
     except Exception as e:
-        mark_degraded(payload, "sectors_fetch_failed", "行业板块获取失败：{}".format(e))
+        last_err = e
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "sectors_primary_failed",
+            "detail": "同花顺行业板块失败：{}".format(e),
+        })
+
+    # 主源 2：东方财富行业板块（常被反爬，作为同花顺失败后的 fallback）
+    try:
+        df = _em_with_fallback(lambda: ak.stock_board_industry_name_em(),
+                                lambda: ak.stock_board_industry_name_ths())
+        sectors, summary = _parse_sectors_from_df(df, source_name="em")
+        payload["sectors"] = sectors
+        payload["sector_summary"] = summary
+        mark_ok(payload)
+        payload["message"] = "A股三大指数 + 财经快讯 + 行业板块已更新"
+        payload["logs"].append({
+            "time": _now(), "level": "info", "event": "sectors_fetched",
+            "detail": "东方财富：成功获取 {} 个行业板块，上涨 {} / 下跌 {}".format(
+                summary["total"], summary["up_count"], summary["down_count"]),
+        })
+        return payload
+    except Exception as e:
+        last_err = e
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "sectors_fallback_failed",
+            "detail": "东方财富行业板块失败：{}".format(e),
+        })
+
+    mark_degraded(payload, "sectors_fetch_failed",
+                  "行业板块获取失败：{}".format(last_err))
     return payload
 
 
