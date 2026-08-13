@@ -50,9 +50,9 @@
   {
     "date": "2026-08-13",
     "status": "ok",
-    "sh_pct": 0.42,
-    "sz_pct": 0.73,
-    "cyb_pct": 1.61,
-    "sh_price": 3963.15
+    "sh_pct": -0.5,
+    "sz_pct": -0.87,
+    "cyb_pct": -0.45,
+    "sh_price": 3926.96
   }
 ]
