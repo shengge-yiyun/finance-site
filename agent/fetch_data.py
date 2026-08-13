@@ -889,121 +889,6 @@ def fetch_funds_with_fallback(payload: dict) -> dict:
     return payload
 
 
-# ───────────────────────── Phase 9：北向资金 ─────────────────────────
-def fetch_northbound_with_fallback(payload: dict) -> dict:
-    """
-    Phase 9：北向资金（沪深港通）每日净流入/流出，外资情绪风向标。
-    多 API 级联回退：fund_flow_summary → north_net_flow_in → hist_em
-    失败降级，不影响其他板块。
-    """
-    try:
-        import akshare as ak
-    except ImportError:
-        payload["logs"].append({
-            "time": _now(), "level": "warn", "event": "northbound_skipped",
-            "detail": "本地未检测到 akshare，跳过北向资金；GitHub Actions 中已自动安装",
-        })
-        return payload
-
-    northbound = None
-
-    # 方案1：沪深港通资金流向汇总（最新版 AKShare 推荐接口）
-    try:
-        df = _retry(lambda: ak.stock_hsgt_fund_flow_summary_em())
-        if df is not None and not getattr(df, "empty", True):
-            date_col = next((c for c in ["date", "日期", "交易日"] if c in df.columns), df.columns[0])
-            flow_col = next((c for c in ["north_net_flow", "北向净流入", "net_flow", "当日资金流入"] if c in df.columns), None)
-            if flow_col:
-                sub = df.tail(20)
-                northbound = []
-                for _, r in sub.iterrows():
-                    date_str = str(r[date_col])
-                    net_flow = float(r[flow_col])
-                    if date_str:
-                        northbound.append({
-                            "date": date_str[:10] if len(date_str) >= 10 else date_str,
-                            "net_flow": round(net_flow, 2),
-                            "up": net_flow >= 0,
-                        })
-    except Exception:
-        pass
-
-    # 方案2：旧版北向资金净流入接口
-    if not northbound:
-        try:
-            df = _retry(lambda: ak.stock_hsgt_north_net_flow_in_em())
-            if df is not None and not getattr(df, "empty", True):
-                sub = df.tail(20)
-                northbound = []
-                for _, r in sub.iterrows():
-                    date_str = str(r.get("date", r.get("日期", "")))
-                    net_flow = None
-                    for col in ["value", "净流入", "net_flow", "当日资金流入"]:
-                        if col in df.columns:
-                            net_flow = float(r[col])
-                            break
-                    if net_flow is not None and date_str:
-                        northbound.append({
-                            "date": date_str[:10] if len(date_str) >= 10 else date_str,
-                            "net_flow": round(net_flow, 2),
-                            "up": net_flow >= 0,
-                        })
-        except Exception:
-            pass
-
-    # 方案3：北向资金历史数据
-    if not northbound:
-        try:
-            df = _retry(lambda: ak.stock_hsgt_hist_em(symbol="北向资金"))
-            if df is not None and not getattr(df, "empty", True):
-                sub = df.tail(20)
-                northbound = []
-                for _, r in sub.iterrows():
-                    date_str = str(r.get("日期", r.get("date", "")))
-                    net_flow = None
-                    for col in ["当日资金流入", "净流入", "资金流入", "net_flow"]:
-                        if col in df.columns:
-                            net_flow = float(r[col])
-                            break
-                    if net_flow is not None and date_str:
-                        northbound.append({
-                            "date": date_str[:10] if len(date_str) >= 10 else date_str,
-                            "net_flow": round(net_flow, 2),
-                            "up": net_flow >= 0,
-                        })
-        except Exception:
-            pass
-
-    if not northbound:
-        mark_degraded(payload, "northbound_fetch_failed", "北向资金所有接口均失败")
-        return payload
-
-    # 计算累计、连续净流入天数等摘要
-    total_net = sum(n["net_flow"] for n in northbound)
-    recent_5 = northbound[-5:]
-    avg_5 = sum(n["net_flow"] for n in recent_5) / len(recent_5) if recent_5 else 0
-    streak = 0
-    for n in reversed(northbound):
-        if n["up"]:
-            streak += 1
-        else:
-            break
-
-    payload["northbound"] = {
-        "daily": northbound,
-        "total_net_20d": round(total_net, 2),
-        "avg_net_5d": round(avg_5, 2),
-        "inflow_streak": streak,
-    }
-    mark_ok(payload)
-    payload["logs"].append({
-        "time": _now(), "level": "info", "event": "northbound_fetched",
-        "detail": "北向资金 20 日累计{}亿，连续{}日净流入".format(
-            round(total_net, 1), streak),
-    })
-    return payload
-
-
 # ───────────────────────── Phase 10：两市成交额 ─────────────────────────
 def fetch_turnover_with_fallback(payload: dict) -> dict:
     """
@@ -1281,35 +1166,49 @@ def fetch_csi300_val_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _retry(lambda: ak.stock_index_pe_lg(symbol="沪深300"))
-        if df is None or getattr(df, "empty", True):
-            raise RuntimeError("akshare 返回空数据")
+        # 乐咕乐股接口：沪深300 滚动市盈率 / 市净率历史序列（含每日，5000+ 行）
+        pe_df = _retry(lambda: ak.stock_index_pe_lg(symbol="沪深300"))
+        if pe_df is None or getattr(pe_df, "empty", True):
+            raise RuntimeError("akshare 返回空数据(PE)")
+        pb_df = _retry(lambda: ak.stock_index_pb_lg(symbol="沪深300"))
+        if pb_df is None or getattr(pb_df, "empty", True):
+            raise RuntimeError("akshare 返回空数据(PB)")
 
-        latest = df.iloc[-1]
-        pe = float(latest.get("PE", latest.get("市盈率", 0)))
-        pb = float(latest.get("PB", latest.get("市净率", 0)))
+        # PE：优先用「滚动市盈率(TTM)」，其次「静态市盈率」
+        pe_col = next((c for c in ["滚动市盈率", "静态市盈率", "市盈率"] if c in pe_df.columns), None)
+        if pe_col is None:
+            raise RuntimeError("PE 列未找到：{}".format(list(pe_df.columns)))
+        pe_series = pd.to_numeric(pe_df[pe_col], errors="coerce").dropna()
+        if pe_series.empty:
+            raise RuntimeError("PE 序列为空")
+        pe = float(pe_series.iloc[-1])
 
-        # 计算历史分位（简单方法）
-        pe_col = next((c for c in ["PE", "市盈率"] if c in df.columns), None)
-        if pe_col:
-            pe_series = df[pe_col].dropna().astype(float)
-            pe_pct = round((pe_series < pe).sum() / len(pe_series) * 100, 1)
-        else:
-            pe_pct = None
+        # PB：市净率
+        pb_col = next((c for c in ["市净率", "PB"] if c in pb_df.columns), None)
+        if pb_col is None:
+            raise RuntimeError("PB 列未找到：{}".format(list(pb_df.columns)))
+        pb_series = pd.to_numeric(pb_df[pb_col], errors="coerce").dropna()
+        if pb_series.empty:
+            raise RuntimeError("PB 序列为空")
+        pb = float(pb_series.iloc[-1])
 
-        pb_col = next((c for c in ["PB", "市净率"] if c in df.columns), None)
-        if pb_col:
-            pb_series = df[pb_col].dropna().astype(float)
-            pb_pct = round((pb_series < pb).sum() / len(pb_series) * 100, 1)
-        else:
-            pb_pct = None
+        # 历史分位：当前估值在全部历史样本中的百分位（小于当前值的比例）
+        pe_pct = round((pe_series < pe).mean() * 100, 1)
+        pb_pct = round((pb_series < pb).mean() * 100, 1)
+
+        # 取值日期（接口最新一行）
+        latest_date = now_beijing().strftime("%Y-%m-%d")
+        for dcol in ["日期", "date"]:
+            if dcol in pe_df.columns and pe_df.iloc[-1][dcol] is not None:
+                latest_date = str(pe_df.iloc[-1][dcol])[:10]
+                break
 
         payload["csi300_val"] = {
             "pe": round(pe, 2),
             "pb": round(pb, 2),
             "pe_percentile": pe_pct,
             "pb_percentile": pb_pct,
-            "date": now_beijing().strftime("%Y-%m-%d"),
+            "date": latest_date,
         }
         mark_ok(payload)
         payload["logs"].append({
@@ -1635,7 +1534,6 @@ def build_payload() -> dict:
         "fx": [],                            # Phase 5 外汇牌价
         "global_indices": [],                # Phase 6 环球股指（港股/美股/日股）
         "funds": [],                         # Phase 6 基金净值排行 TOP10
-        "northbound": {"daily": [], "total_net_20d": 0, "avg_net_5d": 0, "inflow_streak": 0},  # Phase 9
         "turnover": {},                    # Phase 10
         "commodities": [],                 # Phase 11
         "dragon_tiger": {"list": [], "total": 0, "up_count": 0, "down_count": 0},  # Phase 12
@@ -1659,7 +1557,6 @@ def build_payload() -> dict:
     payload = fetch_fx_with_fallback(payload)        # Phase 5-B 外汇牌价
     payload = fetch_global_indices_with_fallback(payload)  # Phase 6-A 环球股指
     payload = fetch_funds_with_fallback(payload)     # Phase 6-B 基金排行
-    payload = fetch_northbound_with_fallback(payload)     # Phase 9 北向资金
     payload = fetch_turnover_with_fallback(payload)       # Phase 10 两市成交额
     payload = fetch_commodities_with_fallback(payload)    # Phase 11 商品期货
     payload = fetch_dragon_tiger_with_fallback(payload)   # Phase 12 龙虎榜
@@ -1731,7 +1628,6 @@ def main() -> None:
             "fx": [],
             "global_indices": [],
             "funds": [],
-            "northbound": {"daily": [], "total_net_20d": 0, "avg_net_5d": 0, "inflow_streak": 0},
             "turnover": {},
             "commodities": [],
             "dragon_tiger": {"list": [], "total": 0, "up_count": 0, "down_count": 0},

@@ -26,7 +26,6 @@
       <a href="#sec-breadth" data-target="sec-breadth">市场宽度</a>
       <a href="#sec-movers" data-target="sec-movers">个股动向</a>
       <div class="nav-group-label">💰 资金</div>
-      <a href="#sec-northbound" data-target="sec-northbound">北向资金</a>
       <a href="#sec-turnover" data-target="sec-turnover">两市成交额</a>
       <a href="#sec-dragontiger" data-target="sec-dragontiger">龙虎榜</a>
       <div class="nav-group-label">🌍 跨资产</div>
@@ -66,8 +65,8 @@
         <h3 class="block-sub">今日要闻 <span class="hint">（由智能体根据当日市场数据自动总结）</span></h3>
         <div id="news-inline"><div class="placeholder">暂无资讯</div></div>
         <div class="phase-note">
-          Phase 1–15 全部完成：AKShare 直播行情（三大指数 + 行业板块 + 市场宽度 + 个股 + 北向资金 +
-          商品期货 + 龙虎榜 + 外汇 + 环球 + 基金 + 国债收益率 + 可转债 + 估值）+
+          Phase 1–15 全部完成：AKShare 直播行情（三大指数 + 行业板块 + 市场宽度 + 个股 +
+          商品期货 + 龙虎榜 + 外汇 + 环球 + 基金 + 国债收益率 + 可转债 + 沪深300估值）+
           多源 RSS 资讯 + 历史沉淀 + 盘面简评。本页由 GitHub Actions 每交易日 16:00 自动更新。
         </div>
       </section>
@@ -174,14 +173,6 @@
           <canvas id="portfolioChart" width="280" height="280"></canvas>
         </div>
         <div class="phase-note">模拟持仓数据由演示数据生成器 (<code>generate_demo_data.py</code>) 自动产出，演示投资组合追踪功能。</div>
-      </section>
-
-      <!-- ====== 北向资金 ====== -->
-      <section class="card view" id="sec-northbound">
-        <h2>北向资金 <span class="hint">（沪深港通 · 外资风向标 · 红入绿出）</span></h2>
-        <div class="sector-summary" id="northbound-stats"><div class="placeholder">暂无数据</div></div>
-        <div id="northbound-chart" style="width:100%;height:200px;"><div class="placeholder">图表加载中…</div></div>
-        <div class="phase-note">北向资金指通过沪深港通流入 A 股的境外资金，是判断外资对 A 股态度的重要指标。</div>
       </section>
 
       <!-- ====== 两市成交额 ====== -->

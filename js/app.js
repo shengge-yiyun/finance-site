@@ -109,7 +109,6 @@
     renderFx();
     renderGlobal();
     renderFunds();
-    renderNorthbound();
     renderTurnover();
     renderCommodities();
     renderDragonTiger();
@@ -622,54 +621,6 @@
     el.textContent = D.source || '—';
   }
 
-  // ======================== 北向资金 (Phase 9) ========================
-
-  function renderNorthbound() {
-    var summary = document.getElementById('northbound-stats');
-    var nb = D.northbound;
-    if (!nb || !nb.daily || !nb.daily.length) {
-      if (summary) summary.innerHTML = '<div class="placeholder">暂无北向资金数据</div>';
-      return;
-    }
-    if (summary) {
-      var cls20 = nb.total_net_20d >= 0 ? 'up' : 'down';
-      var cls5 = nb.avg_net_5d >= 0 ? 'up' : 'down';
-      summary.innerHTML =
-        '<div class="stat"><div class="k">20日累计</div><div class="v ' + cls20 + '">' + (nb.total_net_20d >= 0 ? '+' : '') + (nb.total_net_20d || 0).toFixed(1) + ' 亿</div></div>' +
-        '<div class="stat"><div class="k">5日均值</div><div class="v ' + cls5 + '">' + (nb.avg_net_5d >= 0 ? '+' : '') + (nb.avg_net_5d || 0).toFixed(1) + ' 亿</div></div>' +
-        '<div class="stat"><div class="k">连续净流入</div><div class="v">' + (nb.inflow_streak || 0) + ' 天</div></div>';
-    }
-    var viewEl = document.getElementById('sec-northbound');
-    if (viewEl && !viewEl.classList.contains('active')) return;
-    drawNorthboundChart();
-  }
-
-  function drawNorthboundChart() {
-    var chartDom = document.getElementById('northbound-chart');
-    if (!chartDom || !window.echarts) return;
-    var nb = D.northbound;
-    if (!nb || !nb.daily) return;
-    var dates = [], flows = [], colors = [];
-    for (var i = 0; i < nb.daily.length; i++) {
-      dates.push((nb.daily[i].date || '').slice(5));
-      flows.push(nb.daily[i].net_flow);
-      colors.push(nb.daily[i].up ? '#f04848' : '#2ec27e');
-    }
-    if (chartInstances['sec-northbound']) chartInstances['sec-northbound'].dispose();
-    var chart = window.echarts.init(chartDom);
-    chart.setOption({
-      grid: { top: 8, right: 16, bottom: 24, left: 50 },
-      xAxis: { type: 'category', data: dates, axisLabel: { color: '#8b949e', fontSize: 11 } },
-      yAxis: { type: 'value', axisLabel: { color: '#8b949e', formatter: '{value}亿' } },
-      series: [{
-        type: 'bar', data: flows,
-        itemStyle: { color: function(p) { return colors[p.dataIndex]; } }
-      }]
-    });
-    chartInstances['sec-northbound'] = chart;
-    chartRendered['sec-northbound'] = true;
-    chartDrawFns['sec-northbound'] = drawNorthboundChart;
-  }
 
   // ======================== 两市成交额 (Phase 10) ========================
 
@@ -935,11 +886,6 @@
       var sectors = D.sectors || [];
       if (sectors.length) { drawSectorChartOrFallback(); }
     }
-    // 北向资金图
-    if (viewId === 'sec-northbound' && !chartRendered['sec-northbound']) {
-      var nb = D.northbound;
-      if (nb && nb.daily && nb.daily.length) { drawNorthboundChart(); }
-    }
     // 热力图
     if (viewId === 'sec-heatmap' && !chartRendered['sec-heatmap']) {
       var sectors2 = D.sectors || [];
@@ -1151,7 +1097,6 @@
         '8': 'sec-fx',
         '9': 'sec-global',
         '0': 'sec-funds',
-        'q': 'sec-northbound',
         'w': 'sec-turnover',
         'e': 'sec-heatmap',
         'r': 'sec-commodities',
