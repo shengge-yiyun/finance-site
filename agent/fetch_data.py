@@ -718,18 +718,50 @@ def fetch_fx_with_fallback(payload: dict) -> dict:
 # 环球股指目标（单接口 index_global_spot_em 一次抓取，再按名称匹配；能匹配到几个显示几个）
 GLOBAL_TARGETS = [
     {"market": "港股", "names": ["恒生指数"]},
-    {"market": "美股", "names": ["纳斯达克", "纳斯达克指数"]},
-    {"market": "美股", "names": ["标普500", "标普500指数", "标普 500"]},
-    {"market": "美股", "names": ["道琼斯", "道琼斯指数", "道琼斯工业指数"]},
-    {"market": "日股", "names": ["日经225", "日经指数", "日经平均指数"]},
+    {"market": "美股", "names": ["纳斯达克"]},
+    {"market": "美股", "names": ["标普500"]},
+    {"market": "美股", "names": ["道琼斯"]},
+    {"market": "日股", "names": ["日经225"]},
 ]
+# Yahoo Finance 兜底（GitHub Actions 美国 IP 通常可直接访问，不受 EM 反爬影响）
+GLOBAL_YAHOO = [
+    ("港股", "恒生指数", "^HSI"),
+    ("美股", "纳斯达克", "^IXIC"),
+    ("美股", "标普500", "^GSPC"),
+    ("美股", "道琼斯", "^DJI"),
+    ("日股", "日经225", "^N225"),
+]
+
+
+def fetch_global_yahoo() -> list:
+    """用 Yahoo Finance 图表接口取港股/美股/日股主要指数，作为 EM 反爬时的兜底。"""
+    out = []
+    for market, name, sym in GLOBAL_YAHOO:
+        try:
+            url = "https://query1.finance.yahoo.com/v8/finance/chart/{}?interval=1d&range=1d".format(sym)
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            raw = urllib.request.urlopen(req, timeout=10).read()
+            meta = json.loads(raw)["chart"]["result"][0]["meta"]
+            price = meta.get("regularMarketPrice")
+            prev = meta.get("chartPreviousClose") or meta.get("previousClose")
+            chg = (price - prev) / prev * 100 if (isinstance(price, (int, float)) and prev) else None
+            out.append({
+                "market": market, "name": name,
+                "price": round(price, 2) if isinstance(price, (int, float)) else None,
+                "change_pct": round(chg, 2) if chg is not None else None,
+                "up": (chg >= 0) if chg is not None else False,
+            })
+        except Exception:
+            continue
+    return out
 
 
 def fetch_global_indices_with_fallback(payload: dict) -> dict:
     """
     Phase 6-A：环球股指（港股/美股/日股主要指数），红涨绿跌。
-    用单个 index_global_spot_em() 接口一次抓取全球主要指数，再按名称匹配目标指数；
-    能匹配到几个就显示几个，匹配到 0 个才整体降级（比拆多个接口更稳、失败面更小）。
+    主源：东方财富全球指数 index_global_spot_em()（已验证可返回实时行情）；
+    兜底：Yahoo Finance（CI 美国 IP 通常可直接访问，不受 EM 反爬影响）。
+    两者均失败才记 warn 且不拉低整体状态。
     """
     try:
         import akshare as ak
@@ -740,8 +772,9 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
         })
         return payload
 
+    # 主源：东方财富全球指数（带重试抗偶发反爬）
     try:
-        df = _em_with_fallback(lambda: ak.index_global_spot_em())  # 无 Sina 备用（该 API 不存在）
+        df = _retry(lambda: ak.index_global_spot_em(), tries=4, base_delay=2.0)
         if df is None or getattr(df, "empty", True):
             raise RuntimeError("akshare 返回空数据")
 
@@ -758,10 +791,7 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
                 if not sub.empty:
                     r = sub.iloc[0]
                     c = float(r[pct_col])
-                    item = {
-                        "market": t["market"], "name": nm,
-                        "change_pct": round(c, 2), "up": c >= 0,
-                    }
+                    item = {"market": t["market"], "name": nm, "change_pct": round(c, 2), "up": c >= 0}
                     if price_col is not None:
                         try:
                             item["price"] = round(float(r[price_col]), 2)
@@ -770,21 +800,38 @@ def fetch_global_indices_with_fallback(payload: dict) -> dict:
                     result.append(item)
                     break
 
-        if not result:
-            raise RuntimeError("未能在全球指数中匹配到目标指数")
-
-        payload["global_indices"] = result
-        mark_ok(payload)
-        payload["message"] = "A股三大指数 + 财经快讯 + 行业板块 + 市场宽度 + 个股动向 + 环球股指已更新"
-        payload["logs"].append({"time": _now(), "level": "info",
-            "event": "global_fetched", "detail": "成功获取 {} 个环球指数".format(len(result))})
+        if result:
+            payload["global_indices"] = result
+            mark_ok(payload)
+            payload["logs"].append({"time": _now(), "level": "info",
+                "event": "global_fetched", "detail": "成功获取 {} 个环球指数（东方财富）".format(len(result))})
+            return payload
     except Exception as e:
-        # 环球股指为增强板块，其数据源（东方财富全球指数）在 CI 环境常被反爬限流，
-        # 获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
         payload["logs"].append({
-            "time": _now(), "level": "warn", "event": "global_fetch_failed",
-            "detail": "环球股指获取失败（增强板块，不计入整体降级）：{}".format(e),
+            "time": _now(), "level": "warn", "event": "global_em_failed",
+            "detail": "东方财富环球股指失败，尝试 Yahoo 兜底：{}".format(e),
         })
+
+    # 兜底：Yahoo Finance
+    try:
+        y = fetch_global_yahoo()
+        if y:
+            payload["global_indices"] = y
+            mark_ok(payload)
+            payload["logs"].append({"time": _now(), "level": "info",
+                "event": "global_yahoo_fetched", "detail": "成功获取 {} 个环球指数（Yahoo）".format(len(y))})
+            return payload
+    except Exception as e:
+        payload["logs"].append({
+            "time": _now(), "level": "warn", "event": "global_yahoo_failed",
+            "detail": "Yahoo 环球股指失败：{}".format(e),
+        })
+
+    # 两个源都失败：增强板块，不计入整体降级，前端如实显示空缺
+    payload["logs"].append({
+        "time": _now(), "level": "warn", "event": "global_fetch_failed",
+        "detail": "环球股指所有数据源均失败（增强板块，不计入整体降级）",
+    })
     return payload
 
 
@@ -1019,16 +1066,20 @@ def fetch_turnover_with_fallback(payload: dict) -> dict:
 
 
 # ───────────────────────── Phase 11：商品期货 ─────────────────────────
-COMMODITY_TARGETS = [
-    "原油", "黄金", "白银", "铜", "螺纹钢", "铁矿石", "豆粕", "PTA",
-    "沪铝", "沪锌", "天然橡胶", "棕榈油",
+# 主力合约新浪代码（futures_zh_spot 系列在 pandas 新版本下报 Length mismatch，
+# 故改为逐个主力合约行情，取最近两日收盘算日涨跌幅，稳定可用）。
+COMMODITY_SYMBOLS = [
+    ("原油", "SC0"), ("黄金", "AU0"), ("白银", "AG0"), ("沪铜", "CU0"),
+    ("螺纹钢", "RB0"), ("铁矿石", "I0"), ("豆粕", "M0"), ("PTA", "TA0"),
+    ("沪铝", "AL0"), ("沪锌", "ZN0"), ("橡胶", "RU0"), ("棕榈油", "P0"),
 ]
 
 
 def fetch_commodities_with_fallback(payload: dict) -> dict:
     """
     Phase 11：商品期货主力合约行情（大类资产视角）。
-    失败降级，不影响其他板块。
+    逐合约取新浪主力合约日线，用最近两日收盘算日涨跌幅；任一合约失败不影响其他。
+    全部失败才记 warn 且不拉低整体状态。
     """
     try:
         import akshare as ak
@@ -1040,45 +1091,37 @@ def fetch_commodities_with_fallback(payload: dict) -> dict:
         return payload
 
     try:
-        df = _em_with_fallback(lambda: ak.futures_zh_spot_em(),
-                                lambda: ak.futures_zh_spot())
-        if df is None or getattr(df, "empty", True):
-            raise RuntimeError("akshare 返回空数据")
-
-        # 列名兼容：EM 用"名称"/"涨跌幅"，futures_zh_spot 用 contract/change
-        ncols = len(df.columns)
-        name_col = next((c for c in ["名称", "name", "品种", "contract"] if c in df.columns), df.columns[1] if ncols > 1 else df.columns[0])
-        price_col = next((c for c in ["最新价", "price", "最新价格"] if c in df.columns), df.columns[2] if ncols > 2 else None)
-        pct_col = next((c for c in ["涨跌幅", "change_pct", "涨跌幅度", "change"] if c in df.columns), df.columns[-1] if ncols > 1 else None)
-
         commodities = []
-        for _, r in df.iterrows():
-            nm = str(r[name_col])
-            if any(t in nm for t in COMMODITY_TARGETS):
-                c = float(r[pct_col])
-                item = {
-                    "name": nm,
-                    "change_pct": round(c, 2),
-                    "up": c >= 0,
-                }
-                try:
-                    item["price"] = round(float(r[price_col]), 2)
-                except Exception:
-                    item["price"] = None
-                commodities.append(item)
+        for name, sym in COMMODITY_SYMBOLS:
+            try:
+                df = _retry(lambda: ak.futures_main_sina(symbol=sym), tries=2, base_delay=1.0)
+                if df is None or len(df) < 2:
+                    continue
+                last = df.iloc[-1]
+                prev = df.iloc[-2]
+                close = float(last["收盘价"])
+                pclose = float(prev["收盘价"])
+                chg = (close - pclose) / pclose * 100 if pclose else 0.0
+                commodities.append({
+                    "name": name,
+                    "price": round(close, 2),
+                    "change_pct": round(chg, 2),
+                    "up": chg >= 0,
+                })
+            except Exception:
+                continue
 
         if not commodities:
-            raise RuntimeError("未匹配到目标商品")
+            raise RuntimeError("所有商品合约均获取失败")
 
-        payload["commodities"] = commodities[:12]
+        payload["commodities"] = commodities
         mark_ok(payload)
         payload["logs"].append({
             "time": _now(), "level": "info", "event": "commodities_fetched",
-            "detail": "成功获取 {} 个商品期货".format(len(commodities[:12])),
+            "detail": "成功获取 {} 个商品期货".format(len(commodities)),
         })
     except Exception as e:
-        # 商品期货为增强板块，其数据源（东方财富期货）在 CI 环境常被反爬限流或接口列结构变化，
-        # 获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
+        # 商品期货为增强板块，获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
         payload["logs"].append({
             "time": _now(), "level": "warn", "event": "commodities_fetch_failed",
             "detail": "商品期货获取失败（增强板块，不计入整体降级）：{}".format(e),
@@ -1089,8 +1132,9 @@ def fetch_commodities_with_fallback(payload: dict) -> dict:
 # ───────────────────────── Phase 12：龙虎榜 ─────────────────────────
 def fetch_dragon_tiger_with_fallback(payload: dict) -> dict:
     """
-    Phase 12：龙虎榜 — 当日机构/游资上榜个股。
-    失败降级，不影响其他板块。
+    Phase 12：龙虎榜 — 近期上榜活跃个股（按龙虎榜净买额排序取前 20）。
+    用 stock_lhb_stock_statistic_em()（已验证返回全市场龙虎榜统计），
+    过滤最近 7 天内有上榜的个股，按净买额降序展示。全部失败才记 warn，不拉低整体。
     """
     try:
         import akshare as ak
@@ -1101,86 +1145,56 @@ def fetch_dragon_tiger_with_fallback(payload: dict) -> dict:
         })
         return payload
 
-    top_list = None
-
-    # 方案1：东方财富龙虎榜个股详情（最全）
     try:
-        today = now_beijing().strftime("%Y%m%d")
-        df = _retry(lambda: ak.stock_lhb_hy_detail_em(date=today))
+        df = _retry(lambda: ak.stock_lhb_stock_statistic_em(), tries=3, base_delay=2.0)
         if df is None or getattr(df, "empty", True):
-            from datetime import timedelta as _td
-            yesterday = (now_beijing() - _td(days=1)).strftime("%Y%m%d")
-            df = _retry(lambda: ak.stock_lhb_hy_detail_em(date=yesterday))
-        if df is not None and not getattr(df, "empty", True):
-            name_col = next((c for c in ["名称", "股票名称"] if c in df.columns), df.columns[1])
-            code_col = next((c for c in ["代码", "股票代码"] if c in df.columns), df.columns[0])
-            close_col = next((c for c in ["收盘价", "最新价"] if c in df.columns), None)
-            pct_col = next((c for c in ["涨跌幅", "涨跌幅度"] if c in df.columns), None)
-            reason_col = next((c for c in ["上榜原因", "上榜理由"] if c in df.columns), None)
-            buy_col = next((c for c in ["买方机构净买入", "净买入"] if c in df.columns), None)
-            top_list = []
-            for _, r in df.head(20).iterrows():
-                item = {"name": str(r[name_col]), "code": str(r[code_col])}
-                if pct_col is not None:
-                    c = float(r[pct_col])
-                    item["change_pct"] = round(c, 2)
-                    item["up"] = c >= 0
-                if close_col is not None:
-                    try: item["price"] = round(float(r[close_col]), 2)
-                    except Exception: pass
-                if reason_col is not None:
-                    item["reason"] = str(r[reason_col])
-                if buy_col is not None:
-                    try: item["net_buy"] = round(float(r[buy_col]) / 1e4, 2)
-                    except Exception: pass
-                top_list.append(item)
-    except Exception:
-        pass
+            raise RuntimeError("龙虎榜返回空")
 
-    # 方案2：新浪龙虎榜个股统计（EM 被阻断时的备用）
-    if not top_list:
-        try:
-            df = _retry(lambda: ak.stock_lhb_ggtj_sina())
-            if df is not None and not getattr(df, "empty", True):
-                name_col = next((c for c in ["股票名称", "名称", "name"] if c in df.columns), df.columns[0])
-                code_col = next((c for c in ["股票代码", "代码", "code"] if c in df.columns), None)
-                pct_col = next((c for c in ["涨跌幅", "change_pct"] if c in df.columns), None)
-                reason_col = next((c for c in ["上榜原因", "reason"] if c in df.columns), None)
-                top_list = []
-                for _, r in df.head(20).iterrows():
-                    item = {"name": str(r[name_col])}
-                    if code_col: item["code"] = str(r[code_col])
-                    if pct_col:
-                        try:
-                            c = float(r[pct_col])
-                            item["change_pct"] = round(c, 2)
-                            item["up"] = c >= 0
-                        except Exception: pass
-                    if reason_col: item["reason"] = str(r[reason_col])
-                    top_list.append(item)
-        except Exception:
-            pass
+        cutoff = now_beijing().date() - timedelta(days=7)
+        rows = []
+        for _, r in df.iterrows():
+            try:
+                lst_date = datetime.strptime(str(r["最近上榜日"])[:10], "%Y-%m-%d").date()
+            except Exception:
+                lst_date = None
+            if lst_date is not None and lst_date < cutoff:
+                continue
+            try:
+                chg = float(r["涨跌幅"])
+                net = float(r["龙虎榜净买额"]) / 1e4  # 元 -> 万元
+                rows.append({
+                    "name": str(r["名称"]),
+                    "code": str(r["代码"]),
+                    "price": round(float(r["收盘价"]), 2),
+                    "change_pct": round(chg, 2),
+                    "up": chg >= 0,
+                    "net_buy": round(net, 1),
+                    "reason": "上榜{}次".format(int(r["上榜次数"])),
+                })
+            except Exception:
+                continue
 
-    if not top_list:
-        # 龙虎榜为增强板块，东方财富/新浪源在 CI 环境常被反爬限流，
-        # 获取失败不拉低整体状态；真实失败原因记入日志，前端如实显示空缺。
+        if not rows:
+            raise RuntimeError("无近期龙虎榜个股")
+
+        rows.sort(key=lambda x: x["net_buy"], reverse=True)
+        rows = rows[:20]
+        up_count = sum(1 for x in rows if x["up"])
+        down_count = len(rows) - up_count
+        payload["dragon_tiger"] = {
+            "list": rows, "total": len(rows),
+            "up_count": up_count, "down_count": down_count,
+        }
+        mark_ok(payload)
+        payload["logs"].append({
+            "time": _now(), "level": "info", "event": "dragon_tiger_fetched",
+            "detail": "龙虎榜 {} 只上榜，{} 涨 {} 跌".format(len(rows), up_count, down_count),
+        })
+    except Exception as e:
         payload["logs"].append({
             "time": _now(), "level": "warn", "event": "dragon_tiger_fetch_failed",
-            "detail": "龙虎榜所有数据源均失败（增强板块，不计入整体降级）",
+            "detail": "龙虎榜获取失败（增强板块，不计入整体降级）：{}".format(e),
         })
-        return payload
-
-    up_count = sum(1 for t in top_list if t.get("up"))
-    down_count = len(top_list) - up_count
-    payload["dragon_tiger"] = {
-        "list": top_list, "total": len(top_list),
-        "up_count": up_count, "down_count": down_count,
-    }
-    mark_ok(payload)
-    payload["logs"].append({
-        "time": _now(), "level": "info", "event": "dragon_tiger_fetched",
-        "detail": "龙虎榜 {} 只上榜，{} 涨 {} 跌".format(len(top_list), up_count, down_count),
-    })
     return payload
 
 
