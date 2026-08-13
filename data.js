@@ -1,44 +1,37 @@
 window.__SITE_DATA__ = {
-  "updated_at": "2026-08-13 10:56:54",
-  "updated_at_iso": "2026-08-13T10:56:54.125636+08:00",
+  "updated_at": "2026-08-13 11:03:09",
+  "updated_at_iso": "2026-08-13T11:03:09.317705+08:00",
   "timezone": "Asia/Shanghai",
-  "status": "degraded",
+  "status": "ok",
   "source": "akshare",
   "message": "A股三大指数 + 财经快讯 + 行业板块 + 市场宽度 + 个股动向 + 环球股指 + 基金排行已更新",
   "indices": [
     {
       "name": "上证指数",
       "code": "sh000001",
-      "price": 3962.03,
-      "change": 15.35,
-      "change_pct": 0.39,
+      "price": 3963.81,
+      "change": 17.14,
+      "change_pct": 0.43,
       "up": true
     },
     {
       "name": "深证成指",
       "code": "sz399001",
-      "price": 14516.15,
-      "change": 101.72,
-      "change_pct": 0.71,
+      "price": 14539.54,
+      "change": 125.11,
+      "change_pct": 0.87,
       "up": true
     },
     {
       "name": "创业板指",
       "code": "sz399006",
-      "price": 3655.78,
-      "change": 53.7,
-      "change_pct": 1.49,
+      "price": 3665.55,
+      "change": 63.47,
+      "change_pct": 1.76,
       "up": true
     }
   ],
   "news": [
-    {
-      "title": "【上海：在前沿产业和竞争性产业领域进一步优化国企布局 通过投资合作、重组并购、产业共建、搭建联盟等方式与民营企业加强合作】财联社8月13日电，上海市发展和改革委员会印发《上海市贯彻落实〈关于进一步促进民间投资发展的若干措施〉的行动方案》。其中提到，完善上海市重点产业地图，聚焦集成电路、生物医药、人工智能三大先导产业，新型智能终端、智能机器人、商业航天、卫星互联网、低空经济、先进材料等新兴支柱产业细分赛道，量子科技、脑机接口等未来前沿技术，以及信息服务、专业服务、工业服务等生产性服务业，加大精准招商、产业链招商力度，进一步挖掘民间投资机会潜力。落实国家关于清理不合理的服务业经营主体准入限制的要求，严禁在环保、卫生、安保、质检、消防等方面的准入条件之外违规设置障碍。在前沿产业和竞争性产业领域进一步优化国企布局，形成有进有退的机制，通过投资合作、重组并购、产业共建、搭建联盟等方式与民营企业加强合作，在光子芯片与器件、氢能与储能、卫星互联网、基因与细胞治疗、可控核聚变、低空经济等前沿领域联合开展技术开源、项目合作、技术转让。",
-      "link": "",
-      "published": "",
-      "summary": "",
-      "source": "财联社"
-    },
     {
       "title": "【上海：依法依规开展算力补贴 支持民营企业租用智算资源进行大模型研发训练和应用】财联社8月13日电，上海市发展和改革委员会印发《上海市贯彻落实〈关于进一步促进民间投资发展的若干措施〉的行动方案》。其中提到，提高新型基础设施建设参与度。依法依规开展算力补贴，支持民营企业租用智算资源进行大模型研发训练和应用，鼓励高等院校、科研机构、国有企业使用包括民营企业在内的各类经营主体建设的数据储存和算力资源。发布公共数据开放清单并动态更新，支持民营企业对特定公共数据进行深度开发与场景化利用，推广发放“算力券”“模型券”“语料券”，降低公共数据、算力、模型、语料等数字要素的使用成本。培育城市数字化转型标杆企业和平台企业，引导民营企业参与交通、物流、公共服务等领域数字化转型项目建设和场景运营。鼓励民营企业建设区块链应用、机器人规模化应用等新型基础设施示范项目。",
       "link": "",
@@ -171,118 +164,125 @@ window.__SITE_DATA__ = {
       "published": "",
       "summary": "",
       "source": "财联社"
+    },
+    {
+      "title": "【中泰警方联合侦破一起跨国信用卡盗刷案】财联社8月13日电，公安部与泰国皇家警察总署密切协作，同步对一起专门针对中国公民的重大跨国信用卡盗刷案开展收网行动，摧毁多个犯罪窝点，分别抓获4名中国籍犯罪嫌疑人和5名泰国籍犯罪嫌疑人，取得重大战果。\n\n2025年，公安部经侦局指导协调上海公安经侦部门研判发现一个针对我国公民实施信用卡盗刷的跨国犯罪团伙，并及时将案件情况和协查请求通报泰国警方，开展国际执法合作。经查，2024年，犯罪嫌疑人计某与肖某共谋，由计某在泰国开设果干店为幌子，以使用银联卡消费打折为诱饵，非法获取受害人信用卡信息。随后，由肖某制作伪卡，招募刷手实施盗刷和销赃牟利。截至目前，已查明涉案金额达500余万元人民币。今年7月初，公安部派工作组赴泰国，与泰警方开展联合办案，精准研判该犯罪团伙组织架构、核心骨干、作案窝点，全面掌握其作案模式和资金流向。近日，两国警方同步开展收网，实现案件全环节部署、全要素搜证、全链条打击。\n\n公安部有关负责人表示，此次收网系中泰两国警方近年来在打击经济犯罪领域首次同步开展的联合执法行动，有效震慑了跨国经济犯罪活动。下步，双方将持续巩固本次联合行动成果，探索建立打击跨境经济犯罪常态化协作机制，不断深化线索共享、经验互通、联合研判、追逃追赃等执法合作。 （央视新闻）",
+      "link": "",
+      "published": "",
+      "summary": "",
+      "source": "财联社"
     }
   ],
   "sectors": [
     {
       "name": "医疗服务",
-      "change_pct": 4.4,
+      "change_pct": 4.37,
       "up": true,
       "leader": "博济医药"
     },
     {
       "name": "生物制品",
-      "change_pct": 2.81,
+      "change_pct": 2.77,
       "up": true,
       "leader": "近岸蛋白"
     },
     {
       "name": "中药",
-      "change_pct": 2.14,
+      "change_pct": 2.27,
       "up": true,
       "leader": "陇神戎发"
     },
     {
       "name": "化学制药",
-      "change_pct": 2.08,
+      "change_pct": 2.17,
       "up": true,
-      "leader": "森萱医药"
+      "leader": "新赣江"
     },
     {
       "name": "通信服务",
-      "change_pct": 1.56,
+      "change_pct": 1.57,
       "up": true,
       "leader": "立昂技术"
     },
     {
-      "name": "白酒",
-      "change_pct": 1.49,
-      "up": true,
-      "leader": "古井贡酒"
-    },
-    {
-      "name": "医疗器械",
-      "change_pct": 1.32,
-      "up": true,
-      "leader": "超研股份"
-    },
-    {
-      "name": "综合",
-      "change_pct": 1.16,
-      "up": true,
-      "leader": "亚泰集团"
-    },
-    {
-      "name": "通信设备",
-      "change_pct": 1.07,
-      "up": true,
-      "leader": "天孚通信"
-    },
-    {
-      "name": "其他电源设备",
-      "change_pct": 1.04,
-      "up": true,
-      "leader": "麦格米特"
-    },
-    {
-      "name": "证券",
-      "change_pct": 1.02,
-      "up": true,
-      "leader": "财通证券"
-    },
-    {
-      "name": "饮料制造",
-      "change_pct": 1.02,
-      "up": true,
-      "leader": "会稽山"
-    },
-    {
       "name": "半导体",
-      "change_pct": 1.01,
+      "change_pct": 1.44,
       "up": true,
       "leader": "晶升股份"
     },
     {
+      "name": "通信设备",
+      "change_pct": 1.41,
+      "up": true,
+      "leader": "天孚通信"
+    },
+    {
       "name": "电子化学品",
-      "change_pct": 1.0,
+      "change_pct": 1.4,
       "up": true,
       "leader": "海星股份"
     },
     {
-      "name": "文化传媒",
-      "change_pct": 0.72,
+      "name": "医疗器械",
+      "change_pct": 1.33,
       "up": true,
-      "leader": "风语筑"
+      "leader": "超研股份"
+    },
+    {
+      "name": "其他电源设备",
+      "change_pct": 1.31,
+      "up": true,
+      "leader": "麦格米特"
+    },
+    {
+      "name": "白酒",
+      "change_pct": 1.25,
+      "up": true,
+      "leader": "山西汾酒"
+    },
+    {
+      "name": "医药商业",
+      "change_pct": 1.18,
+      "up": true,
+      "leader": "药易购"
+    },
+    {
+      "name": "综合",
+      "change_pct": 1.18,
+      "up": true,
+      "leader": "亚泰集团"
+    },
+    {
+      "name": "元件",
+      "change_pct": 1.03,
+      "up": true,
+      "leader": "江海股份"
+    },
+    {
+      "name": "环保设备",
+      "change_pct": 1.0,
+      "up": true,
+      "leader": "蓝盾光电"
     }
   ],
   "sector_summary": {
     "total": 90,
-    "up_count": 42,
-    "down_count": 48,
+    "up_count": 39,
+    "down_count": 51,
     "top_name": "医疗服务",
-    "top_pct": 4.4,
+    "top_pct": 4.37,
     "bottom_name": "贵金属",
-    "bottom_pct": -2.65
+    "bottom_pct": -2.62
   },
   "breadth": {
     "total": 5542,
-    "up": 2321,
-    "down": 3059,
-    "flat": 162,
-    "limit_up": 76,
+    "up": 2179,
+    "down": 3232,
+    "flat": 131,
+    "limit_up": 72,
     "limit_down": 1,
-    "up_pct": 41.9,
-    "turnover_yi": 14388.4
+    "up_pct": 39.3,
+    "turnover_yi": 14910.12
   },
   "movers": {
     "top_gainers": [
@@ -338,22 +338,22 @@ window.__SITE_DATA__ = {
       {
         "name": "新赣江",
         "code": "bj920367",
-        "price": 28.3,
-        "change_pct": 17.82,
+        "price": 28.5,
+        "change_pct": 18.65,
         "up": true
       },
       {
         "name": "森萱医药",
         "code": "bj920946",
-        "price": 11.09,
-        "change_pct": 16.74,
+        "price": 10.87,
+        "change_pct": 14.42,
         "up": true
       },
       {
-        "name": "超研股份",
-        "code": "sz301602",
-        "price": 21.25,
-        "change_pct": 15.62,
+        "name": "近岸蛋白",
+        "code": "sh688137",
+        "price": 60.71,
+        "change_pct": 13.84,
         "up": true
       }
     ],
@@ -361,77 +361,134 @@ window.__SITE_DATA__ = {
       {
         "name": "杰理科技",
         "code": "bj920138",
-        "price": 47.61,
-        "change_pct": -10.61,
+        "price": 47.2,
+        "change_pct": -11.38,
         "up": false
       },
       {
         "name": "麦迪科技",
         "code": "sh603990",
-        "price": 22.29,
-        "change_pct": -9.87,
+        "price": 22.32,
+        "change_pct": -9.74,
         "up": false
       },
       {
         "name": "C国仪",
         "code": "sh688828",
-        "price": 105.27,
-        "change_pct": -8.37,
-        "up": false
-      },
-      {
-        "name": "甘咨询",
-        "code": "sz000779",
-        "price": 11.09,
-        "change_pct": -6.96,
-        "up": false
-      },
-      {
-        "name": "瑞纳智能",
-        "code": "sz301129",
-        "price": 23.17,
-        "change_pct": -6.87,
+        "price": 105.0,
+        "change_pct": -8.6,
         "up": false
       },
       {
         "name": "传智教育",
         "code": "sz003032",
-        "price": 12.03,
-        "change_pct": -6.82,
-        "up": false
-      },
-      {
-        "name": "ST迪威迅",
-        "code": "sz300167",
-        "price": 4.67,
-        "change_pct": -6.6,
-        "up": false
-      },
-      {
-        "name": "长虹华意",
-        "code": "sz000404",
-        "price": 7.37,
-        "change_pct": -6.35,
+        "price": 11.92,
+        "change_pct": -7.67,
         "up": false
       },
       {
         "name": "凯腾精工",
         "code": "bj920553",
-        "price": 7.7,
-        "change_pct": -6.33,
+        "price": 7.62,
+        "change_pct": -7.3,
         "up": false
       },
       {
-        "name": "欣天科技",
-        "code": "sz300615",
-        "price": 17.8,
-        "change_pct": -6.32,
+        "name": "甘咨询",
+        "code": "sz000779",
+        "price": 11.07,
+        "change_pct": -7.13,
+        "up": false
+      },
+      {
+        "name": "普联软件",
+        "code": "sz300996",
+        "price": 18.41,
+        "change_pct": -6.93,
+        "up": false
+      },
+      {
+        "name": "ST迪威迅",
+        "code": "sz300167",
+        "price": 4.66,
+        "change_pct": -6.8,
+        "up": false
+      },
+      {
+        "name": "瑞纳智能",
+        "code": "sz301129",
+        "price": 23.23,
+        "change_pct": -6.63,
+        "up": false
+      },
+      {
+        "name": "长虹华意",
+        "code": "sz000404",
+        "price": 7.35,
+        "change_pct": -6.61,
         "up": false
       }
     ]
   },
-  "fx": [],
-  "global_indices": [],
+  "fx": [
+    {
+      "name": "美元",
+      "buy": 678.88,
+      "sell": 678.88
+    },
+    {
+      "name": "欧元",
+      "buy": 780.14,
+      "sell": 780.14
+    },
+    {
+      "name": "日元",
+      "buy": 4.2508,
+      "sell": 4.2508
+    },
+    {
+      "name": "英镑",
+      "buy": 913.55,
+      "sell": 913.55
+    }
+  ],
+  "global_indices": [
+    {
+      "market": "港股",
+      "name": "恒生指数",
+      "change_pct": 0.03,
+      "up": true,
+      "price": 25447.85
+    },
+    {
+      "market": "美股",
+      "name": "纳斯达克",
+      "change_pct": 0.54,
+      "up": true,
+      "price": 26588.49
+    },
+    {
+      "market": "美股",
+      "name": "标普500",
+      "change_pct": 0.26,
+      "up": true,
+      "price": 7748.5
+    },
+    {
+      "market": "美股",
+      "name": "道琼斯",
+      "change_pct": -0.04,
+      "up": false,
+      "price": 53770.27
+    },
+    {
+      "market": "日股",
+      "name": "日经225",
+      "change_pct": 1.61,
+      "up": true,
+      "price": 68609.92
+    }
+  ],
   "funds": [
     {
       "name": "汇丰晋信科技先锋股票",
@@ -612,8 +669,8 @@ window.__SITE_DATA__ = {
     "inflow_streak": 0
   },
   "turnover": {
-    "total_yuan": 1438840422786.0,
-    "total_yi": 14388.4,
+    "total_yuan": 1491011853460.0,
+    "total_yi": 14910.12,
     "stock_count": 5542
   },
   "commodities": [
@@ -900,254 +957,248 @@ window.__SITE_DATA__ = {
   "convertible_bonds": {
     "list": [
       {
+        "name": "宏图转债",
+        "price": 78.05,
+        "premium_rt": 13.28,
+        "change_pct": -1.48,
+        "up": false,
+        "double_low": 91.33
+      },
+      {
         "name": "三鑫转债",
         "price": 100.0,
-        "premium_rt": -2.6,
+        "premium_rt": -2.41,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 97.4
+        "double_low": 97.59
       },
       {
         "name": "合金转债",
         "price": 100.0,
-        "premium_rt": -1.62,
+        "premium_rt": -1.48,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 98.38
+        "double_low": 98.52
       },
       {
         "name": "玉禾转债",
         "price": 100.0,
-        "premium_rt": -1.26,
+        "premium_rt": -1.09,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 98.74
+        "double_low": 98.91
       },
       {
         "name": "震裕转02",
         "price": 100.0,
-        "premium_rt": -1.22,
+        "premium_rt": -1.03,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 98.78
+        "double_low": 98.97
       },
       {
         "name": "中仑转债",
         "price": 100.0,
-        "premium_rt": 2.43,
+        "premium_rt": 2.73,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 102.43
+        "double_low": 102.73
       },
       {
         "name": "派克转债",
         "price": 100.0,
-        "premium_rt": 3.84,
+        "premium_rt": 4.0,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 103.84
+        "double_low": 104.0
       },
       {
         "name": "天脉转债",
         "price": 100.0,
-        "premium_rt": 4.64,
+        "premium_rt": 4.94,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 104.64
+        "double_low": 104.94
       },
       {
         "name": "先锋转债",
         "price": 100.0,
-        "premium_rt": 7.99,
+        "premium_rt": 8.34,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 107.99
-      },
-      {
-        "name": "振26转债",
-        "price": 100.0,
-        "premium_rt": 13.31,
-        "change_pct": 0.0,
-        "up": true,
-        "double_low": 113.31
+        "double_low": 108.34
       },
       {
         "name": "闻泰转债",
-        "price": 103.68,
-        "premium_rt": 10.94,
-        "change_pct": 0.32,
+        "price": 103.6,
+        "premium_rt": 10.85,
+        "change_pct": 0.24,
         "up": true,
-        "double_low": 114.62
+        "double_low": 114.45
       },
       {
         "name": "美锦转债",
-        "price": 109.92,
-        "premium_rt": 4.79,
-        "change_pct": 0.16,
+        "price": 109.91,
+        "premium_rt": 4.77,
+        "change_pct": 0.14,
         "up": true,
-        "double_low": 114.71
+        "double_low": 114.68
       },
       {
         "name": "鸿路转债",
-        "price": 117.29,
-        "premium_rt": 2.93,
-        "change_pct": -0.46,
+        "price": 117.09,
+        "premium_rt": 3.06,
+        "change_pct": -0.62,
         "up": false,
-        "double_low": 120.22
+        "double_low": 120.15
       },
       {
         "name": "大参转债",
-        "price": 115.39,
-        "premium_rt": 7.13,
-        "change_pct": -0.11,
+        "price": 115.5,
+        "premium_rt": 7.11,
+        "change_pct": -0.02,
         "up": false,
-        "double_low": 122.52
+        "double_low": 122.61
       },
       {
         "name": "上银转债",
-        "price": 117.31,
-        "premium_rt": 5.21,
-        "change_pct": 0.01,
+        "price": 117.55,
+        "premium_rt": 5.42,
+        "change_pct": 0.21,
         "up": true,
-        "double_low": 122.52
+        "double_low": 122.97
       },
       {
         "name": "华海转债",
-        "price": 119.19,
-        "premium_rt": 8.29,
-        "change_pct": -0.03,
-        "up": false,
-        "double_low": 127.48
+        "price": 119.46,
+        "premium_rt": 8.19,
+        "change_pct": 0.2,
+        "up": true,
+        "double_low": 127.65
       }
     ],
     "total_count": 15,
     "up_count": 12,
     "down_count": 3,
-    "avg_price": 105.52
+    "avg_price": 104.08
   },
   "logs": [
     {
-      "time": "2026-08-13 10:56:54",
+      "time": "2026-08-13 11:03:09",
       "level": "info",
       "event": "pipeline_bootstrap",
       "detail": "基础链路运行成功，等待接入真实数据源"
     },
     {
-      "time": "2026-08-13 10:57:19",
+      "time": "2026-08-13 11:04:13",
       "level": "info",
       "event": "indices_fetched",
       "detail": "成功获取 3 个指数"
     },
     {
-      "time": "2026-08-13 10:57:20",
+      "time": "2026-08-13 11:04:16",
       "level": "warn",
       "event": "rss_failed",
       "detail": "新浪财经 失败：HTTP Error 404: Not Found"
     },
     {
-      "time": "2026-08-13 10:57:41",
+      "time": "2026-08-13 11:04:17",
       "level": "warn",
       "event": "rss_failed",
-      "detail": "东方财富快讯 失败：<urlopen error timed out>"
+      "detail": "东方财富快讯 失败：HTTP Error 403: Forbidden"
     },
     {
-      "time": "2026-08-13 10:58:02",
+      "time": "2026-08-13 11:04:18",
       "level": "warn",
       "event": "rss_failed",
-      "detail": "财联社电报 失败：<urlopen error timed out>"
+      "detail": "财联社电报 失败：HTTP Error 403: Forbidden"
     },
     {
-      "time": "2026-08-13 10:58:02",
+      "time": "2026-08-13 11:04:20",
       "level": "info",
       "event": "akshare_news_ok",
       "detail": "财联社获取 20 条"
     },
     {
-      "time": "2026-08-13 10:58:02",
+      "time": "2026-08-13 11:04:20",
       "level": "info",
       "event": "news_fetched",
       "detail": "成功获取 20 条（去重后，上限 20)"
     },
     {
-      "time": "2026-08-13 10:58:02",
+      "time": "2026-08-13 11:04:22",
       "level": "info",
       "event": "sectors_fetched",
-      "detail": "同花顺：成功获取 90 个行业板块，上涨 42 / 下跌 48"
+      "detail": "同花顺：成功获取 90 个行业板块，上涨 39 / 下跌 51"
     },
     {
-      "time": "2026-08-13 10:58:47",
+      "time": "2026-08-13 11:06:51",
       "level": "info",
       "event": "breadth_fetched",
-      "detail": "全市场 5542 只，上涨 2321 / 下跌 3059 / 涨停 76 / 跌停 1"
+      "detail": "全市场 5542 只，上涨 2179 / 下跌 3232 / 涨停 72 / 跌停 1"
     },
     {
-      "time": "2026-08-13 10:58:53",
-      "level": "error",
-      "event": "fx_fetch_failed",
-      "detail": "外汇牌价获取失败：<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1032)>"
+      "time": "2026-08-13 11:07:08",
+      "level": "info",
+      "event": "fx_fetched",
+      "detail": "成功获取 4 个货币牌价"
     },
     {
-      "time": "2026-08-13 10:59:06",
-      "level": "warn",
-      "event": "global_em_failed",
-      "detail": "东方财富环球股指失败，尝试 Yahoo 兜底：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      "time": "2026-08-13 11:07:11",
+      "level": "info",
+      "event": "global_fetched",
+      "detail": "成功获取 5 个环球指数（东方财富）"
     },
     {
-      "time": "2026-08-13 10:59:09",
-      "level": "warn",
-      "event": "global_fetch_failed",
-      "detail": "环球股指所有数据源均失败（增强板块，不计入整体降级）"
-    },
-    {
-      "time": "2026-08-13 10:59:12",
+      "time": "2026-08-13 11:07:16",
       "level": "info",
       "event": "funds_fetched",
       "detail": "成功获取 10 只基金排行"
     },
     {
-      "time": "2026-08-13 10:59:19",
+      "time": "2026-08-13 11:07:29",
       "level": "info",
       "event": "northbound_fetched",
       "detail": "北向资金 20 日累计nan亿，连续0日净流入"
     },
     {
-      "time": "2026-08-13 11:00:01",
+      "time": "2026-08-13 11:09:24",
       "level": "info",
       "event": "turnover_fetched",
-      "detail": "两市成交额 14388.0 亿元"
+      "detail": "两市成交额 14910.0 亿元"
     },
     {
-      "time": "2026-08-13 11:00:03",
+      "time": "2026-08-13 11:09:45",
       "level": "info",
       "event": "commodities_fetched",
       "detail": "成功获取 12 个商品期货"
     },
     {
-      "time": "2026-08-13 11:00:04",
+      "time": "2026-08-13 11:09:48",
       "level": "info",
       "event": "dragon_tiger_fetched",
       "detail": "龙虎榜 20 只上榜，19 涨 1 跌"
     },
     {
-      "time": "2026-08-13 11:00:16",
+      "time": "2026-08-13 11:10:02",
       "level": "info",
       "event": "treasury_fetched",
       "detail": "国债收益率 6 个期限"
     },
     {
-      "time": "2026-08-13 11:00:28",
+      "time": "2026-08-13 11:10:09",
       "level": "info",
       "event": "csi300_val_fetched",
       "detail": "沪深300 PE=0.0 (None分位) PB=0.0 (None分位)"
     },
     {
-      "time": "2026-08-13 11:00:29",
+      "time": "2026-08-13 11:10:11",
       "level": "info",
       "event": "cb_fetched",
-      "detail": "可转债 15 只，均价 105.5"
+      "detail": "可转债 15 只，均价 104.1"
     },
     {
-      "time": "2026-08-13 11:00:29",
+      "time": "2026-08-13 11:10:11",
       "level": "info",
       "event": "commentary_generated",
       "detail": "生成 5 条盘面简评"
@@ -1157,17 +1208,17 @@ window.__SITE_DATA__ = {
     {
       "label": "大盘定调",
       "tone": "up",
-      "text": "今日 A 股整体偏强：上证+0.39%、深成指+0.71%、创业板+1.49%。三大指数多数收红，市场做多情绪较强"
+      "text": "今日 A 股整体偏强：上证+0.43%、深成指+0.87%、创业板+1.76%。三大指数多数收红，市场做多情绪较强"
     },
     {
       "label": "市场广度",
       "tone": "down",
-      "text": "全市场 5542 只，上涨 2321 家（占比 41.9%）、下跌 3059 家；涨停 76 家、跌停 1 家，个股跌多涨少，情绪偏冷。"
+      "text": "全市场 5542 只，上涨 2179 家（占比 39.3%）、下跌 3232 家；涨停 72 家、跌停 1 家，做空情绪占优，亏钱效应明显。"
     },
     {
       "label": "资金主线",
       "tone": "neutral",
-      "text": "领涨板块为 医疗服务（+4.40%），领跌板块为 贵金属（-2.65%）。当日 90 个行业板块中 42 个上涨、48 个下跌，结构性行情特征明显，资金在板块间快速轮动。"
+      "text": "领涨板块为 医疗服务（+4.37%），领跌板块为 贵金属（-2.62%）。当日 90 个行业板块中 39 个上涨、51 个下跌，结构性行情特征明显，资金在板块间快速轮动。"
     },
     {
       "label": "风险提示",
@@ -1177,7 +1228,7 @@ window.__SITE_DATA__ = {
     {
       "label": "综合研判",
       "tone": "neutral",
-      "text": "综合来看，今日属结构化震荡格局，不宜追高，精选个股、波段操作为主。"
+      "text": "综合来看，今日赚钱效应偏弱，宜控制仓位、规避高位题材，等待企稳信号。"
     }
   ],
   "history": [
@@ -1231,11 +1282,11 @@ window.__SITE_DATA__ = {
     },
     {
       "date": "2026-08-13",
-      "status": "degraded",
-      "sh_pct": 0.39,
-      "sz_pct": 0.71,
-      "cyb_pct": 1.49,
-      "sh_price": 3962.03
+      "status": "ok",
+      "sh_pct": 0.43,
+      "sz_pct": 0.87,
+      "cyb_pct": 1.76,
+      "sh_price": 3963.81
     }
   ],
   "run_stats": {
