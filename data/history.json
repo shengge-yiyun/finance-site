@@ -78,5 +78,13 @@
     "sz_pct": -0.56,
     "cyb_pct": -0.93,
     "sh_price": 3990.3
+  },
+  {
+    "date": "2026-08-19",
+    "status": "ok",
+    "sh_pct": -2.4,
+    "sz_pct": -5.01,
+    "cyb_pct": -6.26,
+    "sh_price": 3894.42
   }
 ]
