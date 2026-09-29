@@ -1,6 +1,6 @@
 window.__SITE_DATA__ = {
-  "updated_at": "2026-09-29 00:18:56",
-  "updated_at_iso": "2026-09-29T00:18:56.003287+08:00",
+  "updated_at": "2026-09-29 22:29:34",
+  "updated_at_iso": "2026-09-29T22:29:34.575805+08:00",
   "timezone": "Asia/Shanghai",
   "status": "ok",
   "source": "akshare",
@@ -9,164 +9,164 @@ window.__SITE_DATA__ = {
     {
       "name": "上证指数",
       "code": "sh000001",
-      "price": 3823.62,
-      "change": -64.75,
-      "change_pct": -1.67,
-      "up": false
+      "price": 3830.45,
+      "change": 6.83,
+      "change_pct": 0.18,
+      "up": true
     },
     {
       "name": "深证成指",
       "code": "sz399001",
-      "price": 12858.75,
-      "change": -458.22,
-      "change_pct": -3.44,
-      "up": false
+      "price": 12901.95,
+      "change": 43.19,
+      "change_pct": 0.34,
+      "up": true
     },
     {
       "name": "创业板指",
       "code": "sz399006",
-      "price": 3139.82,
-      "change": -149.12,
-      "change_pct": -4.53,
-      "up": false
+      "price": 3142.56,
+      "change": 2.74,
+      "change_pct": 0.09,
+      "up": true
     }
   ],
   "news": [
     {
-      "title": "【国内商品期市夜盘收盘涨跌参半 化工品涨幅居前】财联社9月28日电，国内商品期市夜盘收盘涨跌参半，化工品涨幅居前，CZCE甲醇涨3.90%；能源品全部上涨，INE低硫燃料油涨1.49%；黑色系多数上涨，DCE焦炭涨0.52%；油脂油料跌幅居前，CZCE菜粕跌2.30%；农副产品涨跌参半，CZCE棉花跌0.84%；非金属建材全部下跌，CZCE玻璃跌0.56%。",
+      "title": "【美国30年期国债收益率刷新二十四年来新高】财联社9月29日电，美国30年期国债收益率升至5.59%，创2002年以来新高。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，SpaceX宣布，已与星舰首次轨道飞行中部署的全部26颗星链V3卫星建立通信连接。",
+      "title": "财联社9月29日电，Stellantis表示，由于长续航电池供应短缺，其部分工厂已暂停生产。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【美股整体下跌之际中概股多数上涨 网易涨超5%】财联社9月28日电，美股盘中整体走弱之际，在美上市中概股多数上涨，纳斯达克中国金龙指数上涨0.6%。热门中概股中，网易涨5.03%，再鼎医药涨4.28%，小马智行涨3.63%，贝壳涨3.25%，BOSS直聘涨3.01%，华住集团涨2.65%，理想汽车涨2.19%，哔哩哔哩涨1.85%。阿里巴巴跌0.59%，百度跌1.15%，小鹏汽车跌1.14%。市值排名前30只热门中概股中，21只上涨、9只下跌。",
+      "title": "财联社9月29日电，投资银行Piper Sandler据悉正在洽谈收购精品投行Perella Weinberg Partners（PWP）。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，英国10年期国债收益率升至自2007年7月以来的最高水平，达到5.441%。",
+      "title": "财联社9月29日电，纳斯达克中国金龙指数跌幅扩大，现跌1.5%，最新报5649.72点。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，私募股权公司Bridgepoint和Astorg据悉正在考虑出售金融科技公司Fenergo，估值可能达到20亿英镑或以上。",
+      "title": "①节前赔率有所提升；②罗氏宣布建设自主化AI实验室，自研AI工具有望在2026年底前参与80%的研发管线组合决策，AI4S新范式持续落地；③今日全市场机构研报共发布167篇，五粮液、戈碧迦评级得到上调，14家公司获得首度覆盖，其中宁夏建材、鸿仕达获新财富分析师深度覆盖；④在个股机构关注度排行中，中天科技首次上榜，前五名依次为润泽科技>南方乳业>川仪股份>中天科技>汇川技术。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，SpaceX宣布，星舰正按计划重返地球大气层，预计约1小时后在太平洋海域溅落。",
+      "title": "【费城半导体指数涨幅扩大至2% ARM股价上涨6%】财联社9月29日电，费城半导体指数涨2%，报12715.93点。英伟达股价上涨0.58%，台积电股价下跌0.66%，博通股价上涨2.78%，SK海力士股价上涨2.03%，美光科技股价上涨1.87%，超威半导体股价上涨2.5%，阿斯麦股价上涨2.27%，英特尔股价上涨0.34%，泛林集团股价上涨3.12%，ARM股价上涨5.85%，闪迪股价上涨0.09%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【商务部部长王文涛与德国联邦经济和能源部部长赖歇举行视频通话】财联社9月28日电，商务部部长王文涛28日与德国联邦经济和能源部部长赖歇举行视频通话，双方就中德、中欧经贸关系交换意见。",
+      "title": "财联社9月29日电，美国9月消费者信心指数为81.9，预估为89.0。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，美国证券交易委员会（SEC）表示，私募信贷的估值需要“特别谨慎”对待。",
+      "title": "财联社9月29日电，美国8月职位空缺707.9万，预期722.8万。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，印度证券交易委员会（SEBI）宣布，已终止对阿达尼集团旗下公司及集团创始人高塔姆·阿达尼在公众持股比例违规一案中的相关程序。",
+      "title": "财联社9月29日电，博通股价上涨3.1%，报360.38美元/股，总市值报1.72万亿美元。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，美国财政部3个月期国库券中标利率4.110%，投标倍数2.99。美国财政部6个月期国库券中标利率4.285%，投标倍数2.64。",
+      "title": "①固态电池+锂电池+动力电池回收+储能！这家公司成功开发出多款高镍9系及单晶系列三元正极材料；②液冷+东数西算+机器人+华为！这家公司高效能干冷器已进入字节、阿里等头部客户短名单并实现项目落地；③CPO+光纤+光子芯片+商业航天+军工！公司1.6T高速光模块用无源器件已经完成多款样品的客户送测。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，美国战略石油储备（SPR）的原油库存上周降至2.838亿桶，创1982年以来最低水平。",
+      "title": "财联社9月29日电，KKR已达成协议，将收购印度液体仓储物流公司Cisternina Logistics的多数股权。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，英伟达和OpenAI据悉已受邀参加特朗普与众议院议长约翰逊的会议。",
+      "title": "【千里科技：子公司拟3443.88万元购买极氪智能驾驶相关资产】财联社9月29日电，千里科技(601777.SH)公告称，公司控股子公司千里智驾拟与浙江极氪签署协议，以3443.88万元(含增值税)购买其智能驾驶业务研发相关的电子设备及设备安装工程。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，据一名白宫官员透露，美国总统特朗普与Anthropic首席执行官达里奥·阿莫代伊（Dario Amodei）于昨晚举行了会晤。",
+      "title": "财联社9月29日电，OpenAI的年度经常性收入（ARR）据悉已接近700亿美元。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【欧洲主要股指收盘涨跌不一】财联社9月28日电，欧洲主要股指收盘涨跌不一，德国DAX30指数涨幅0.07%，报25413.99点；英国富时100指数跌幅0.07%，报10687.24点；法国CAC40指数涨幅0.01%，报8078.48点；欧洲斯托克50指数涨幅0.10%，报6309.35点；意大利富时MIB指数跌幅0.19%，报51767.50点。",
+      "title": "【美国9月消费者信心跌至十二年以来最低 对经济和就业看法悲观】财联社9月29日电，美国9月消费者信心降至2014年以来最低水平，人们对经济和劳动力市场的看法变得更加悲观。世界大型企业联合会公布的数据显示，消费者信心指数下降6.7点至81.9，前一个月的数据也被下修。经济学家预测中值为89。衡量当前状况的指标下降近8点至2021年以来最低，衡量未来六个月预期的指标也降至一年多来最低。报告显示，消费者对生活成本持续感到担忧，包括高企的汽油价格。尽管通胀令人担忧，但消费者支出和劳动力市场一直表现出韧性。预计周五公布的非农就业报告将显示，9月招聘活动仍然稳健。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【王毅会见日本国际贸易促进协会会长岩屋毅】财联社9月28日电，据外交部网站，中共中央政治局委员、中央外办主任王毅28日在北京会见日本国际贸易促进协会会长岩屋毅。\n\n王毅表示，日本国贸促是著名民间友好团体之一，成立至今致力于中日友好事业，尤其是在中日关系面临挑战、遭受破坏时，仍然能够秉持对华友好信念，维护中日关系政治基础。国贸促前任会长河野洋平先生是一个有良知的政治家，敢于直面日本过去的黑暗历史，勇于反省军国主义的侵略罪责，赢得了中国及周边国家人民的尊重。前事不忘，后事之师。切实以史为鉴，才能真正开辟未来。今年是东京审判开庭80周年，日本再次面对历史的拷问。如果不愿汲取历史教训，挑战战后“和平宪法”，甚至企图为侵略历史翻案、替战争罪犯招魂，日本就无法面对世界，更谈不上开辟未来，也难以有未来。\n\n王毅指出，明年是中日邦交正常化55周年。当前的中日关系又一次面临严峻局面，有待再次实现正常化。对日方而言，紧迫的是尽快纠正本国领导人在台湾问题上的错误言行，重要的是在历史问题上采取正确的态度，根本的是形成客观理性的对华认知。希望日本国贸促和一切有识之士继承友好传统，推动日本做出正确选择，拿出合格答卷。\n\n岩屋毅表示，日中关系当前局面令人担忧。国贸促将继承前任会长河野洋平先生遗志，推动两国关系重回日中四个政治文件的初心和原点。日本不应忘记过去的教训，政治家必须把握好日本的方向，继续坚定不移走和平发展道路。",
+      "title": "【2026金融街论坛年会将于10月19日在京开幕】财联社9月29日电，2026金融街论坛年会定于10月19日至22日在北京金融街举办。2026金融街论坛年会将以党的二十大及二十届历次全会精神和中央金融工作会议精神为指引，立足“十五五”开局之年重要节点，以“开放·合作·包容——共筑全球金融发展新生态”为主题，邀请国内外经济金融领域重要嘉宾研讨交流，深化国际金融务实合作，凝聚全球金融发展共识，为推动构建开放共赢的全球金融体系注入持久金融力量。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【纳斯达克中国金龙指数涨幅扩大至1.1%】财联社9月28日电，纳斯达克中国金龙指数涨幅扩大至1.1%。网易涨超5%，贝壳涨3.89%，理想汽车、哔哩哔哩涨超2%。",
+      "title": "财联社9月29日电，NetApp与甲骨文将推出原生OCI存储服务。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【俄罗斯一家烟花厂起火 5人死亡】财联社9月28日电，俄罗斯雅罗斯拉夫尔州紧急情况总局9月28日通报，该州一家烟花厂起火，目前火势已被控制，在清理废墟时发现5具尸体。通报未说明事故原因。 （央视新闻）",
+      "title": "财联社9月29日电，甲骨文拉升涨至5%，报139.5美元。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社9月28日电，SpaceX称，星舰在关键飞行后按计划溅落海洋。",
+      "title": "①欧洲“海风”订单空窗期有望2026年四季度结束，2027年FID同比接近翻倍，这个环节欧洲本土产能缺口更为刚性；②多家零部件厂商已进入西门子歌美飒、维斯塔斯供应链，弹性由\"供应链安全\"与\"欧洲自给能力\"共同决定；③造船景气周期与海风周期的叠加，海工服务的商业模式从\"设备制造\"向\"制造+运输+母港+安装\"一体化演进，估值框架有望切换。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【俄罗斯计划在2027年用于国防的支出将达到17.1万亿卢布】财联社9月29日电，俄罗斯计划在2027年用于国防的支出将达到17.1万亿卢布，较最初计划的13.5万亿卢布有所增加；俄罗斯国家债务预计将在2027年上升至占国内生产总值的21.7%，而2026年为19.9%。2026年的预算支出将增加13.2%，达到48.6万亿卢布，占国内生产总值的20.9%；将2026年石油和天然气收入预估从8.9万亿卢布下调至7.6万亿卢布；将在2026年支出4590亿卢布，约占财政储备基金流动部分的11%，以弥补预算赤字。",
+      "title": "财联社9月29日电，ANTHROPIC公司表示，正在调查影响Claude .ai（包括桌面和移动应用）、Claude Code及Claude Cowork的错误率升高问题。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【欧盟或为乌克兰等国入盟制定路线图】财联社9月29日电，据《政治报·欧洲版》网站9月27日报道，欧盟正考虑为黑山、乌克兰、摩尔多瓦和阿尔巴尼亚制定专门的“入盟路线图”，以加快其入盟进程。报道称，这将是欧盟首次考虑向这些被视为“最接近加入欧盟”的候选国提供更加明确的入盟路径。 （CCTV国际时讯）",
+      "title": "【美国8月份职位空缺降至五个月低位 裁员人数依然较少】财联社9月29日电，美国8月职位空缺降至五个月低点，显示夏末之际雇主在增加员工方面变得更加谨慎，但裁员人数仍然保持低位。美国劳工统计局周二公布的数据显示，空缺职位数量从7月的730万个降至710万个，低于调查中所有经济学家的预测。报告还显示，裁员人数降至2025年3月以来最低，招聘人数则小幅增加。离职率维持在1.9%，与2020年以来最低水平持平。多个领域的空缺职位减少，包括专业和商业服务、医疗保健和社会援助、州和地方政府，以及制造业和建筑业。这些数据与当前“低招聘、低裁员”的劳动力市场格局一致。许多雇主既不愿增加人手，也不愿裁员。上周首次申领失业救济人数仍徘徊在历史低位附近，表明裁员活动有限。",
       "link": "",
       "published": "",
       "summary": "",
@@ -175,257 +175,257 @@ window.__SITE_DATA__ = {
   ],
   "sectors": [
     {
-      "name": "汽车整车",
-      "change_pct": 1.72,
+      "name": "元件",
+      "change_pct": 4.42,
       "up": true,
-      "leader": "江淮汽车"
+      "leader": "迅捷兴"
     },
     {
-      "name": "小家电",
-      "change_pct": 1.2,
+      "name": "房地产",
+      "change_pct": 3.82,
       "up": true,
-      "leader": "鸿智科技"
+      "leader": "特发服务"
     },
     {
-      "name": "风电设备",
-      "change_pct": 0.84,
+      "name": "电池",
+      "change_pct": 3.79,
       "up": true,
-      "leader": "洛轴股份"
+      "leader": "武汉蓝电"
     },
     {
-      "name": "养殖业",
-      "change_pct": 0.2,
+      "name": "文化传媒",
+      "change_pct": 3.16,
       "up": true,
-      "leader": "东瑞股份"
+      "leader": "值得买"
     },
     {
-      "name": "油气开采及服务",
-      "change_pct": -0.01,
-      "up": false,
-      "leader": "博迈科"
+      "name": "影视院线",
+      "change_pct": 2.35,
+      "up": true,
+      "leader": "中视传媒"
     },
     {
-      "name": "生物制品",
-      "change_pct": -0.08,
-      "up": false,
-      "leader": "赛伦生物"
+      "name": "工业金属",
+      "change_pct": 2.0,
+      "up": true,
+      "leader": "金徽股份"
     },
     {
-      "name": "饮料制造",
-      "change_pct": -0.1,
-      "up": false,
-      "leader": "会稽山"
+      "name": "IT服务",
+      "change_pct": 1.8,
+      "up": true,
+      "leader": "华是科技"
     },
     {
-      "name": "电力",
-      "change_pct": -0.14,
-      "up": false,
-      "leader": "浙江新能"
+      "name": "能源金属",
+      "change_pct": 1.66,
+      "up": true,
+      "leader": "永杉锂业"
     },
     {
-      "name": "银行",
-      "change_pct": -0.21,
-      "up": false,
-      "leader": "浦发银行"
+      "name": "游戏",
+      "change_pct": 1.49,
+      "up": true,
+      "leader": "电魂网络"
     },
     {
-      "name": "中药",
-      "change_pct": -0.22,
-      "up": false,
-      "leader": "ST万邦"
+      "name": "贵金属",
+      "change_pct": 1.44,
+      "up": true,
+      "leader": "中金黄金"
     },
     {
-      "name": "食品加工制造",
-      "change_pct": -0.35,
-      "up": false,
-      "leader": "宝立食品"
+      "name": "包装印刷",
+      "change_pct": 1.39,
+      "up": true,
+      "leader": "环球印务"
     },
     {
-      "name": "燃气",
-      "change_pct": -0.39,
-      "up": false,
-      "leader": "洪通燃气"
+      "name": "软件开发",
+      "change_pct": 1.35,
+      "up": true,
+      "leader": "大智慧"
     },
     {
-      "name": "化学制药",
-      "change_pct": -0.49,
-      "up": false,
-      "leader": "丽珠集团"
+      "name": "综合",
+      "change_pct": 1.28,
+      "up": true,
+      "leader": "综艺股份"
     },
     {
-      "name": "煤炭开采加工",
-      "change_pct": -0.55,
-      "up": false,
-      "leader": "郑州煤电"
+      "name": "建筑装饰",
+      "change_pct": 1.17,
+      "up": true,
+      "leader": "园林股份"
     },
     {
-      "name": "港口航运",
-      "change_pct": -0.63,
-      "up": false,
-      "leader": "招商港口"
+      "name": "计算机设备",
+      "change_pct": 1.16,
+      "up": true,
+      "leader": "中新赛克"
     }
   ],
   "sector_summary": {
     "total": 90,
-    "up_count": 4,
-    "down_count": 86,
-    "top_name": "汽车整车",
-    "top_pct": 1.72,
-    "bottom_name": "元件",
-    "bottom_pct": -6.84
+    "up_count": 71,
+    "down_count": 19,
+    "top_name": "元件",
+    "top_pct": 4.42,
+    "bottom_name": "种植业与林业",
+    "bottom_pct": -0.93
   },
   "breadth": {
-    "total": 5568,
-    "up": 898,
-    "down": 4553,
-    "flat": 117,
-    "limit_up": 40,
-    "limit_down": 123,
-    "up_pct": 16.1,
-    "turnover_yi": 17165.06
+    "total": 5570,
+    "up": 3471,
+    "down": 1932,
+    "flat": 167,
+    "limit_up": 80,
+    "limit_down": 16,
+    "up_pct": 62.3,
+    "turnover_yi": 14213.77
   },
   "movers": {
     "top_gainers": [
       {
-        "name": "善水科技",
-        "code": "sz301190",
-        "price": 24.95,
+        "name": "N鸿富诚",
+        "code": "sz301716",
+        "price": 578.88,
+        "change_pct": 653.16,
+        "up": true
+      },
+      {
+        "name": "N安达",
+        "code": "bj920202",
+        "price": 26.16,
+        "change_pct": 246.49,
+        "up": true
+      },
+      {
+        "name": "武汉蓝电",
+        "code": "bj920779",
+        "price": 28.4,
+        "change_pct": 29.98,
+        "up": true
+      },
+      {
+        "name": "众捷股份",
+        "code": "sz301560",
+        "price": 33.88,
         "change_pct": 20.01,
         "up": true
       },
       {
-        "name": "永信至诚",
-        "code": "sh688244",
-        "price": 19.8,
+        "name": "迈信林",
+        "code": "sh688685",
+        "price": 39.7,
+        "change_pct": 20.01,
+        "up": true
+      },
+      {
+        "name": "迅捷兴",
+        "code": "sh688655",
+        "price": 75.7,
+        "change_pct": 20.01,
+        "up": true
+      },
+      {
+        "name": "尚水智能",
+        "code": "sz301513",
+        "price": 51.42,
         "change_pct": 20.0,
         "up": true
       },
       {
-        "name": "嘉益股份",
-        "code": "sz301004",
-        "price": 38.28,
-        "change_pct": 17.06,
+        "name": "善水科技",
+        "code": "sz301190",
+        "price": 29.94,
+        "change_pct": 20.0,
         "up": true
       },
       {
-        "name": "洛轴股份",
-        "code": "sz301699",
-        "price": 40.68,
-        "change_pct": 14.46,
+        "name": "金禄电子",
+        "code": "sz301282",
+        "price": 45.49,
+        "change_pct": 13.64,
         "up": true
       },
       {
-        "name": "雷曼光电",
-        "code": "sz300162",
-        "price": 8.67,
-        "change_pct": 12.89,
-        "up": true
-      },
-      {
-        "name": "麒麟信安",
-        "code": "sh688152",
-        "price": 39.45,
-        "change_pct": 11.98,
-        "up": true
-      },
-      {
-        "name": "鸿智科技",
-        "code": "bj920926",
-        "price": 10.9,
-        "change_pct": 10.88,
-        "up": true
-      },
-      {
-        "name": "海顺新材",
-        "code": "sz300501",
-        "price": 10.45,
-        "change_pct": 10.58,
-        "up": true
-      },
-      {
-        "name": "*ST华幸",
-        "code": "sh600340",
-        "price": 1.29,
-        "change_pct": 10.26,
-        "up": true
-      },
-      {
-        "name": "浙江新能",
-        "code": "sh600032",
-        "price": 7.43,
-        "change_pct": 10.07,
+        "name": "特发服务",
+        "code": "sz300917",
+        "price": 36.18,
+        "change_pct": 13.49,
         "up": true
       }
     ],
     "top_losers": [
       {
-        "name": "百瑞吉",
-        "code": "bj920201",
-        "price": 52.01,
-        "change_pct": -28.11,
+        "name": "C中塑",
+        "code": "sz301686",
+        "price": 192.06,
+        "change_pct": -17.1,
         "up": false
       },
       {
         "name": "凯达重工",
         "code": "bj920025",
-        "price": 15.2,
-        "change_pct": -25.12,
+        "price": 13.24,
+        "change_pct": -12.89,
         "up": false
       },
       {
-        "name": "奥联电子",
-        "code": "sz300585",
-        "price": 13.83,
-        "change_pct": -17.97,
+        "name": "世纪数码",
+        "code": "bj920229",
+        "price": 49.14,
+        "change_pct": -12.06,
         "up": false
       },
       {
-        "name": "金丹科技",
-        "code": "sz300829",
-        "price": 22.7,
-        "change_pct": -17.63,
+        "name": "百瑞吉",
+        "code": "bj920201",
+        "price": 46.03,
+        "change_pct": -11.5,
         "up": false
       },
       {
-        "name": "优利德",
-        "code": "sh688628",
-        "price": 91.99,
-        "change_pct": -17.04,
+        "name": "*ST岭南",
+        "code": "sz002717",
+        "price": 0.69,
+        "change_pct": -10.39,
         "up": false
       },
       {
-        "name": "百纳千成",
-        "code": "sz300291",
-        "price": 4.83,
-        "change_pct": -16.44,
+        "name": "厦工股份",
+        "code": "sh600815",
+        "price": 3.77,
+        "change_pct": -10.02,
         "up": false
       },
       {
-        "name": "蓝盾光电",
-        "code": "sz300862",
-        "price": 47.48,
-        "change_pct": -15.56,
+        "name": "万向德农",
+        "code": "sh600371",
+        "price": 12.84,
+        "change_pct": -10.02,
         "up": false
       },
       {
-        "name": "燕麦科技",
-        "code": "sh688312",
-        "price": 49.17,
-        "change_pct": -14.92,
+        "name": "泰慕士",
+        "code": "sz001234",
+        "price": 28.67,
+        "change_pct": -10.01,
         "up": false
       },
       {
-        "name": "迅捷兴",
-        "code": "sh688655",
-        "price": 63.08,
-        "change_pct": -14.53,
+        "name": "通达创智",
+        "code": "sz001368",
+        "price": 37.62,
+        "change_pct": -10.0,
         "up": false
       },
       {
-        "name": "长盈通",
-        "code": "sh688143",
-        "price": 165.05,
-        "change_pct": -13.74,
+        "name": "金辰股份",
+        "code": "sh603396",
+        "price": 35.28,
+        "change_pct": -10.0,
         "up": false
       }
     ]
@@ -433,210 +433,210 @@ window.__SITE_DATA__ = {
   "fx": [
     {
       "name": "美元",
-      "buy": 673.99,
-      "sell": 673.99
+      "buy": 674.11,
+      "sell": 674.11
     },
     {
       "name": "欧元",
-      "buy": 765.64,
-      "sell": 765.64
+      "buy": 764.94,
+      "sell": 764.94
     },
     {
       "name": "日元",
-      "buy": 4.2685,
-      "sell": 4.2685
+      "buy": 4.275,
+      "sell": 4.275
     },
     {
       "name": "英镑",
-      "buy": 890.07,
-      "sell": 890.07
+      "buy": 891.72,
+      "sell": 891.72
     }
   ],
   "global_indices": [
     {
       "market": "港股",
       "name": "恒生指数",
-      "change_pct": 0.54,
-      "up": true,
-      "price": 24642.51
+      "change_pct": -0.48,
+      "up": false,
+      "price": 24523.57
     },
     {
       "market": "美股",
       "name": "纳斯达克",
-      "change_pct": -0.6,
-      "up": false,
-      "price": 26907.33
+      "change_pct": 0.19,
+      "up": true,
+      "price": 26870.46
     },
     {
       "market": "美股",
       "name": "标普500",
-      "change_pct": -0.51,
-      "up": false,
-      "price": 7703.68
+      "change_pct": 0.02,
+      "up": true,
+      "price": 7685.44
     },
     {
       "market": "美股",
       "name": "道琼斯",
-      "change_pct": -0.4,
+      "change_pct": -0.27,
       "up": false,
-      "price": 51620.3
+      "price": 51340.96
     },
     {
       "market": "日股",
       "name": "日经225",
-      "change_pct": -0.73,
+      "change_pct": -0.6,
       "up": false,
-      "price": 65877.62
+      "price": 65481.27
     }
   ],
   "funds": [
     {
-      "name": "新华中债0-3年政策性金融债指数A",
-      "code": "011796",
-      "change_pct": 2.88,
+      "name": "招商沪深300地产等权重指数C",
+      "code": "013273",
+      "change_pct": 6.18,
       "up": true,
-      "nav": 1.0466
+      "nav": 0.2679
     },
     {
-      "name": "永赢新兴消费智选混合发起A",
-      "code": "016502",
-      "change_pct": 2.18,
+      "name": "招商沪深300地产等权重指数A",
+      "code": "161721",
+      "change_pct": 6.15,
       "up": true,
-      "nav": 1.037
+      "nav": 0.2692
     },
     {
-      "name": "永赢新兴消费智选混合发起C",
-      "code": "016503",
-      "change_pct": 2.18,
+      "name": "信澳匠心严选一年持有混合A",
+      "code": "016372",
+      "change_pct": 5.86,
       "up": true,
-      "nav": 1.0223
+      "nav": 2.3845
     },
     {
-      "name": "永赢消费主题C",
-      "code": "006253",
-      "change_pct": 2.16,
+      "name": "信澳匠心严选一年持有混合C",
+      "code": "016373",
+      "change_pct": 5.85,
       "up": true,
-      "nav": 1.7142
+      "nav": 2.3271
     },
     {
-      "name": "永赢消费主题A",
-      "code": "006252",
-      "change_pct": 2.16,
+      "name": "信澳景气优选混合A",
+      "code": "013721",
+      "change_pct": 5.54,
       "up": true,
-      "nav": 1.7436
+      "nav": 2.6771
     },
     {
-      "name": "银华农业产业股票发起式A",
-      "code": "005106",
-      "change_pct": 1.96,
+      "name": "信澳景气优选混合C",
+      "code": "013722",
+      "change_pct": 5.54,
       "up": true,
-      "nav": 1.1748
+      "nav": 2.5771
     },
     {
-      "name": "银华农业产业股票发起式C",
-      "code": "014064",
-      "change_pct": 1.95,
+      "name": "鹏华中证800地产指数(LOF)A",
+      "code": "160628",
+      "change_pct": 5.5,
       "up": true,
-      "nav": 1.1639
+      "nav": 0.5296
     },
     {
-      "name": "东财农业智选混合发起式A",
-      "code": "027650",
-      "change_pct": 1.91,
+      "name": "信澳优势产业混合A",
+      "code": "018287",
+      "change_pct": 5.49,
       "up": true,
-      "nav": 1.0153
+      "nav": 3.6927
     },
     {
-      "name": "东财农业智选混合发起式C",
-      "code": "027651",
-      "change_pct": 1.9,
+      "name": "信澳优势产业混合C",
+      "code": "018288",
+      "change_pct": 5.49,
       "up": true,
-      "nav": 1.0147
+      "nav": 3.6191
     },
     {
-      "name": "华夏优加生活混合A",
-      "code": "012421",
-      "change_pct": 1.49,
+      "name": "鹏华中证800地产指数(LOF)C",
+      "code": "015674",
+      "change_pct": 5.48,
       "up": true,
-      "nav": 0.6218
+      "nav": 0.5177
     }
   ],
   "turnover": {
-    "total_yuan": 1716505688320.0,
-    "total_yi": 17165.06,
-    "stock_count": 5568
+    "total_yuan": 1421377294497.0,
+    "total_yi": 14213.77,
+    "stock_count": 5570
   },
   "commodities": [
     {
       "name": "原油",
-      "price": 727.3,
-      "change_pct": -2.18,
+      "price": 711.9,
+      "change_pct": -2.12,
       "up": false
     },
     {
       "name": "黄金",
-      "price": 904.66,
-      "change_pct": -2.48,
+      "price": 898.78,
+      "change_pct": -0.65,
       "up": false
     },
     {
       "name": "白银",
-      "price": 14985.0,
-      "change_pct": -4.32,
+      "price": 14848.0,
+      "change_pct": -0.91,
       "up": false
     },
     {
       "name": "沪铜",
-      "price": 109440.0,
-      "change_pct": -0.63,
-      "up": false
+      "price": 109570.0,
+      "change_pct": 0.12,
+      "up": true
     },
     {
       "name": "螺纹钢",
-      "price": 3106.0,
-      "change_pct": -0.38,
+      "price": 3105.0,
+      "change_pct": -0.03,
       "up": false
     },
     {
       "name": "铁矿石",
-      "price": 705.0,
-      "change_pct": -1.19,
+      "price": 699.0,
+      "change_pct": -0.85,
       "up": false
     },
     {
       "name": "豆粕",
-      "price": 3363.0,
-      "change_pct": -1.84,
+      "price": 3359.0,
+      "change_pct": -0.12,
       "up": false
     },
     {
       "name": "PTA",
-      "price": 6256.0,
-      "change_pct": -1.32,
-      "up": false
+      "price": 6350.0,
+      "change_pct": 1.5,
+      "up": true
     },
     {
       "name": "沪铝",
-      "price": 23950.0,
-      "change_pct": -1.03,
-      "up": false
+      "price": 24020.0,
+      "change_pct": 0.29,
+      "up": true
     },
     {
       "name": "沪锌",
-      "price": 26500.0,
-      "change_pct": -0.97,
-      "up": false
+      "price": 26575.0,
+      "change_pct": 0.28,
+      "up": true
     },
     {
       "name": "橡胶",
-      "price": 19275.0,
-      "change_pct": -1.66,
+      "price": 19010.0,
+      "change_pct": -1.37,
       "up": false
     },
     {
       "name": "棕榈油",
-      "price": 9630.0,
-      "change_pct": -1.79,
+      "price": 9565.0,
+      "change_pct": -0.67,
       "up": false
     }
   ],
@@ -679,13 +679,22 @@ window.__SITE_DATA__ = {
         "reason": "上榜2次"
       },
       {
-        "name": "跨境通",
-        "code": "002640",
-        "price": 3.96,
-        "change_pct": 10.0,
+        "name": "鸿富诚",
+        "code": "301716",
+        "price": 578.88,
+        "change_pct": 653.16,
         "up": true,
-        "net_buy": 43852.2,
-        "reason": "上榜2次"
+        "net_buy": 42004.1,
+        "reason": "上榜1次"
+      },
+      {
+        "name": "津药药业",
+        "code": "600488",
+        "price": 6.9,
+        "change_pct": 10.05,
+        "up": true,
+        "net_buy": 39259.0,
+        "reason": "上榜3次"
       },
       {
         "name": "中京电子",
@@ -697,6 +706,15 @@ window.__SITE_DATA__ = {
         "reason": "上榜8次"
       },
       {
+        "name": "万科A",
+        "code": "000002",
+        "price": 4.08,
+        "change_pct": 9.97,
+        "up": true,
+        "net_buy": 38070.4,
+        "reason": "上榜4次"
+      },
+      {
         "name": "江淮汽车",
         "code": "600418",
         "price": 23.45,
@@ -706,13 +724,22 @@ window.__SITE_DATA__ = {
         "reason": "上榜1次"
       },
       {
-        "name": "电科思仪",
-        "code": "301689",
-        "price": 85.1,
-        "change_pct": 1.45,
+        "name": "国轩高科",
+        "code": "002074",
+        "price": 28.68,
+        "change_pct": 10.01,
         "up": true,
-        "net_buy": 34180.9,
-        "reason": "上榜9次"
+        "net_buy": 36838.5,
+        "reason": "上榜1次"
+      },
+      {
+        "name": "金健米业",
+        "code": "600127",
+        "price": 16.49,
+        "change_pct": -1.55,
+        "up": false,
+        "net_buy": 36542.1,
+        "reason": "上榜19次"
       },
       {
         "name": "海峡创新",
@@ -760,6 +787,15 @@ window.__SITE_DATA__ = {
         "reason": "上榜12次"
       },
       {
+        "name": "华脉科技",
+        "code": "603042",
+        "price": 16.55,
+        "change_pct": -1.84,
+        "up": false,
+        "net_buy": 26234.9,
+        "reason": "上榜6次"
+      },
+      {
         "name": "博纳影业",
         "code": "001330",
         "price": 6.36,
@@ -778,54 +814,18 @@ window.__SITE_DATA__ = {
         "reason": "上榜1次"
       },
       {
-        "name": "义翘神州",
-        "code": "301047",
-        "price": 150.0,
-        "change_pct": 10.12,
-        "up": true,
-        "net_buy": 23944.7,
-        "reason": "上榜2次"
-      },
-      {
-        "name": "博通集成",
-        "code": "603068",
-        "price": 48.17,
-        "change_pct": 10.0,
-        "up": true,
-        "net_buy": 22490.4,
-        "reason": "上榜1次"
-      },
-      {
-        "name": "万科A",
-        "code": "000002",
-        "price": 3.81,
-        "change_pct": 4.38,
-        "up": true,
-        "net_buy": 22109.5,
-        "reason": "上榜3次"
-      },
-      {
-        "name": "中一科技",
-        "code": "301150",
-        "price": 49.2,
-        "change_pct": 20.0,
-        "up": true,
-        "net_buy": 21583.1,
-        "reason": "上榜1次"
-      },
-      {
         "name": "奥佳华",
         "code": "002614",
-        "price": 8.5,
-        "change_pct": 2.04,
-        "up": true,
-        "net_buy": 19603.5,
-        "reason": "上榜4次"
+        "price": 8.13,
+        "change_pct": -4.35,
+        "up": false,
+        "net_buy": 24128.0,
+        "reason": "上榜5次"
       }
     ],
     "total": 20,
-    "up_count": 18,
-    "down_count": 2
+    "up_count": 15,
+    "down_count": 5
   },
   "treasury": {
     "yields": {
@@ -845,277 +845,272 @@ window.__SITE_DATA__ = {
     "pb": 1.38,
     "pe_percentile": 47.7,
     "pb_percentile": 21.3,
-    "date": "2026-09-28"
+    "date": "2026-09-29"
   },
   "convertible_bonds": {
     "list": [
       {
-        "name": "润禾转02",
-        "price": 100.0,
-        "premium_rt": -5.56,
-        "change_pct": 0.0,
-        "up": true,
-        "double_low": 94.44
-      },
-      {
-        "name": "宏图转债",
-        "price": 98.24,
-        "premium_rt": 2.87,
-        "change_pct": -1.8,
-        "up": false,
-        "double_low": 101.11
-      },
-      {
         "name": "奥士转债",
         "price": 100.0,
-        "premium_rt": 1.4,
+        "premium_rt": -7.82,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 101.4
+        "double_low": 92.18
       },
       {
         "name": "满坤转债",
         "price": 100.0,
-        "premium_rt": 3.43,
+        "premium_rt": -6.23,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 103.43
+        "double_low": 93.77
       },
       {
-        "name": "隆新转债",
-        "price": 100.0,
-        "premium_rt": 7.01,
-        "change_pct": 0.0,
+        "name": "宏图转债",
+        "price": 99.36,
+        "premium_rt": 1.47,
+        "change_pct": 1.14,
         "up": true,
-        "double_low": 107.01
+        "double_low": 100.83
       },
       {
         "name": "国科转债",
         "price": 100.0,
-        "premium_rt": 10.75,
+        "premium_rt": 8.98,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 110.75
+        "double_low": 108.98
       },
       {
         "name": "金田转债",
-        "price": 110.81,
-        "premium_rt": 0.81,
-        "change_pct": -4.62,
-        "up": false,
-        "double_low": 111.62
+        "price": 111.19,
+        "premium_rt": -0.01,
+        "change_pct": 0.34,
+        "up": true,
+        "double_low": 111.18
+      },
+      {
+        "name": "闻泰转债",
+        "price": 101.06,
+        "premium_rt": 12.39,
+        "change_pct": 0.29,
+        "up": true,
+        "double_low": 113.45
       },
       {
         "name": "美锦转债",
-        "price": 107.2,
-        "premium_rt": 8.14,
-        "change_pct": -1.2,
-        "up": false,
-        "double_low": 115.34
-      },
-      {
-        "name": "Z路转债",
-        "price": 110.05,
-        "premium_rt": 5.41,
-        "change_pct": -0.76,
-        "up": false,
-        "double_low": 115.46
+        "price": 107.34,
+        "premium_rt": 7.34,
+        "change_pct": 0.13,
+        "up": true,
+        "double_low": 114.68
       },
       {
         "name": "大参转债",
-        "price": 110.57,
-        "premium_rt": 4.91,
-        "change_pct": 0.0,
-        "up": true,
-        "double_low": 115.48
+        "price": 110.46,
+        "premium_rt": 4.45,
+        "change_pct": -0.1,
+        "up": false,
+        "double_low": 114.91
       },
       {
         "name": "财通转债",
-        "price": 108.98,
-        "premium_rt": 7.1,
-        "change_pct": -1.43,
-        "up": false,
-        "double_low": 116.08
+        "price": 109.27,
+        "premium_rt": 6.73,
+        "change_pct": 0.27,
+        "up": true,
+        "double_low": 116.0
       },
       {
         "name": "上银转债",
-        "price": 115.9,
-        "premium_rt": 1.77,
-        "change_pct": -0.07,
-        "up": false,
-        "double_low": 117.67
+        "price": 116.36,
+        "premium_rt": 1.74,
+        "change_pct": 0.4,
+        "up": true,
+        "double_low": 118.1
       },
       {
         "name": "国泰转债",
-        "price": 114.01,
-        "premium_rt": 11.88,
-        "change_pct": 0.45,
-        "up": true,
-        "double_low": 125.89
+        "price": 113.86,
+        "premium_rt": 12.18,
+        "change_pct": -0.13,
+        "up": false,
+        "double_low": 126.04
       },
       {
         "name": "重银转债",
-        "price": 124.47,
-        "premium_rt": 4.14,
-        "change_pct": 0.18,
-        "up": true,
-        "double_low": 128.61
+        "price": 124.03,
+        "premium_rt": 4.25,
+        "change_pct": -0.35,
+        "up": false,
+        "double_low": 128.28
+      },
+      {
+        "name": "灵康转债",
+        "price": 119.72,
+        "premium_rt": 9.56,
+        "change_pct": -0.95,
+        "up": false,
+        "double_low": 129.28
+      },
+      {
+        "name": "帝欧转债",
+        "price": 130.81,
+        "premium_rt": 1.23,
+        "change_pct": -0.38,
+        "up": false,
+        "double_low": 132.03
       },
       {
         "name": "常银转债",
-        "price": 125.36,
-        "premium_rt": 7.19,
-        "change_pct": -0.75,
-        "up": false,
-        "double_low": 132.55
+        "price": 126.07,
+        "premium_rt": 7.45,
+        "change_pct": 0.57,
+        "up": true,
+        "double_low": 133.52
       }
     ],
     "total_count": 15,
-    "up_count": 8,
-    "down_count": 7,
-    "avg_price": 108.37
+    "up_count": 10,
+    "down_count": 5,
+    "avg_price": 111.3
   },
   "logs": [
     {
-      "time": "2026-09-29 00:18:56",
+      "time": "2026-09-29 22:29:34",
       "level": "info",
       "event": "pipeline_bootstrap",
       "detail": "基础链路运行成功，等待接入真实数据源"
     },
     {
-      "time": "2026-09-29 00:19:33",
+      "time": "2026-09-29 22:30:24",
       "level": "info",
       "event": "indices_fetched",
       "detail": "成功获取 3 个指数"
     },
     {
-      "time": "2026-09-29 00:19:36",
+      "time": "2026-09-29 22:30:27",
       "level": "warn",
       "event": "rss_failed",
       "detail": "新浪财经 失败：HTTP Error 404: Not Found"
     },
     {
-      "time": "2026-09-29 00:19:37",
+      "time": "2026-09-29 22:30:28",
       "level": "warn",
       "event": "rss_failed",
       "detail": "东方财富快讯 失败：HTTP Error 403: Forbidden"
     },
     {
-      "time": "2026-09-29 00:19:39",
+      "time": "2026-09-29 22:30:29",
       "level": "warn",
       "event": "rss_failed",
       "detail": "财联社电报 失败：HTTP Error 403: Forbidden"
     },
     {
-      "time": "2026-09-29 00:19:40",
+      "time": "2026-09-29 22:30:30",
       "level": "info",
       "event": "akshare_news_ok",
       "detail": "财联社获取 20 条"
     },
     {
-      "time": "2026-09-29 00:19:40",
+      "time": "2026-09-29 22:30:30",
       "level": "info",
       "event": "news_fetched",
       "detail": "成功获取 20 条（去重后，上限 20)"
     },
     {
-      "time": "2026-09-29 00:19:44",
+      "time": "2026-09-29 22:30:36",
       "level": "info",
       "event": "sectors_fetched",
-      "detail": "同花顺：成功获取 90 个行业板块，上涨 4 / 下跌 86"
+      "detail": "同花顺：成功获取 90 个行业板块，上涨 71 / 下跌 19"
     },
     {
-      "time": "2026-09-29 00:21:06",
+      "time": "2026-09-29 22:32:24",
       "level": "info",
       "event": "breadth_fetched",
-      "detail": "全市场 5568 只，上涨 898 / 下跌 4553 / 涨停 40 / 跌停 123"
+      "detail": "全市场 5570 只，上涨 3471 / 下跌 1932 / 涨停 80 / 跌停 16"
     },
     {
-      "time": "2026-09-29 00:21:15",
+      "time": "2026-09-29 22:32:35",
       "level": "info",
       "event": "fx_fetched",
       "detail": "成功获取 4 个货币牌价"
     },
     {
-      "time": "2026-09-29 00:21:18",
+      "time": "2026-09-29 22:32:38",
       "level": "info",
       "event": "global_fetched",
       "detail": "成功获取 5 个环球指数（东方财富）"
     },
     {
-      "time": "2026-09-29 00:22:05",
+      "time": "2026-09-29 22:32:44",
       "level": "info",
       "event": "funds_fetched",
       "detail": "成功获取 10 只基金排行"
     },
     {
-      "time": "2026-09-29 00:23:28",
+      "time": "2026-09-29 22:34:35",
       "level": "info",
       "event": "turnover_fetched",
-      "detail": "两市成交额 17165.0 亿元"
+      "detail": "两市成交额 14214.0 亿元"
     },
     {
-      "time": "2026-09-29 00:23:49",
+      "time": "2026-09-29 22:35:01",
       "level": "info",
       "event": "commodities_fetched",
       "detail": "成功获取 12 个商品期货"
     },
     {
-      "time": "2026-09-29 00:23:51",
+      "time": "2026-09-29 22:35:03",
       "level": "info",
       "event": "dragon_tiger_fetched",
-      "detail": "龙虎榜 20 只上榜，18 涨 2 跌"
+      "detail": "龙虎榜 20 只上榜，15 涨 5 跌"
     },
     {
-      "time": "2026-09-29 00:24:04",
+      "time": "2026-09-29 22:35:17",
       "level": "info",
       "event": "treasury_fetched",
       "detail": "国债收益率 6 个期限"
     },
     {
-      "time": "2026-09-29 00:24:08",
+      "time": "2026-09-29 22:35:24",
       "level": "info",
       "event": "csi300_val_fetched",
       "detail": "沪深300 PE=12.44 (47.7分位) PB=1.38 (21.3分位)"
     },
     {
-      "time": "2026-09-29 00:24:09",
+      "time": "2026-09-29 22:35:26",
       "level": "info",
       "event": "cb_fetched",
-      "detail": "可转债 15 只，均价 108.4"
+      "detail": "可转债 15 只，均价 111.3"
     },
     {
-      "time": "2026-09-29 00:24:09",
+      "time": "2026-09-29 22:35:26",
       "level": "info",
       "event": "commentary_generated",
-      "detail": "生成 5 条盘面简评"
+      "detail": "生成 4 条盘面简评"
     }
   ],
   "commentary": [
     {
       "label": "大盘定调",
-      "tone": "down",
-      "text": "今日 A 股整体偏弱：上证-1.67%、深成指-3.44%、创业板-4.53%。指数多数收绿，盘面承压"
+      "tone": "neutral",
+      "text": "今日 A 股整体震荡：上证+0.18%、深成指+0.34%、创业板+0.09%。指数窄幅波动，多空分歧加大"
     },
     {
       "label": "市场广度",
-      "tone": "down",
-      "text": "全市场 5568 只，上涨 898 家（占比 16.1%）、下跌 4553 家；涨停 40 家、跌停 123 家，做空情绪占优，亏钱效应明显。"
+      "tone": "up",
+      "text": "全市场 5570 只，上涨 3471 家（占比 62.3%）、下跌 1932 家；涨停 80 家、跌停 16 家，做多情绪高涨，赚钱效应显著。"
     },
     {
       "label": "资金主线",
       "tone": "neutral",
-      "text": "领涨板块为 汽车整车（+1.72%），领跌板块为 元件（-6.84%）。当日 90 个行业板块中 4 个上涨、86 个下跌，结构性行情特征明显，资金在板块间快速轮动。"
-    },
-    {
-      "label": "风险提示",
-      "tone": "down",
-      "text": "跌停家数达 123 家，需警惕高位题材股退潮；上证单日跌超 1%，短期趋势承压；元件 等板块重挫，注意相关持仓风险。"
+      "text": "领涨板块为 元件（+4.42%），领跌板块为 种植业与林业（-0.93%）。当日 90 个行业板块中 71 个上涨、19 个下跌，结构性行情特征明显，资金在板块间快速轮动。"
     },
     {
       "label": "综合研判",
       "tone": "neutral",
-      "text": "综合来看，今日赚钱效应偏弱，宜控制仓位、规避高位题材，等待企稳信号。"
+      "text": "综合来看，今日属结构化震荡格局，不宜追高，精选个股、波段操作为主。"
     }
   ],
   "history": [
@@ -1410,10 +1405,10 @@ window.__SITE_DATA__ = {
     {
       "date": "2026-09-29",
       "status": "ok",
-      "sh_pct": -1.67,
-      "sz_pct": -3.44,
-      "cyb_pct": -4.53,
-      "sh_price": 3823.62
+      "sh_pct": 0.18,
+      "sz_pct": 0.34,
+      "cyb_pct": 0.09,
+      "sh_price": 3830.45
     }
   ],
   "run_stats": {

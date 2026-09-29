@@ -290,9 +290,9 @@
   {
     "date": "2026-09-29",
     "status": "ok",
-    "sh_pct": -1.67,
-    "sz_pct": -3.44,
-    "cyb_pct": -4.53,
-    "sh_price": 3823.62
+    "sh_pct": 0.18,
+    "sz_pct": 0.34,
+    "cyb_pct": 0.09,
+    "sh_price": 3830.45
   }
 ]
