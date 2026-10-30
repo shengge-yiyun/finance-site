@@ -446,5 +446,13 @@
     "sz_pct": 2.02,
     "cyb_pct": 3.4,
     "sh_price": 3681.47
+  },
+  {
+    "date": "2026-10-30",
+    "status": "degraded",
+    "sh_pct": -1.44,
+    "sz_pct": -2.73,
+    "cyb_pct": -4.13,
+    "sh_price": 3599.02
   }
 ]
