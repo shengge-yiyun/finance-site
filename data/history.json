@@ -458,9 +458,9 @@
   {
     "date": "2026-11-03",
     "status": "ok",
-    "sh_pct": 1.08,
-    "sz_pct": 1.63,
-    "cyb_pct": 1.87,
-    "sh_price": 3638.03
+    "sh_pct": -0.82,
+    "sz_pct": null,
+    "cyb_pct": null,
+    "sh_price": 3608.1
   }
 ]
