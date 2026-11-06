@@ -1,6 +1,6 @@
 window.__SITE_DATA__ = {
-  "updated_at": "2026-11-04 23:53:01",
-  "updated_at_iso": "2026-11-04T23:53:01.373401+08:00",
+  "updated_at": "2026-11-06 23:30:30",
+  "updated_at_iso": "2026-11-06T23:30:30.545058+08:00",
   "timezone": "Asia/Shanghai",
   "status": "ok",
   "source": "akshare",
@@ -9,148 +9,148 @@ window.__SITE_DATA__ = {
     {
       "name": "上证指数",
       "code": "000001",
-      "price": 3686.17,
-      "change": 78.07,
-      "change_pct": 2.16,
-      "up": true
+      "price": 3649.18,
+      "change": -40.73,
+      "change_pct": -1.1,
+      "up": false
     }
   ],
   "news": [
     {
-      "title": "【苹果、微软、谷歌、亚马逊单日市值合计增加超1万亿美元】财联社11月4日电，苹果涨5.87%，单日增加市值约2816亿美元；微软涨6.24%，增加约2397亿美元；谷歌A股涨4.09%，增加约2790亿美元；亚马逊涨7.79%，增加约2095亿美元。四家公司合计增加市值约1.01万亿美元。",
+      "title": "财联社11月6日电，白宫经济顾问哈塞特承认芯片公司近几周出现了一些“小波折”，他还表示，英特尔的业绩表现对芯片市场来说是个好消息。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，美国供应管理学会10月份非制造业指数降至54.5，预期54.8。",
+      "title": "【利弗莫尔中概股龙头指数开盘涨超2% 半导体板块领涨】财联社11月6日电，利弗莫尔中概股龙头指数开盘涨超2%，报8678.75点。成分股中，日月光投控涨9.19%，慧荣科技涨7.75%，台积电涨7.6%，联电涨7.47%，禾赛涨7.4%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，房地美股价跌24%，房利美股价下跌25%。",
+      "title": "【纳指经历昨日暴跌后高开1.3% 芯片、光通信板块反弹明显】在经历上一交易日“史诗级”暴跌后，美股三大股指开盘涨跌不一，道琼斯指数跌1.01%，标普500指数涨0.29%，纳斯达克综合指数涨1.3%。\n\n热门股票中，苹果股价下跌1.52%，英伟达股价上涨5.28%，微软股价下跌1.96%，谷歌-A股价上涨0.8%，亚马逊股价下跌0.16%，台积电股价上涨7.64%，SpaceX股价上涨6.07%，Meta股价上涨0.4%，博通股价上涨6.72%，特斯拉股价上涨1.55%，SK海力士股价上涨4%，美光科技股价上涨7.87%，超威半导体股价上涨9.8%，阿斯麦股价上涨6.59%，思科股价上涨0.95%，甲骨文股价上涨3.69%，英特尔股价上涨5.23%。\n\n光通信股开盘普涨，Lumentum涨8.30%，康宁涨5.39%，Coherent涨11.63%，应用光电涨2.39%，Ciena涨9.19%，博通涨4.72%，迈威尔科技涨7.87%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，以太坊涨至2406.66美元，过去24小时内涨5.15%。",
+      "title": "财联社11月6日电，费城半导体指数盘初涨4.8%，现报9441点。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，据报道，美国众议院议长约翰逊将不会竞选众议院少数党领袖。",
+      "title": "财联社11月6日电，Cloudflare股价飙升17%，创下自2025年4月以来最大涨幅。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，行情显示，比特币涨至80141.7美元，过去24小时内涨3.63%。",
+      "title": "【中国工程机械工业协会：10月销售各类挖掘机20225台 同比增长11.8%】财联社11月6日电，据中国工程机械工业协会对挖掘机主要制造企业统计，2026年10月销售各类挖掘机20225台，同比增长11.8%。其中：国内销量9501台（含电动挖掘机183台），同比增长12.2%；出口10724台（含电动挖掘机104台），同比增长11.4%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【苹果、微软、谷歌、亚马逊集体大涨5%-8% 四家公司单日增加市值超1.13万亿美元】财联社11月4日电，美股大型科技股延续强势表现，苹果、微软、谷歌和亚马逊股价均大幅上涨，苹果、微软股价均续刷记录新高。其中，苹果涨6.50%，单日增加市值约3134亿美元；微软涨6.41%，增加约2481亿美元；谷歌A股涨5.06%、C股涨5.11%，两类股票合计增加市值约3490亿美元；亚马逊涨8.14%，增加约2207亿美元。四家公司单日合计增加市值约1.13万亿美元，亚马逊涨幅居首。",
+      "title": "财联社11月6日电，白宫经济顾问哈塞特表示，政策正在奏效，通胀正在下降；我认为我们不需要计划任何政策变更。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【比特币、以太坊过去24小时分别大涨4%、6%】财联社11月4日电，行情显示，比特币涨至80592.2美元，过去24小时内涨4.14%；行情显示，以太坊涨至2436.34美元，过去24小时内涨6.43%。",
+      "title": "财联社11月6日电，费城半导体指数涨6%，报9563.68点。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【纳斯达克金龙中国指数涨超4％ 万国数据涨逾9%，阿里巴巴涨超6%】财联社11月4日电，纳斯达克金龙中国指数涨超4％，世纪互联涨超16％，晶科能源涨近13％，禾赛科技涨超10%，万国数据涨逾9%，阿里巴巴涨超6%。",
+      "title": "【欧洲央行据悉考虑审查数据中心相关银行贷款 AI风险担忧升温】财联社11月6日电，欧元区最高银行监管机构考虑审查与数据中心相关的贷款，以评估人工智能市场情绪和估值波动可能带来的风险。知情人士称，欧洲央行高级官员已在内部以及与受其监督的贷款机构沟通时提出这个想法。外界担心利率上升以及对数据中心开发的反对情绪日益增强，可能给这一贷款快速扩张的领域带来压力，全球监管机构正加强对银行AI相关风险的审视。其中一名知情人士表示，审查可能采取现场检查的形式，深入了解银行如何核算未来现金流、抵押品估值等因素，以及如何应对可能的违约。第二名知情人士强调，任何调查的范围都不会像欧洲央行数年前针对杠杆融资展开的审查那样广泛。那次审查曾引发银行业不满。该人士称，针对数据中心和更广泛AI风险的具体方法尚未确定。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，Lambda将在阿拉巴马州建设价值330亿美元的数据中心。",
+      "title": "【美股AI硬件股集体反弹 费城半导体指数涨6.50% 英伟达涨7%】财联社11月6日电，美股AI硬件产业链全线反弹，费城半导体指数涨6.50%。个股方面，AMD涨12.56%，闪迪涨12.77%，Coherent涨12.18%，希捷科技涨4.25%，美光科技涨9.78%，迈威尔科技涨9.46%，Lumentum涨9.58%；英伟达涨6.72%，台积电涨7.55%，博通涨4.56%，应用材料涨8.49%，泛林集团涨11.55%。三倍做多半导体ETF（SOXL）涨19.76%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，芝加哥期权交易所（CBOE）波动率指数（VIX）跌至约一周以来的低点，跌幅达3.87点，报16.97。",
+      "title": "财联社11月6日电，纳斯达克综合指数涨幅扩大至2%，标普500指数涨1.11%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【国内商品期货夜盘收盘涨跌不一 能源化工品多数下跌】财联社11月4日电，国内商品期货夜盘收盘涨跌不一，能源化工品多数下跌，燃油跌6.33%，低硫燃料油跌4.94%，沥青跌4.17%，LPG跌3.95%，甲醇跌2.29%，聚丙烯跌2.2%。黑色系多数上涨，焦煤涨1.94%，焦炭涨1.46%。农产品多数上涨，粳米涨0.87%，白糖涨0.71%，玉米淀粉涨0.6%。",
+      "title": "财联社11月6日电，白宫经济顾问哈塞特表示，美国就业市场表现全面强劲。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，欧盟芯片设计平台将推动落实5.25亿欧元的投资。",
+      "title": "【美股中概股普遍上涨 百济神州涨超5%】财联社11月6日电，在美上市中概股多数走高，百济神州涨5.68%，小鹏汽车涨4.32%，蔚来涨3.75%，富途控股涨3.35%，理想汽车涨2.39%，哔哩哔哩涨1.89%，网易涨1.58%，百度涨1.55%，京东涨1.31%，携程涨1.28%。阿里巴巴涨0.13%，拼多多跌0.06%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【伊朗革命卫队称在格什姆岛上空击落一架美军MQ-1无人机】当地时间4日，伊朗伊斯兰革命卫队称，在伊朗格什姆岛上空击落一架美军MQ-1无人机。伊朗伊斯兰革命卫队当天发表声明说，革命卫队新型先进防空系统在格什姆岛上空跟踪并击落这架无人机。声明还说，过去几夜，敌方加大侦察和情报活动力度，试图探测伊朗防空系统，同时在霍尔木兹海峡采取一系列“阴谋行动”，伊方多次成功实施拦截。 （央视新闻）",
+      "title": "财联社11月6日电，密歇根大学一年期通胀预期降至4.3%，前值为4.7%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，英国石油正加大在基尔库克地区的钻井作业力度，并寻求在伊拉克获得更多石油机会。",
+      "title": "财联社11月6日电，美国11月密歇根大学消费者信心指数初值报51，预期48，前值48。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，标普500非必需消费品板块上涨4.5%，创5个月新高。",
+      "title": "【国内商品期市夜盘收盘涨跌参半 非金属建材涨幅居前】财联社11月6日电，国内商品期市夜盘收盘涨跌参半，非金属建材涨幅居前，CZCE玻璃涨2.58%；化工品多数上涨，CZCE纯碱涨1.85%；能源品多数上涨，INE低硫燃料油涨0.74%；农副产品多数上涨，CZCE棉花涨0.20%；油脂油料跌幅居前，DCE棕榈油跌1.35%；黑色系多数下跌，DCE铁矿石跌0.44%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【美国上周EIA原油库存减少86.5万桶】财联社11月4日电，美国能源信息署（EIA）周度数据显示：美国上周EIA原油库存减少86.5万桶，预期增加198.7万桶，前值减少189.2万桶；库欣地区原油库存增加28万桶至2725万桶；原油出口减少118万桶/日至368万桶/日；过去4周成品油总需求为2119万桶/日，同比增长4.2%。",
+      "title": "财联社11月6日电，美股存储板块冲高回落，西部数据率先转跌，此前一度涨5%；其他存储股也明显回落。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "【存储股遭资金集中抛售 美光跌4%、闪迪跌近5%】财联社11月4日电，美股存储板块全线走弱，资金抛售压力明显。美光科技跌3.99%，闪迪跌4.87%，西部数据跌3.52%，希捷科技跌4.72%，SK海力士跌2.93%，铠侠ADR跌2.10%。费城半导体指数跌1.84%。其中，闪迪和希捷科技跌幅居前。",
+      "title": "财联社11月6日电，美国麻疹病例时隔35年首次突破5000例。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，3M股价触及八年来的最高水平，涨幅扩大至9.7%。",
+      "title": "财联社11月6日电，特斯拉涨幅扩大至5%，上一交易日大幅收跌11%。",
       "link": "",
       "published": "",
       "summary": "",
       "source": "财联社"
     },
     {
-      "title": "财联社11月4日电，美国柴油库存已降至1亿桶以下，为2003年以来的最低水平。",
+      "title": "【利弗莫尔中概股龙头指数涨幅扩大至3%】财联社11月6日电，利弗莫尔中概股龙头指数涨幅扩大至3%，报8754.73点。成分股中，禾赛涨12.07%，中阳金融涨11.91%，奇景光电涨8.85%，再鼎医药涨7.9%，文远知行涨6.31%。",
       "link": "",
       "published": "",
       "summary": "",
@@ -159,185 +159,185 @@ window.__SITE_DATA__ = {
   ],
   "sectors": [
     {
-      "name": "半导体",
-      "change_pct": 10.55,
+      "name": "种植业与林业",
+      "change_pct": 1.67,
       "up": true,
-      "leader": "京仪装备"
+      "leader": "秋乐种业"
     },
     {
-      "name": "贵金属",
-      "change_pct": 10.08,
+      "name": "银行",
+      "change_pct": 0.99,
       "up": true,
-      "leader": "晓程科技"
+      "leader": "沪农商行"
     },
     {
-      "name": "电子化学品",
-      "change_pct": 9.0,
+      "name": "公路铁路运输",
+      "change_pct": 0.98,
       "up": true,
-      "leader": "兴福电子"
+      "leader": "龙江交通"
     },
     {
-      "name": "元件",
-      "change_pct": 7.14,
+      "name": "电力",
+      "change_pct": 0.76,
       "up": true,
-      "leader": "三环集团"
+      "leader": "新能股份"
     },
     {
-      "name": "自动化设备",
-      "change_pct": 6.04,
+      "name": "农产品加工",
+      "change_pct": 0.04,
       "up": true,
-      "leader": "高凯技术"
+      "leader": "东方海洋"
     },
     {
-      "name": "其他电子",
-      "change_pct": 5.88,
+      "name": "养殖业",
+      "change_pct": 0.03,
       "up": true,
-      "leader": "富信科技"
+      "leader": "天山生物"
     },
     {
-      "name": "通信设备",
-      "change_pct": 5.73,
-      "up": true,
-      "leader": "蘅东光"
+      "name": "厨卫电器",
+      "change_pct": -0.03,
+      "up": false,
+      "leader": "日出东方"
     },
     {
-      "name": "其他电源设备",
-      "change_pct": 5.25,
-      "up": true,
-      "leader": "新雷能"
+      "name": "燃气",
+      "change_pct": -0.32,
+      "up": false,
+      "leader": "东方环宇"
     },
     {
-      "name": "非金属材料",
-      "change_pct": 5.06,
-      "up": true,
-      "leader": "联瑞新材"
+      "name": "保险",
+      "change_pct": -0.48,
+      "up": false,
+      "leader": "中国平安"
+    },
+    {
+      "name": "纺织制造",
+      "change_pct": -0.51,
+      "up": false,
+      "leader": "浙文影业"
     },
     {
       "name": "光伏设备",
-      "change_pct": 5.04,
-      "up": true,
+      "change_pct": -0.51,
+      "up": false,
       "leader": "贝特利"
     },
     {
-      "name": "医疗服务",
-      "change_pct": 5.02,
-      "up": true,
-      "leader": "百奥赛图"
+      "name": "贸易",
+      "change_pct": -0.53,
+      "up": false,
+      "leader": "东方创业"
     },
     {
-      "name": "小金属",
-      "change_pct": 4.89,
-      "up": true,
-      "leader": "中钨高新"
+      "name": "油气开采及服务",
+      "change_pct": -0.69,
+      "up": false,
+      "leader": "新天然气"
     },
     {
-      "name": "消费电子",
-      "change_pct": 4.8,
-      "up": true,
-      "leader": "苏州天脉"
+      "name": "农化制品",
+      "change_pct": -0.73,
+      "up": false,
+      "leader": "红太阳"
     },
     {
-      "name": "光学光电子",
-      "change_pct": 4.27,
-      "up": true,
-      "leader": "光智科技"
-    },
-    {
-      "name": "金属新材料",
-      "change_pct": 4.15,
-      "up": true,
-      "leader": "铂科新材"
+      "name": "煤炭开采加工",
+      "change_pct": -0.79,
+      "up": false,
+      "leader": "广汇能源"
     }
   ],
   "sector_summary": {
     "total": 90,
-    "up_count": 83,
-    "down_count": 7,
-    "top_name": "半导体",
-    "top_pct": 10.55,
-    "bottom_name": "白酒",
-    "bottom_pct": -1.68
+    "up_count": 6,
+    "down_count": 84,
+    "top_name": "种植业与林业",
+    "top_pct": 1.67,
+    "bottom_name": "元件",
+    "bottom_pct": -5.48
   },
   "breadth": {
     "total": 5927,
-    "up": 4667,
-    "down": 779,
-    "flat": 128,
-    "limit_up": 363,
-    "limit_down": 15,
-    "up_pct": 78.7,
-    "turnover_yi": 20519.22
+    "up": 758,
+    "down": 4741,
+    "flat": 76,
+    "limit_up": 43,
+    "limit_down": 23,
+    "up_pct": 12.8,
+    "turnover_yi": 16716.1
   },
   "movers": {
     "top_gainers": [
       {
-        "name": "腾信精密",
-        "code": "920298",
-        "price": 94.6,
-        "change_pct": 30.0,
-        "up": true
-      },
-      {
-        "name": "艾能聚",
-        "code": "920770",
-        "price": 11.92,
-        "change_pct": 29.99,
-        "up": true
-      },
-      {
-        "name": "蘅东光",
-        "code": "920045",
-        "price": 366.0,
-        "change_pct": 21.8,
-        "up": true
-      },
-      {
-        "name": "金冠电气",
-        "code": "688517",
-        "price": 21.46,
-        "change_pct": 20.02,
+        "name": "N森峰",
+        "code": "920085",
+        "price": 39.25,
+        "change_pct": 120.63,
         "up": true
       },
       {
         "name": "贝特利",
         "code": "301697",
-        "price": 25.42,
-        "change_pct": 20.02,
-        "up": true
-      },
-      {
-        "name": "春晖智控",
-        "code": "300943",
-        "price": 25.78,
-        "change_pct": 20.02,
-        "up": true
-      },
-      {
-        "name": "思瑞浦",
-        "code": "688536",
-        "price": 269.24,
+        "price": 36.6,
         "change_pct": 20.0,
         "up": true
       },
       {
-        "name": "正帆科技",
-        "code": "688596",
-        "price": 50.64,
+        "name": "美晨科技",
+        "code": "300237",
+        "price": 2.82,
         "change_pct": 20.0,
         "up": true
       },
       {
-        "name": "拓荆科技",
-        "code": "688072",
-        "price": 487.79,
+        "name": "智动力",
+        "code": "300686",
+        "price": 13.68,
         "change_pct": 20.0,
         "up": true
       },
       {
-        "name": "华峰测控",
-        "code": "688200",
-        "price": 218.53,
-        "change_pct": 20.0,
+        "name": "东方碳素",
+        "code": "920175",
+        "price": 8.45,
+        "change_pct": 18.85,
+        "up": true
+      },
+      {
+        "name": "时创能源",
+        "code": "688429",
+        "price": 12.36,
+        "change_pct": 15.62,
+        "up": true
+      },
+      {
+        "name": "东方日升",
+        "code": "300118",
+        "price": 10.27,
+        "change_pct": 15.26,
+        "up": true
+      },
+      {
+        "name": "ST亚光",
+        "code": "300123",
+        "price": 4.08,
+        "change_pct": 13.65,
+        "up": true
+      },
+      {
+        "name": "奥迪威",
+        "code": "920491",
+        "price": 22.6,
+        "change_pct": 13.57,
+        "up": true
+      },
+      {
+        "name": "天山生物",
+        "code": "300313",
+        "price": 11.42,
+        "change_pct": 12.73,
         "up": true
       }
     ],
@@ -345,71 +345,71 @@ window.__SITE_DATA__ = {
       {
         "name": "C皇冠",
         "code": "001381",
-        "price": 66.91,
-        "change_pct": -20.86,
+        "price": 47.33,
+        "change_pct": -17.11,
         "up": false
       },
       {
-        "name": "奥精医疗",
-        "code": "688613",
-        "price": 8.75,
-        "change_pct": -19.72,
+        "name": "鸿富诚",
+        "code": "301716",
+        "price": 350.0,
+        "change_pct": -13.66,
         "up": false
       },
       {
-        "name": "联合化学",
-        "code": "301209",
-        "price": 33.29,
+        "name": "近岸蛋白",
+        "code": "688137",
+        "price": 126.6,
+        "change_pct": -13.29,
+        "up": false
+      },
+      {
+        "name": "联亚药业",
+        "code": "301569",
+        "price": 19.27,
+        "change_pct": -11.56,
+        "up": false
+      },
+      {
+        "name": "普冉股份",
+        "code": "688766",
+        "price": 237.75,
+        "change_pct": -10.62,
+        "up": false
+      },
+      {
+        "name": "蘅东光",
+        "code": "920045",
+        "price": 298.0,
+        "change_pct": -10.38,
+        "up": false
+      },
+      {
+        "name": "博汇科技",
+        "code": "688004",
+        "price": 37.91,
+        "change_pct": -10.29,
+        "up": false
+      },
+      {
+        "name": "大连友谊",
+        "code": "000679",
+        "price": 5.91,
         "change_pct": -10.05,
         "up": false
       },
       {
-        "name": "百洋股份",
-        "code": "002696",
-        "price": 11.12,
-        "change_pct": -10.03,
+        "name": "大业股份",
+        "code": "603278",
+        "price": 13.57,
+        "change_pct": -10.01,
         "up": false
       },
       {
-        "name": "泉阳泉",
-        "code": "600189",
-        "price": 8.46,
+        "name": "杰瑞股份",
+        "code": "002353",
+        "price": 79.44,
         "change_pct": -10.0,
-        "up": false
-      },
-      {
-        "name": "澳洋健康",
-        "code": "002172",
-        "price": 6.12,
-        "change_pct": -10.0,
-        "up": false
-      },
-      {
-        "name": "海阳科技",
-        "code": "603382",
-        "price": 19.0,
-        "change_pct": -10.0,
-        "up": false
-      },
-      {
-        "name": "三星新材",
-        "code": "603578",
-        "price": 11.35,
-        "change_pct": -9.99,
-        "up": false
-      },
-      {
-        "name": "七 匹 狼",
-        "code": "002029",
-        "price": 9.3,
-        "change_pct": -9.97,
-        "up": false
-      },
-      {
-        "name": "阳光乳业",
-        "code": "001318",
-        "price": 14.26,
-        "change_pct": -9.97,
         "up": false
       }
     ]
@@ -417,210 +417,210 @@ window.__SITE_DATA__ = {
   "fx": [
     {
       "name": "美元",
-      "buy": 671.8,
-      "sell": 671.8
+      "buy": 671.68,
+      "sell": 671.68
     },
     {
       "name": "欧元",
-      "buy": 750.43,
-      "sell": 750.43
+      "buy": 751.91,
+      "sell": 751.91
     },
     {
       "name": "日元",
-      "buy": 4.2277,
-      "sell": 4.2277
+      "buy": 4.2534,
+      "sell": 4.2534
     },
     {
       "name": "英镑",
-      "buy": 899.04,
-      "sell": 899.04
+      "buy": 901.52,
+      "sell": 901.52
     }
   ],
   "global_indices": [
     {
       "market": "港股",
       "name": "恒生指数",
-      "change_pct": 1.67,
-      "up": true,
-      "price": 23919.5
+      "change_pct": -1.27,
+      "up": false,
+      "price": 24481.86
     },
     {
       "market": "美股",
       "name": "纳斯达克",
-      "change_pct": 1.65,
+      "change_pct": 1.16,
       "up": true,
-      "price": 25791.61
+      "price": 24597.25
     },
     {
       "market": "美股",
       "name": "标普500",
-      "change_pct": 1.42,
+      "change_pct": 0.69,
       "up": true,
-      "price": 7676.75
+      "price": 7404.4
     },
     {
       "market": "美股",
       "name": "道琼斯",
-      "change_pct": 2.5,
-      "up": true,
-      "price": 53079.5
+      "change_pct": -0.08,
+      "up": false,
+      "price": 51480.45
     },
     {
       "market": "日股",
       "name": "日经225",
-      "change_pct": -1.42,
+      "change_pct": -5.96,
       "up": false,
-      "price": 62188.63
+      "price": 57434.77
     }
   ],
   "funds": [
     {
-      "name": "西部利得新盈混合C",
-      "code": "015361",
-      "change_pct": 17.32,
+      "name": "易方达中证海外互联网50ETF联接(QDII)A",
+      "code": "006327",
+      "change_pct": 6.59,
       "up": true,
-      "nav": 2.073
+      "nav": 0.8348
     },
     {
-      "name": "西部利得新盈混合A",
-      "code": "673050",
-      "change_pct": 17.3,
+      "name": "易方达中证海外互联网50ETF联接(QDII)C",
+      "code": "006328",
+      "change_pct": 6.58,
       "up": true,
-      "nav": 2.115
+      "nav": 0.8054
     },
     {
-      "name": "国泰半导体制造精选混合发起A",
-      "code": "025686",
-      "change_pct": 17.03,
+      "name": "鹏华易诚积极3个月持有期混合(FOF)A",
+      "code": "019245",
+      "change_pct": 6.16,
       "up": true,
-      "nav": 1.4152
+      "nav": 1.5584
     },
     {
-      "name": "国泰半导体制造精选混合发起C",
-      "code": "025687",
-      "change_pct": 17.02,
+      "name": "鹏华易诚积极3个月持有期混合(FOF)C",
+      "code": "019246",
+      "change_pct": 6.15,
       "up": true,
-      "nav": 1.4094
+      "nav": 1.5396
     },
     {
-      "name": "东方阿尔法科技优选混合发起C",
-      "code": "024424",
-      "change_pct": 16.85,
+      "name": "鹏华易选积极3个月持有期混合(FOF)C",
+      "code": "019248",
+      "change_pct": 6.15,
       "up": true,
-      "nav": 1.2771
+      "nav": 1.5386
     },
     {
-      "name": "东方阿尔法科技优选混合发起A",
-      "code": "024423",
-      "change_pct": 16.85,
+      "name": "鹏华易选积极3个月持有期混合(FOF)A",
+      "code": "019247",
+      "change_pct": 6.14,
       "up": true,
-      "nav": 1.2842
+      "nav": 1.5566
     },
     {
-      "name": "国泰成长价值混合C",
-      "code": "010913",
-      "change_pct": 16.81,
+      "name": "农银汇理安瑞一年持有混合(FOF)",
+      "code": "011593",
+      "change_pct": 6.02,
       "up": true,
-      "nav": 1.177
+      "nav": 0.7571
     },
     {
-      "name": "国泰成长价值混合A",
-      "code": "010912",
-      "change_pct": 16.81,
+      "name": "平安盈诚积极配置6个月持有混合(FOF)A",
+      "code": "016621",
+      "change_pct": 5.88,
       "up": true,
-      "nav": 1.2107
+      "nav": 1.0163
     },
     {
-      "name": "国泰新经济灵活配置混合A",
-      "code": "000742",
-      "change_pct": 16.76,
+      "name": "平安盈诚积极配置6个月持有混合(FOF)C",
+      "code": "016622",
+      "change_pct": 5.87,
       "up": true,
-      "nav": 3.442
+      "nav": 1.0004
     },
     {
-      "name": "国泰新经济灵活配置混合C",
-      "code": "014989",
-      "change_pct": 16.73,
+      "name": "兴业恒生科技指数(QDII)A",
+      "code": "026534",
+      "change_pct": 5.16,
       "up": true,
-      "nav": 3.391
+      "nav": 0.831
     }
   ],
   "turnover": {
-    "total_yuan": 2051922346828.0,
-    "total_yi": 20519.22,
+    "total_yuan": 1671610395323.0,
+    "total_yi": 16716.1,
     "stock_count": 5927
   },
   "commodities": [
     {
       "name": "原油",
-      "price": 681.6,
-      "change_pct": -2.38,
-      "up": false
+      "price": 644.0,
+      "change_pct": 3.16,
+      "up": true
     },
     {
       "name": "黄金",
-      "price": 867.46,
-      "change_pct": 3.05,
-      "up": true
+      "price": 869.86,
+      "change_pct": -1.99,
+      "up": false
     },
     {
       "name": "白银",
-      "price": 12453.0,
-      "change_pct": 6.85,
-      "up": true
+      "price": 12402.0,
+      "change_pct": -2.68,
+      "up": false
     },
     {
       "name": "沪铜",
-      "price": 106170.0,
-      "change_pct": 0.08,
-      "up": true
+      "price": 104260.0,
+      "change_pct": -2.02,
+      "up": false
     },
     {
       "name": "螺纹钢",
-      "price": 3008.0,
-      "change_pct": 0.57,
-      "up": true
+      "price": 3038.0,
+      "change_pct": -0.13,
+      "up": false
     },
     {
       "name": "铁矿石",
-      "price": 682.0,
-      "change_pct": 1.64,
-      "up": true
+      "price": 687.5,
+      "change_pct": -0.51,
+      "up": false
     },
     {
       "name": "豆粕",
-      "price": 3114.0,
-      "change_pct": -1.05,
+      "price": 3079.0,
+      "change_pct": -1.35,
       "up": false
     },
     {
       "name": "PTA",
-      "price": 6306.0,
-      "change_pct": -2.92,
-      "up": false
+      "price": 6120.0,
+      "change_pct": 2.24,
+      "up": true
     },
     {
       "name": "沪铝",
-      "price": 23000.0,
-      "change_pct": -0.15,
+      "price": 23030.0,
+      "change_pct": -0.65,
       "up": false
     },
     {
       "name": "沪锌",
-      "price": 25565.0,
-      "change_pct": 0.83,
-      "up": true
+      "price": 25270.0,
+      "change_pct": -2.05,
+      "up": false
     },
     {
       "name": "橡胶",
-      "price": 18865.0,
-      "change_pct": -1.67,
+      "price": 18585.0,
+      "change_pct": -1.9,
       "up": false
     },
     {
       "name": "棕榈油",
-      "price": 8975.0,
-      "change_pct": -2.62,
+      "price": 8722.0,
+      "change_pct": -1.55,
       "up": false
     }
   ],
@@ -645,6 +645,15 @@ window.__SITE_DATA__ = {
         "reason": "上榜2次"
       },
       {
+        "name": "宁波东力",
+        "code": "002164",
+        "price": 19.1,
+        "change_pct": 7.24,
+        "up": true,
+        "net_buy": 56640.1,
+        "reason": "上榜7次"
+      },
+      {
         "name": "银之杰",
         "code": "300085",
         "price": 32.36,
@@ -652,15 +661,6 @@ window.__SITE_DATA__ = {
         "up": true,
         "net_buy": 56131.0,
         "reason": "上榜2次"
-      },
-      {
-        "name": "宁波东力",
-        "code": "002164",
-        "price": 19.03,
-        "change_pct": 5.78,
-        "up": true,
-        "net_buy": 55358.3,
-        "reason": "上榜6次"
       },
       {
         "name": "华正新材",
@@ -683,11 +683,11 @@ window.__SITE_DATA__ = {
       {
         "name": "大业股份",
         "code": "603278",
-        "price": 14.52,
-        "change_pct": -8.16,
+        "price": 13.57,
+        "change_pct": -10.01,
         "up": false,
-        "net_buy": 44296.3,
-        "reason": "上榜13次"
+        "net_buy": 44262.7,
+        "reason": "上榜14次"
       },
       {
         "name": "掌阅科技",
@@ -708,12 +708,30 @@ window.__SITE_DATA__ = {
         "reason": "上榜7次"
       },
       {
+        "name": "百洋股份",
+        "code": "002696",
+        "price": 11.06,
+        "change_pct": 1.19,
+        "up": true,
+        "net_buy": 35817.5,
+        "reason": "上榜17次"
+      },
+      {
         "name": "捷成股份",
         "code": "300182",
         "price": 5.64,
         "change_pct": 20.0,
         "up": true,
         "net_buy": 33078.9,
+        "reason": "上榜1次"
+      },
+      {
+        "name": "利欧股份",
+        "code": "002131",
+        "price": 4.39,
+        "change_pct": 10.03,
+        "up": true,
+        "net_buy": 32994.8,
         "reason": "上榜1次"
       },
       {
@@ -726,15 +744,6 @@ window.__SITE_DATA__ = {
         "reason": "上榜2次"
       },
       {
-        "name": "光洋股份",
-        "code": "002708",
-        "price": 20.54,
-        "change_pct": 7.99,
-        "up": true,
-        "net_buy": 31252.3,
-        "reason": "上榜5次"
-      },
-      {
         "name": "粤传媒",
         "code": "002181",
         "price": 10.27,
@@ -744,72 +753,63 @@ window.__SITE_DATA__ = {
         "reason": "上榜3次"
       },
       {
-        "name": "冰山冷热",
-        "code": "000530",
-        "price": 9.46,
-        "change_pct": 10.0,
+        "name": "吉视传媒",
+        "code": "601929",
+        "price": 2.5,
+        "change_pct": 10.13,
         "up": true,
-        "net_buy": 27508.1,
-        "reason": "上榜18次"
+        "net_buy": 29495.8,
+        "reason": "上榜3次"
       },
       {
         "name": "顺灏股份",
         "code": "002565",
-        "price": 8.14,
-        "change_pct": 10.0,
+        "price": 9.82,
+        "change_pct": 9.97,
         "up": true,
-        "net_buy": 26590.2,
-        "reason": "上榜2次"
+        "net_buy": 28985.8,
+        "reason": "上榜3次"
       },
       {
-        "name": "慈文传媒",
-        "code": "002343",
-        "price": 8.08,
-        "change_pct": -2.65,
-        "up": false,
-        "net_buy": 22285.6,
-        "reason": "上榜17次"
-      },
-      {
-        "name": "皇台酒业",
-        "code": "000995",
-        "price": 16.36,
-        "change_pct": -4.66,
-        "up": false,
-        "net_buy": 19250.7,
-        "reason": "上榜8次"
-      },
-      {
-        "name": "巨人网络",
-        "code": "002558",
-        "price": 20.68,
-        "change_pct": 10.0,
+        "name": "润建股份",
+        "code": "002929",
+        "price": 63.11,
+        "change_pct": 10.01,
         "up": true,
-        "net_buy": 18163.9,
-        "reason": "上榜1次"
+        "net_buy": 27438.3,
+        "reason": "上榜6次"
       },
       {
-        "name": "太阳能",
-        "code": "000591",
-        "price": 4.59,
-        "change_pct": 10.07,
+        "name": "龙江交通",
+        "code": "601188",
+        "price": 3.81,
+        "change_pct": 10.12,
         "up": true,
-        "net_buy": 17685.3,
-        "reason": "上榜1次"
+        "net_buy": 26202.2,
+        "reason": "上榜4次"
       },
       {
-        "name": "百洋股份",
-        "code": "002696",
-        "price": 11.12,
-        "change_pct": -10.03,
-        "up": false,
-        "net_buy": 17166.7,
-        "reason": "上榜16次"
+        "name": "贝特利",
+        "code": "301697",
+        "price": 36.6,
+        "change_pct": 20.0,
+        "up": true,
+        "net_buy": 25311.2,
+        "reason": "上榜6次"
+      },
+      {
+        "name": "光洋股份",
+        "code": "002708",
+        "price": 20.69,
+        "change_pct": 5.89,
+        "up": true,
+        "net_buy": 20783.0,
+        "reason": "上榜6次"
       }
     ],
     "total": 20,
-    "up_count": 14,
-    "down_count": 6
+    "up_count": 17,
+    "down_count": 3
   },
   "treasury": {
     "yields": {
@@ -820,281 +820,286 @@ window.__SITE_DATA__ = {
       "10Y": 3.1185,
       "30Y": 3.7156
     },
-    "date": "2026-11-05",
+    "date": "2026-11-06",
     "curve_inverted": false,
     "spread_10y_2y": null
   },
   "csi300_val": {
-    "pe": 12.8,
-    "pb": 1.33,
-    "pe_percentile": 55.4,
-    "pb_percentile": 14.6,
-    "date": "2026-11-04"
+    "pe": 12.68,
+    "pb": 1.32,
+    "pe_percentile": 53.1,
+    "pb_percentile": 12.7,
+    "date": "2026-11-06"
   },
   "convertible_bonds": {
     "list": [
       {
         "name": "宏图转债",
-        "price": 85.85,
-        "premium_rt": 4.37,
-        "change_pct": 1.65,
-        "up": true,
-        "double_low": 90.22
+        "price": 86.55,
+        "premium_rt": 7.02,
+        "change_pct": -1.2,
+        "up": false,
+        "double_low": 93.57
       },
       {
         "name": "千红转债",
         "price": 100.0,
-        "premium_rt": 1.9,
+        "premium_rt": -0.47,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 101.9
+        "double_low": 99.53
       },
       {
         "name": "美锦转债",
-        "price": 98.55,
-        "premium_rt": 4.26,
-        "change_pct": -2.23,
+        "price": 97.5,
+        "premium_rt": 4.42,
+        "change_pct": -1.52,
         "up": false,
-        "double_low": 102.81
+        "double_low": 101.92
       },
       {
         "name": "佐力转债",
         "price": 100.0,
-        "premium_rt": 4.46,
+        "premium_rt": 4.87,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 104.46
+        "double_low": 104.87
       },
       {
         "name": "中鼎转03",
         "price": 100.0,
-        "premium_rt": 5.81,
+        "premium_rt": 7.37,
         "change_pct": 0.0,
         "up": true,
-        "double_low": 105.81
-      },
-      {
-        "name": "财通转债",
-        "price": 106.11,
-        "premium_rt": 13.66,
-        "change_pct": 0.01,
-        "up": true,
-        "double_low": 119.77
-      },
-      {
-        "name": "温氏转债",
-        "price": 112.2,
-        "premium_rt": 9.21,
-        "change_pct": 0.09,
-        "up": true,
-        "double_low": 121.41
-      },
-      {
-        "name": "上银转债",
-        "price": 112.68,
-        "premium_rt": 9.82,
-        "change_pct": 0.21,
-        "up": true,
-        "double_low": 122.5
-      },
-      {
-        "name": "国泰转债",
-        "price": 114.89,
-        "premium_rt": 7.98,
-        "change_pct": 0.5,
-        "up": true,
-        "double_low": 122.87
+        "double_low": 107.37
       },
       {
         "name": "新乳转债",
-        "price": 110.29,
-        "premium_rt": 14.21,
-        "change_pct": -0.19,
+        "price": 110.46,
+        "premium_rt": 11.99,
+        "change_pct": -0.17,
         "up": false,
-        "double_low": 124.5
+        "double_low": 122.45
+      },
+      {
+        "name": "财通转债",
+        "price": 106.72,
+        "premium_rt": 15.86,
+        "change_pct": 0.05,
+        "up": true,
+        "double_low": 122.58
+      },
+      {
+        "name": "温氏转债",
+        "price": 114.8,
+        "premium_rt": 9.82,
+        "change_pct": 1.32,
+        "up": true,
+        "double_low": 124.62
+      },
+      {
+        "name": "上银转债",
+        "price": 113.53,
+        "premium_rt": 11.59,
+        "change_pct": 0.09,
+        "up": true,
+        "double_low": 125.12
       },
       {
         "name": "重银转债",
-        "price": 122.94,
-        "premium_rt": 1.94,
-        "change_pct": 0.61,
+        "price": 124.14,
+        "premium_rt": 1.65,
+        "change_pct": 0.28,
         "up": true,
-        "double_low": 124.88
-      },
-      {
-        "name": "常银转债",
-        "price": 123.43,
-        "premium_rt": 2.53,
-        "change_pct": 0.27,
-        "up": true,
-        "double_low": 125.96
-      },
-      {
-        "name": "兴业转债",
-        "price": 112.13,
-        "premium_rt": 14.52,
-        "change_pct": 0.08,
-        "up": true,
-        "double_low": 126.65
+        "double_low": 125.79
       },
       {
         "name": "长海转债",
-        "price": 114.8,
+        "price": 112.94,
         "premium_rt": 14.18,
-        "change_pct": 2.24,
+        "change_pct": -1.62,
+        "up": false,
+        "double_low": 127.12
+      },
+      {
+        "name": "国泰转债",
+        "price": 118.25,
+        "premium_rt": 9.6,
+        "change_pct": 0.71,
         "up": true,
-        "double_low": 128.98
+        "double_low": 127.85
+      },
+      {
+        "name": "常银转债",
+        "price": 125.09,
+        "premium_rt": 3.26,
+        "change_pct": 0.15,
+        "up": true,
+        "double_low": 128.35
+      },
+      {
+        "name": "兴业转债",
+        "price": 113.1,
+        "premium_rt": 15.4,
+        "change_pct": 0.26,
+        "up": true,
+        "double_low": 128.5
       },
       {
         "name": "广核转债",
-        "price": 130.81,
-        "premium_rt": -0.15,
-        "change_pct": -0.75,
+        "price": 132.1,
+        "premium_rt": -0.44,
+        "change_pct": -0.12,
         "up": false,
-        "double_low": 130.66
+        "double_low": 131.66
       }
     ],
     "total_count": 15,
-    "up_count": 12,
-    "down_count": 3,
-    "avg_price": 109.65
+    "up_count": 10,
+    "down_count": 5,
+    "avg_price": 110.35
   },
   "logs": [
     {
-      "time": "2026-11-04 23:53:01",
+      "time": "2026-11-06 23:30:30",
       "level": "info",
       "event": "pipeline_bootstrap",
       "detail": "基础链路运行成功，等待接入真实数据源"
     },
     {
-      "time": "2026-11-04 23:53:22",
+      "time": "2026-11-06 23:30:47",
       "level": "info",
       "event": "indices_fetched",
       "detail": "成功获取 1 个指数"
     },
     {
-      "time": "2026-11-04 23:53:25",
+      "time": "2026-11-06 23:30:50",
       "level": "warn",
       "event": "rss_failed",
       "detail": "新浪财经 失败：HTTP Error 404: Not Found"
     },
     {
-      "time": "2026-11-04 23:53:27",
+      "time": "2026-11-06 23:30:52",
       "level": "warn",
       "event": "rss_failed",
       "detail": "东方财富快讯 失败：HTTP Error 403: Forbidden"
     },
     {
-      "time": "2026-11-04 23:53:28",
+      "time": "2026-11-06 23:30:53",
       "level": "warn",
       "event": "rss_failed",
       "detail": "财联社电报 失败：HTTP Error 403: Forbidden"
     },
     {
-      "time": "2026-11-04 23:53:29",
+      "time": "2026-11-06 23:30:54",
       "level": "info",
       "event": "akshare_news_ok",
       "detail": "财联社获取 20 条"
     },
     {
-      "time": "2026-11-04 23:53:29",
+      "time": "2026-11-06 23:30:54",
       "level": "info",
       "event": "news_fetched",
       "detail": "成功获取 20 条（去重后，上限 20)"
     },
     {
-      "time": "2026-11-04 23:53:32",
+      "time": "2026-11-06 23:30:57",
       "level": "info",
       "event": "sectors_fetched",
-      "detail": "同花顺：成功获取 90 个行业板块，上涨 83 / 下跌 7"
+      "detail": "同花顺：成功获取 90 个行业板块，上涨 6 / 下跌 84"
     },
     {
-      "time": "2026-11-04 23:56:31",
+      "time": "2026-11-06 23:34:25",
       "level": "info",
       "event": "breadth_fetched",
-      "detail": "全市场 5927 只，上涨 4667 / 下跌 779 / 涨停 363 / 跌停 15"
+      "detail": "全市场 5927 只，上涨 758 / 下跌 4741 / 涨停 43 / 跌停 23"
     },
     {
-      "time": "2026-11-04 23:56:38",
+      "time": "2026-11-06 23:34:37",
       "level": "info",
       "event": "fx_fetched",
       "detail": "成功获取 4 个货币牌价"
     },
     {
-      "time": "2026-11-04 23:56:40",
+      "time": "2026-11-06 23:34:39",
       "level": "info",
       "event": "global_fetched",
       "detail": "成功获取 5 个环球指数（东方财富）"
     },
     {
-      "time": "2026-11-04 23:56:44",
+      "time": "2026-11-06 23:34:42",
       "level": "info",
       "event": "funds_fetched",
       "detail": "成功获取 10 只基金排行"
     },
     {
-      "time": "2026-11-04 23:59:56",
+      "time": "2026-11-06 23:38:24",
       "level": "info",
       "event": "turnover_fetched",
-      "detail": "两市成交额 20519.0 亿元"
+      "detail": "两市成交额 16716.0 亿元"
     },
     {
-      "time": "2026-11-05 00:00:16",
+      "time": "2026-11-06 23:38:48",
       "level": "info",
       "event": "commodities_fetched",
       "detail": "成功获取 12 个商品期货"
     },
     {
-      "time": "2026-11-05 00:00:19",
+      "time": "2026-11-06 23:38:50",
       "level": "info",
       "event": "dragon_tiger_fetched",
-      "detail": "龙虎榜 20 只上榜，14 涨 6 跌"
+      "detail": "龙虎榜 20 只上榜，17 涨 3 跌"
     },
     {
-      "time": "2026-11-05 00:00:33",
+      "time": "2026-11-06 23:39:06",
       "level": "info",
       "event": "treasury_fetched",
       "detail": "国债收益率 6 个期限"
     },
     {
-      "time": "2026-11-05 00:00:37",
+      "time": "2026-11-06 23:39:10",
       "level": "info",
       "event": "csi300_val_fetched",
-      "detail": "沪深300 PE=12.8 (55.4分位) PB=1.33 (14.6分位)"
+      "detail": "沪深300 PE=12.68 (53.1分位) PB=1.32 (12.7分位)"
     },
     {
-      "time": "2026-11-05 00:00:40",
+      "time": "2026-11-06 23:39:11",
       "level": "info",
       "event": "cb_fetched",
-      "detail": "可转债 15 只，均价 109.6"
+      "detail": "可转债 15 只，均价 110.3"
     },
     {
-      "time": "2026-11-05 00:00:40",
+      "time": "2026-11-06 23:39:11",
       "level": "info",
       "event": "commentary_generated",
-      "detail": "生成 4 条盘面简评"
+      "detail": "生成 5 条盘面简评"
     }
   ],
   "commentary": [
     {
       "label": "大盘定调",
-      "tone": "up",
-      "text": "今日 A 股整体偏强：上证+2.16%。三大指数多数收红，市场做多情绪较强"
+      "tone": "down",
+      "text": "今日 A 股整体偏弱：上证-1.10%。指数多数收绿，盘面承压"
     },
     {
       "label": "市场广度",
-      "tone": "up",
-      "text": "全市场 5927 只，上涨 4667 家（占比 78.7%）、下跌 779 家；涨停 363 家、跌停 15 家，做多情绪高涨，赚钱效应显著。"
+      "tone": "down",
+      "text": "全市场 5927 只，上涨 758 家（占比 12.8%）、下跌 4741 家；涨停 43 家、跌停 23 家，做空情绪占优，亏钱效应明显。"
     },
     {
       "label": "资金主线",
       "tone": "neutral",
-      "text": "领涨板块为 半导体（+10.55%），领跌板块为 白酒（-1.68%）。当日 90 个行业板块中 83 个上涨、7 个下跌，结构性行情特征明显，资金在板块间快速轮动。"
+      "text": "领涨板块为 种植业与林业（+1.67%），领跌板块为 元件（-5.48%）。当日 90 个行业板块中 6 个上涨、84 个下跌，结构性行情特征明显，资金在板块间快速轮动。"
+    },
+    {
+      "label": "风险提示",
+      "tone": "down",
+      "text": "跌停家数达 23 家，需警惕高位题材股退潮；上证单日跌超 1%，短期趋势承压；元件 等板块重挫，注意相关持仓风险。"
     },
     {
       "label": "综合研判",
       "tone": "neutral",
-      "text": "综合来看，今日量价配合、主线清晰，属可参与度较高的多头环境，但宜避免追高已大涨的题材。"
+      "text": "综合来看，今日赚钱效应偏弱，宜控制仓位、规避高位题材，等待企稳信号。"
     }
   ],
   "history": [
@@ -1569,10 +1574,18 @@ window.__SITE_DATA__ = {
       "sz_pct": null,
       "cyb_pct": null,
       "sh_price": 3686.17
+    },
+    {
+      "date": "2026-11-06",
+      "status": "ok",
+      "sh_pct": -1.1,
+      "sz_pct": null,
+      "cyb_pct": null,
+      "sh_price": 3649.18
     }
   ],
   "run_stats": {
-    "streak": 1,
-    "total_days": 59
+    "streak": 2,
+    "total_days": 60
   }
 };
