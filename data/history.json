@@ -502,5 +502,13 @@
     "sz_pct": -2.05,
     "cyb_pct": -3.32,
     "sh_price": 3634.35
+  },
+  {
+    "date": "2026-11-17",
+    "status": "degraded",
+    "sh_pct": null,
+    "sz_pct": null,
+    "cyb_pct": null,
+    "sh_price": null
   }
 ]
