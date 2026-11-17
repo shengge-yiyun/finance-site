@@ -510,5 +510,13 @@
     "sz_pct": null,
     "cyb_pct": null,
     "sh_price": null
+  },
+  {
+    "date": "2026-11-18",
+    "status": "degraded",
+    "sh_pct": null,
+    "sz_pct": null,
+    "cyb_pct": null,
+    "sh_price": null
   }
 ]
